@@ -24,23 +24,22 @@ def list_page():
 
 
 @app.route('/question/<id>')
-def question(question_id):
+def question(id):
     question_data = data_manager.get_data(questions)
     answer_data = data_manager.get_data(answers)
     answer_list = []
-    question_list = []
     for question in question_data:
-        if question['id'] == question_id:
-            title = question['title']
-            message = question['message']
-            question_list.append(title)
-            question_list.append(message)
+        if question['id'] == id:
+            question_dict = question
             for answer in answer_data:
-                if question_id == answer['question_id']:
-                    answer_list.append(answer)
+                if id == answer['question_id']:
+                    answer_dict = answer
 
 
-            return render_template('question-page.html', answer_list=answer_list,question_list=question_list)
+            return render_template('question-page.html',
+                                   answer_dict=answer_dict,
+                                   question_dict=question_dict,
+                                   id=id)
 
 
 

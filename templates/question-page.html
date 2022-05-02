@@ -3,5 +3,10 @@
 {% block title %}Question {{ id }}{% endblock %}
 
 {% block content %}
+    <h1>Question {{ id }}</h1>
+    <br>
+    <h3>{{ question_dict.title }}</h3>
+    <p>{{ question_dict.message }}</p>
+
 
 {% endblock %}
