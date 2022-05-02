@@ -27,11 +27,14 @@ def list_page():
 def question(id):
     question_data = data_manager.get_data(questions)
     answer_data = data_manager.get_data(answers)
+    time = sorted(answer_data, key=lambda i: i['submission_time'], reverse=True)
     answer_list = []
     for question in question_data:
         if question['id'] == id:
             question_dict = question
-            for answer in answer_data:
+            for answer in time:
+                if answer['submission_time'] != format('%d/%m/%Y  %H:%M'):
+                    answer['submission_time'] = util.convert_to_hours(answer['submission_time'])
                 if id == answer['question_id']:
                     answer_list.append(answer)
 

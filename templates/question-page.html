@@ -7,6 +7,10 @@
     <br>
     <h3>{{ question_dict.title }}</h3>
     <p>{{ question_dict.message }}</p>
-
-
+    <br>
+    <br>
+    <label for="">Answers:</label>
+    {% for answer in answer_list %}
+        <p>{{ answer.submission_time }}  |  {{ answer.message }}  | votes:  {{ answer.vote_number }}</p>
+    {% endfor %}
 {% endblock %}
