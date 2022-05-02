@@ -13,13 +13,24 @@ strs =  sorted(lista, key = lambda key: key['submission_time'])
 
 
 @app.route("/")
-@app.route("/list", methods=["GET"])
+@app.route("/list", methods=["GET","POST"])
 def list_page():
     question_data = data_manager.get_data(questions)
     time = sorted(question_data, key = lambda i: i['submission_time'], reverse=True)
     for i in time:
         i['submission_time'] = util.convert_time(i['submission_time'])
     return render_template("list-page.html", data=time)
+
+
+def order_list_page():
+    order_by = request.args.get()
+    if request.method == "POST":
+        order_value = request.form["sort"]
+        order_direction = request.form["direction"]
+        sorted_list = data_manager.sort_asc(questions, order_value, order_direction)
+        for i in sorted_list:
+            i['submission_time'] = util.convert_time(i['submission_time'])
+        return render_template("list-page.html", data=sorted_list)
 
 
 @app.route('/question/<id>')
