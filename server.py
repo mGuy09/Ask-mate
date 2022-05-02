@@ -75,7 +75,9 @@ def add_answer(id):
 
     for question in question_data:
         if question['id'] == id:
+            question_dict = question
             if request.method == 'POST':
+
                 connection.append_answer(answers,{
                     'id': new_id,
                     'submission_time': current_time,
@@ -84,9 +86,8 @@ def add_answer(id):
                     'message': request.form.get('message')
 
                 })
-
-            # return redirect(url_for('question',id=id))
-    return render_template("answer_question.html", id=id)
+                return redirect(url_for('question', id=id))
+    return render_template("answer_question.html", id=id, question_dict=question_dict)
 
 
 if __name__ == "__main__":

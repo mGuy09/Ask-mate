@@ -3,9 +3,9 @@
 {% block title %}Answer Question {{ id }}{% endblock %}
 
 {% block content %}
-    <h1>{{ title }}:</h1>
+    <h1>{{ question_dict.title }}:</h1>
 
-    <form action="{{ url_for('add_answer', id=id) }}" name="answer_message">
+    <form action="{{ url_for('add_answer', id=id) }}" method="post" name="answer_message">
         <label for="message"></label>
         <textarea name="message" id="" cols="30" rows="10"></textarea>
         <button type="submit">Submit</button>
