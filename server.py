@@ -38,11 +38,14 @@ def question(id):
                 if id == answer['question_id']:
                     answer_list.append(answer)
 
-
             return render_template('question-page.html',
                                    answer_list = answer_list,
                                    question_dict = question_dict,
                                    id=id)
+
+
+@app.route("/add-question", methods=["GET", "POST"])
+def add_question_page():
 
 
 
