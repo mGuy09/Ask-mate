@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,url_for
 import data_manager
 import util
 import os
+import connection
 import datetime
 app = Flask(__name__)
 
@@ -25,6 +26,7 @@ def list_page():
 
 @app.route('/question/<id>')
 def question(id):
+    question_dict ={}
     question_data = data_manager.get_data(questions)
     answer_data = data_manager.get_data(answers)
     time = sorted(answer_data, key=lambda i: i['submission_time'], reverse=True)
@@ -38,7 +40,7 @@ def question(id):
                 if id == answer['question_id']:
                     answer_list.append(answer)
 
-            return render_template('question-page.html',
+    return render_template('question-page.html',
                                    answer_list = answer_list,
                                    question_dict = question_dict,
                                    id=id)
@@ -46,6 +48,21 @@ def question(id):
 
 @app.route("/add-question", methods=["GET", "POST"])
 def add_question_page():
+    new_id = connection.get_new_id(questions)
+    if request.method == 'POST':
+        connection.append_question(questions,
+            {
+                'id':new_id,
+                'submission_time':request.form.get('',None),
+                'view_number': request.form.get('',None),
+                'vote_number': request.form.get('',None),
+                'title': request.form.get('title',None),
+                'message': request.form.get('message'),
+            }
+        )
+
+        return redirect(url_for('question',id=new_id))
+
     return render_template('add_question.html')
 
 
