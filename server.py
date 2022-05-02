@@ -23,5 +23,27 @@ def list_page():
     return render_template("list-page.html", data=time)
 
 
+
+@app.route('/question/<id>')
+def question(id):
+    question_data = data_manager.get_data(questions)
+    answer_data = data_manager.get_data(answers)
+    answer_list = []
+    question_list = []
+    for question in question_data:
+        if question['id'] == id:
+            title = question['title']
+            message = question['message']
+            question_list.append(title)
+            question_list.append(message)
+            for answer in answer_data:
+                if id  == answer['question_id']:
+                    answer_list.append(answer)
+
+
+            return render_template('question-page.html', answer_list=answer_list,question_list=question_list)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
