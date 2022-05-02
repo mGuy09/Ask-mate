@@ -3,5 +3,22 @@
 {% block title %}Add Question{% endblock %}
 
 {% block content %}
-
+    <h1>Add a question</h1>
+    <br>
+    <form action="">
+        <label for="">
+            Question's title:
+            <br>
+            <input type="text", name="title" required>
+        </label>
+        <br>
+        <label for="">
+            Message:
+            <br>
+            <textarea name="message" cols="25" rows="10" required style="resize: none"></textarea>
+        </label>
+        <br>
+        <br>
+        <button type="submit">Submit Question</button>
+    </form>
 {% endblock %}
