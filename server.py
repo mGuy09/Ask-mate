@@ -50,8 +50,8 @@ def add_question_page():
     new_id = connection.get_new_id(questions)
     current_time = util.get_time()
     if request.method == 'POST':
-        connection.append_question(questions,
-            {
+        connection.append_data(questions,
+                               {
                 'id':new_id,
                 'submission_time':current_time,
                 'view_number': "0",
@@ -59,11 +59,34 @@ def add_question_page():
                 'title': request.form.get('title'),
                 'message': request.form.get('message'),
             }
-        )
+                               )
 
         return redirect(url_for('question',id=new_id))
 
     return render_template('add_question.html')
+
+
+@app.route('/question/<id>/new-answer', methods=["GET", "POST"])
+def add_answer(id):
+    new_id = connection.get_new_id(questions)
+    current_time = util.get_time()
+    question_data = data_manager.get_data(questions)
+    answer_data = data_manager.get_data(answers)
+
+
+
+    if request.method == 'POST':
+        connection.append_data(answers,{
+            'id': new_id,
+            'submission_time': current_time,
+            'view_number': '0',
+            'vote_number': '0',
+            'title': request.form.get('title'),
+            'message': request.form.get('message')
+
+        })
+
+
 
 
 if __name__ == "__main__":

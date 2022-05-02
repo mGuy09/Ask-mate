@@ -16,7 +16,7 @@ def get_new_id(data_csv):
     return max([int(entry.get("id", 0)) for entry in read_question(data_csv)]) + 1
 
 
-def append_question(data_csv, data):
+def append_data(data_csv, data):
     with open(data_csv, "a") as file:
         writer = csv.DictWriter(file, fieldnames=DATA_HEADER)
         writer.writerow(data)
