@@ -33,12 +33,12 @@ def question(id):
             question_dict = question
             for answer in answer_data:
                 if id == answer['question_id']:
-                    answer_dict = answer
+                    answer_list.append(answer)
 
 
             return render_template('question-page.html',
-                                   answer_dict=answer_dict,
-                                   question_dict=question_dict,
+                                   answer_list = answer_list,
+                                   question_dict = question_dict,
                                    id=id)
 
 
