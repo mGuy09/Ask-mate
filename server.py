@@ -76,7 +76,7 @@ def add_answer(id):
     for question in question_data:
         if question['id'] == id:
             if request.method == 'POST':
-                connection.append_data(answers,{
+                connection.append_answer(answers,{
                     'id': new_id,
                     'submission_time': current_time,
                     'vote_number': '0',
@@ -88,7 +88,7 @@ def add_answer(id):
             # return redirect(url_for('question',id=id))
     return render_template("answer_question.html")
 
-
+    return render_template('answer_question.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
