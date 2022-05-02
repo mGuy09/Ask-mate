@@ -14,5 +14,8 @@
     {% for answer in answer_list %}
         <p>{{ answer.submission_time }}  |  {{ answer.message }}  | votes:  {{ answer.vote_number }}</p>
     {% endfor %}
+    <a href="{{ url_for('add_answer', id=id) }}">
+    <button type="button">Answer</button>
+    </a>
 
 {% endblock %}
