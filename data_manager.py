@@ -1,3 +1,4 @@
 import connection
 
-questions = connection.read_question("question.csv")
+
+questions = connection.read_question("sample_data/question.csv")
