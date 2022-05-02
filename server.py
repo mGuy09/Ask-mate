@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-import util
+import connection
 app = Flask(__name__)
 
 question = util.read_question('question.csv')
