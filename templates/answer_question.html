@@ -8,8 +8,6 @@
     <form action="{{ url_for('add_answer', id=id) }}" name="answer_message">
         <label for="message"></label>
         <textarea name="message" id="" cols="30" rows="10"></textarea>
-        <a href="{{ url_for('question', id=id) }}">
-            <button type="submit">Submit</button>
-        </a>
+        <button type="submit">Submit</button>
     </form>
 {% endblock %}

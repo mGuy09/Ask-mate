@@ -86,9 +86,8 @@ def add_answer(id):
                 })
 
             # return redirect(url_for('question',id=id))
-    return render_template("answer_question.html")
+    return render_template("answer_question.html", id=id)
 
-    return render_template('answer_question.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
