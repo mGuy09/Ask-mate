@@ -1,15 +1,13 @@
 from flask import Flask, render_template, request, redirect
-import connection
+import data_manager
 app = Flask(__name__)
-
-question = util.read_question('question.csv')
-answer = util.read_question('answer.csv')
 
 
 @app.route("/")
 @app.route("/list")
 def list_page():
-    return render_template("list-page.html")
+    question_data = data_manager.question
+    return render_template("list-page.html", data=question_data)
 
 
 if __name__ == "__main__":
