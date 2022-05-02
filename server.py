@@ -3,7 +3,7 @@ import data_manager
 import util
 import os
 import connection
-import datetime
+from datetime import datetime
 app = Flask(__name__)
 
 questions = os.environ["QUESTION"]
@@ -19,8 +19,7 @@ def list_page():
     question_data = data_manager.get_data(questions)
     time = sorted(question_data, key = lambda i: i['submission_time'], reverse=True)
     for i in time:
-        if i['submission_time'] != format('%d/%m/%Y  %H:%M'):
-            i['submission_time'] = util.convert_time(i['submission_time'])
+        i['submission_time'] = util.convert_time(i['submission_time'])
     return render_template("list-page.html", data=time)
 
 
@@ -49,14 +48,18 @@ def question(id):
 @app.route("/add-question", methods=["GET", "POST"])
 def add_question_page():
     new_id = connection.get_new_id(questions)
+    now = datetime.now()
+    now = now.strftime("%d/%m/%Y %H:%M")
+    now = datetime.strptime(now, "%d/%m/%Y %H:%M")
+    current_time = now.timestamp() * 1000
     if request.method == 'POST':
         connection.append_question(questions,
             {
                 'id':new_id,
-                'submission_time':request.form.get('',None),
-                'view_number': request.form.get('',None),
-                'vote_number': request.form.get('',None),
-                'title': request.form.get('title',None),
+                'submission_time':current_time,
+                'view_number': "0",
+                'vote_number': "0",
+                'title': request.form.get('title'),
                 'message': request.form.get('message'),
             }
         )
