@@ -5,6 +5,7 @@
 {% block content %}
     <h1>Question {{ id }}</h1>
     <a href="{{ url_for('list_page') }}">Home Page</a>
+    <a href="/">Delete Question</a>
     <br>
     <h3>{{ question_dict.title }}</h3>
     <p>{{ question_dict.message }}</p>

@@ -3,7 +3,6 @@ import data_manager
 import util
 import os
 import connection
-from datetime import datetime
 app = Flask(__name__)
 
 questions = os.environ["QUESTION"]
@@ -14,7 +13,7 @@ strs =  sorted(lista, key = lambda key: key['submission_time'])
 
 
 @app.route("/")
-@app.route("/list")
+@app.route("/list", methods=["GET"])
 def list_page():
     question_data = data_manager.get_data(questions)
     time = sorted(question_data, key = lambda i: i['submission_time'], reverse=True)
