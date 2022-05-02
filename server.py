@@ -48,10 +48,7 @@ def question(id):
 @app.route("/add-question", methods=["GET", "POST"])
 def add_question_page():
     new_id = connection.get_new_id(questions)
-    now = datetime.now()
-    now = now.strftime("%d/%m/%Y %H:%M:%S:%fff")
-    now = datetime.strptime(now, "%d/%m/%Y %H:%M:%S:%fff")
-    current_time = now.timestamp() * 1000
+    current_time = util.get_time()
     if request.method == 'POST':
         connection.append_question(questions,
             {

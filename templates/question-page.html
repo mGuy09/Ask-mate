@@ -4,6 +4,7 @@
 
 {% block content %}
     <h1>Question {{ id }}</h1>
+    <a href="{{ url_for('list_page') }}">Home Page</a>
     <br>
     <h3>{{ question_dict.title }}</h3>
     <p>{{ question_dict.message }}</p>
@@ -13,4 +14,5 @@
     {% for answer in answer_list %}
         <p>{{ answer.submission_time }}  |  {{ answer.message }}  | votes:  {{ answer.vote_number }}</p>
     {% endfor %}
+
 {% endblock %}
