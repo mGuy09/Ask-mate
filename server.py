@@ -33,8 +33,8 @@ def question(id):
         if question['id'] == id:
             question_dict = question
             for answer in time:
-                if answer['submission_time'] != format('%d/%m/%Y  %H:%M'):
-                    answer['submission_time'] = util.convert_to_hours(answer['submission_time'])
+                if answer['submission_time'] != format('%d/%m/%Y %H:%M'):
+                    answer['submission_time'] = util.convert_time(answer['submission_time'])
                 if id == answer['question_id']:
                     answer_list.append(answer)
 
