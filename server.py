@@ -74,7 +74,7 @@ def add_answer(id):
     answer_data = data_manager.get_data(answers)
 
     for question in question_data:
-        if question['question_id'] == id:
+        if question['id'] == id:
             if request.method == 'POST':
                 connection.append_data(answers,{
                     'id': new_id,
@@ -85,7 +85,8 @@ def add_answer(id):
 
                 })
 
-            return redirect(url_for('question',id=id))
+            # return redirect(url_for('question',id=id))
+    return render_template("answer_question.html")
 
 
 
