@@ -73,19 +73,19 @@ def add_answer(id):
     question_data = data_manager.get_data(questions)
     answer_data = data_manager.get_data(answers)
 
+    for question in question_data:
+        if question['question_id'] == id:
+            if request.method == 'POST':
+                connection.append_data(answers,{
+                    'id': new_id,
+                    'submission_time': current_time,
+                    'vote_number': '0',
+                    'question_id': id,
+                    'message': request.form.get('message')
 
+                })
 
-    if request.method == 'POST':
-        connection.append_data(answers,{
-            'id': new_id,
-            'submission_time': current_time,
-            'view_number': '0',
-            'vote_number': '0',
-            'title': request.form.get('title'),
-            'message': request.form.get('message')
-
-        })
-
+            return redirect(url_for('question',id=id))
 
 
 
