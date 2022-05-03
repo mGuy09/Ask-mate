@@ -53,6 +53,13 @@ def delete_question(id):
     return redirect(url_for('list_page'))
 
 
+@app.route('/answer/<answer_id>/delete')
+def delete_answer(answer_id):
+    question_id = data_manager.remove_answer(answers, answer_id)
+
+    return redirect(url_for('question', id=question_id))
+
+
 @app.route("/add-question", methods=["GET", "POST"])
 def add_question_page():
     new_id = connection.get_new_id(questions)
@@ -75,7 +82,7 @@ def add_question_page():
 
 @app.route('/question/<id>/new-answer', methods=["GET", "POST"])
 def add_answer(id):
-    new_id = connection.get_new_id(questions)
+    new_id = connection.get_new_id(answers)
     current_time = util.get_time()
     question_data = data_manager.get_data(questions)
     question_dict={}

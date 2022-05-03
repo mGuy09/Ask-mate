@@ -38,4 +38,9 @@ def delete_question(data_csv, question_list):
             writer.writerow(row)
 
 
-
+def delete_answer(data_csv, answer_list):
+    with open(data_csv, "w") as file:
+        writer = csv.DictWriter(file, fieldnames=answer_header)
+        writer.writeheader()
+        for row in answer_list:
+            writer.writerow(row)
