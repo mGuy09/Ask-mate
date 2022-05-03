@@ -71,8 +71,16 @@ def delete_question(id, ):
 
 @app.route('/answer/<answer_id>/delete')
 def delete_answer(answer_id):
+    answer_list = data_manager.get_data(answers)
+    for i in answer_list:
+        if i["id"] == answer_id:
+            path = os.path.join(os.path.dirname(__file__), 'static', 'images', i["image"])
+            position_of_last_slash = path.rfind('/')
+            if path[position_of_last_slash + 1:] == '':
+                path = ''
+            else:
+                os.remove(path)
     question_id = data_manager.remove_answer(answers, answer_id)
-
     return redirect(url_for('question', id=question_id))
 
 
@@ -114,12 +122,20 @@ def add_answer(id):
         if question['id'] == id:
             question_dict = question
             if request.method == 'POST':
-                connection.append_answer(answers,{
+                image = request.files['image']
+                path = os.path.join(os.path.dirname(__file__), 'static', 'images', secure_filename(image.filename))
+                position_of_last_slash = path.rfind('/')
+                if path[position_of_last_slash + 1:] == '':
+                    path = ''
+                else:
+                    image.save(path)
+                connection.append_answer(answers, {
                     'id': new_id,
                     'submission_time': current_time,
                     'vote_number': '0',
                     'question_id': id,
-                    'message': request.form.get('message')
+                    'message': request.form.get('message'),
+                    'image': path[position_of_last_slash+1:]
                 })
                 return redirect(url_for('question', id=id))
     return render_template("answer_question.html", id=id, question_dict=question_dict)

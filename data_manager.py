@@ -33,7 +33,6 @@ def remove_question(data_csv, id):
 
 def remove_answer(data_csv, id):
     answer_list = connection.read_question(data_csv)
-
     for i in answer_list:
         if i["id"] == id:
             deleted_answer = i
@@ -41,10 +40,3 @@ def remove_answer(data_csv, id):
     answer_list.remove(deleted_answer)
     connection.delete_answer(data_csv, answer_list)
     return question_id
-
-
-def remove_answers_from_q(data_csv, id):
-    answer_list = connection.read_question(data_csv)
-
-
-

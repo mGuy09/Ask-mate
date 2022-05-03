@@ -5,6 +5,7 @@
 {% block content %}
     <h1>Question {{ id }}</h1>
     <a href="{{ url_for('list_page') }}">Home Page</a>
+{#    <img src="https://image.shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg" alt="">#}
 
         <button type="button" formmethod="post"> <a href="{{ url_for('delete_question',id=id)}}">Delete question</a></button>
     <br>
@@ -14,7 +15,9 @@
     <br>
     <label for="">Answers:</label>
     {% for answer in answer_list %}
-        <p>{{ answer.submission_time }}  |  {{ answer.message }}  | votes:  {{ answer.vote_number }} | <a href="{{ url_for('delete_answer', answer_id=answer.id) }}">Delete</a></p>
+        <p>{{ answer.submission_time }}  |  {{ answer.message }}  | votes:  {{ answer.vote_number }} | <a href="{{ url_for('delete_answer', answer_id=answer.id) }}">Delete</a>
+        <img src="images/{{ answer.image }}" alt="" width="200px"></p>
+
     {% endfor %}
     <a href="{{ url_for('add_answer', id=id) }}">
     <button type="button">Answer</button>
