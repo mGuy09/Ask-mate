@@ -7,19 +7,21 @@
     <br>
     <br>
     <label for="">sort by:</label>
-    <form action="{{ url_for('order_list_page') }}">
+    <form action="{{ url_for('list_page')}}" method="get">
     <select name="sort" id="sort">
 
-        <option value="1">time</option>
-        <option value="2">view numbers</option>
-        <option value="3">vote numbers</option>
-        <option value="4">title</option>
-        <option value="5">description</option>
+        <option value="submission_time">time</option>
+        <option value="view_number">view numbers</option>
+        <option value="vote_number">vote numbers</option>
+        <option value="title">title</option>
+        <option value="message">description</option>
     </select>
+
     <select name="direction" id="direction">
-        <option value="False">Ascending</option>
-        <option value="True">Descending</option>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
     </select>
+    <button type="submit">Order</button>
     </form>
     <table>
         <thead>

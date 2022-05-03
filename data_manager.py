@@ -1,5 +1,6 @@
 import connection
-import operator
+import util
+
 
 def get_data(csv_file):
     csv_data = connection.read_question(csv_file)
@@ -8,6 +9,16 @@ def get_data(csv_file):
 
 def sort_asc(csv_file, order_value, order_direction):
     csv_data = get_data(csv_file)
-    csv_data = sorted(csv_data, key=operator.itemgetter(order_value), reverse=order_direction)
-    return csv_data
+    csv_data = sorted(csv_data, key=lambda row: row[order_value], reverse=(order_direction == 'desc'))
 
+    for i in csv_data:
+        i['submission_time'] = util.convert_time(i['submission_time'])
+
+    if order_value == 'view_number':
+        csv_data = sorted(csv_data, key=lambda row: int(row[order_value]), reverse=(order_direction == 'desc'))
+
+    if order_value == 'vote_number':
+        csv_data = sorted(csv_data, key=lambda row: int(row[order_value]), reverse=(order_direction == 'desc'))
+
+
+    return csv_data

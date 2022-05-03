@@ -13,24 +13,20 @@ strs =  sorted(lista, key = lambda key: key['submission_time'])
 
 
 @app.route("/")
-@app.route("/list", methods=["GET","POST"])
+@app.route("/list", methods=["GET"])
 def list_page():
-    question_data = data_manager.get_data(questions)
-    time = sorted(question_data, key = lambda i: i['submission_time'], reverse=True)
-    for i in time:
-        i['submission_time'] = util.convert_time(i['submission_time'])
-    return render_template("list-page.html", data=time)
+    sorting = request.args.get("sort", default='submission_time')
+    direction = request.args.get("direction", default=False)
 
+    question_data = data_manager.sort_asc(questions, sorting, direction)
 
-def order_list_page():
-    order_by = request.args.get()
-    if request.method == "POST":
-        order_value = request.form["sort"]
-        order_direction = request.form["direction"]
-        sorted_list = data_manager.sort_asc(questions, order_value, order_direction)
-        for i in sorted_list:
-            i['submission_time'] = util.convert_time(i['submission_time'])
-        return render_template("list-page.html", data=sorted_list)
+    print(f"{sorting} {direction}")
+
+    # if request.args.get('sort') == '2':
+    #     time = sorted(question_data, key=lambda i: i['view_number'])
+
+    return render_template("list-page.html", data=question_data)
+
 
 
 @app.route('/question/<id>')
@@ -82,7 +78,7 @@ def add_answer(id):
     current_time = util.get_time()
     question_data = data_manager.get_data(questions)
     answer_data = data_manager.get_data(answers)
-
+    question_dict={}
     for question in question_data:
         if question['id'] == id:
             question_dict = question
@@ -98,6 +94,7 @@ def add_answer(id):
                 })
                 return redirect(url_for('question', id=id))
     return render_template("answer_question.html", id=id, question_dict=question_dict)
+
 
 
 if __name__ == "__main__":

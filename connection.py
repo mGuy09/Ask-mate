@@ -26,3 +26,4 @@ def append_answer(data_csv, data):
     with open(data_csv, "a") as file:
         writer = csv.DictWriter(file, fieldnames=answer_header)
         writer.writerow(data)
+
