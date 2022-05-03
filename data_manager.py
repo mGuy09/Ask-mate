@@ -19,6 +19,14 @@ def sort_asc(csv_file, order_value, order_direction):
 
     if order_value == 'vote_number':
         csv_data = sorted(csv_data, key=lambda row: int(row[order_value]), reverse=(order_direction == 'desc'))
-
-
     return csv_data
+
+
+def remove_question(data_csv, question):
+    question_list = connection.read_question(data_csv)
+    for i in question_list:
+        if i == question:
+            deleted_question = i
+    return question_list.remove(deleted_question)
+
+

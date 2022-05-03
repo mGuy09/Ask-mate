@@ -1,5 +1,7 @@
 import csv
 
+import data_manager
+
 DATA_HEADER = ['id','submission_time','view_number','vote_number','title','message','image']
 answer_header = ['id','submission_time','vote_number','question_id','message','image']
 
@@ -26,4 +28,14 @@ def append_answer(data_csv, data):
     with open(data_csv, "a") as file:
         writer = csv.DictWriter(file, fieldnames=answer_header)
         writer.writerow(data)
+
+
+def delete_question(data_csv, question):
+    with open(data_csv, "w") as file:
+        question_list = data_manager.remove_question(data_csv, question)
+        writer = csv.DictWriter(file, fieldnames=DATA_HEADER)
+        writer.writeheader()
+        writer.writerow(question_list)
+
+
 

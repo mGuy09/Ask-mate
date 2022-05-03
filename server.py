@@ -20,11 +20,6 @@ def list_page():
 
     question_data = data_manager.sort_asc(questions, sorting, direction)
 
-    print(f"{sorting} {direction}")
-
-    # if request.args.get('sort') == '2':
-    #     time = sorted(question_data, key=lambda i: i['view_number'])
-
     return render_template("list-page.html", data=question_data)
 
 
@@ -46,9 +41,9 @@ def question(id):
                     answer_list.append(answer)
 
     return render_template('question-page.html',
-                                   answer_list = answer_list,
-                                   question_dict = question_dict,
-                                   id=id)
+                           answer_list = answer_list,
+                           question_dict = question_dict,
+                           id=id)
 
 
 @app.route("/add-question", methods=["GET", "POST"])
@@ -64,8 +59,7 @@ def add_question_page():
                 'vote_number': "0",
                 'title': request.form.get('title'),
                 'message': request.form.get('message'),
-            }
-                               )
+            })
 
         return redirect(url_for('question',id=new_id))
 
@@ -77,24 +71,20 @@ def add_answer(id):
     new_id = connection.get_new_id(questions)
     current_time = util.get_time()
     question_data = data_manager.get_data(questions)
-    answer_data = data_manager.get_data(answers)
     question_dict={}
     for question in question_data:
         if question['id'] == id:
             question_dict = question
             if request.method == 'POST':
-
                 connection.append_answer(answers,{
                     'id': new_id,
                     'submission_time': current_time,
                     'vote_number': '0',
                     'question_id': id,
                     'message': request.form.get('message')
-
                 })
                 return redirect(url_for('question', id=id))
     return render_template("answer_question.html", id=id, question_dict=question_dict)
-
 
 
 if __name__ == "__main__":
