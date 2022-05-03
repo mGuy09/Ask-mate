@@ -2,12 +2,15 @@ from flask import Flask, render_template, request, redirect,url_for
 import data_manager
 import util
 import os
+from werkzeug.utils import secure_filename
 import connection
 app = Flask(__name__)
+UPLOAD_FOLDER = 'static/images'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 questions = os.environ["QUESTION"]
 answers = os.environ["ANSWER"]
-UPLOAD_FOLDER = '/static/images'
+
 
 @app.route("/")
 @app.route("/list", methods=["GET"])
@@ -62,33 +65,34 @@ def add_question_page():
     new_id = connection.get_new_id(questions)
     current_time = util.get_time()
     if request.method == 'POST':
-        if 'image' in request.files:
+        path = None
+        if len(request.files):
             image = request.files['image']
-            path = os.path.join(app.config['UPLOAD_FOLDER'],image.filename)
-            print(path)
+            # path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename))
+            path = os.path.join(os.path.dirname(__file__), secure_filename(image.filename))
             image.save(path)
-            connection.append_data(questions,
-                                   {
-                                       'id': new_id,
-                                       'submission_time': current_time,
-                                       'view_number': "0",
-                                       'vote_number': "0",
-                                       'title': request.form.get('title'),
-                                       'message': request.form.get('message'),
-                                       'image': path
-                                   })
-        else:
-
-            connection.append_data(questions,
-                                   {
-                    'id':new_id,
-                    'submission_time':current_time,
-                    'view_number': "0",
-                    'vote_number': "0",
-                    'title': request.form.get('title'),
-                    'message': request.form.get('message'),
-
-                })
+        connection.append_data(questions,
+                               {
+                                   'id': new_id,
+                                   'submission_time': current_time,
+                                   'view_number': "0",
+                                   'vote_number': "0",
+                                   'title': request.form.get('title'),
+                                   'message': request.form.get('message'),
+                                   'image': path
+                               })
+        # else:
+        #
+        #     connection.append_data(questions,
+        #                            {
+        #             'id':new_id,
+        #             'submission_time':current_time,
+        #             'view_number': "0",
+        #             'vote_number': "0",
+        #             'title': request.form.get('title'),
+        #             'message': request.form.get('message'),
+        #
+        #         })
 
         return redirect(url_for('question',id=new_id))
 

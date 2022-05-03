@@ -5,11 +5,11 @@
 {% block content %}
     <h1>Add a question</h1>
     <br>
-    <form action="{{ url_for('add_question_page') }}" method = 'post' enctype="">
+    <form action="{{ url_for('add_question_page') }}" method='post' enctype="multipart/form-data">
         <label for="">
             Question's title:
             <br>
-            <input type="text", name="title" required>
+            <input type="text" name="title" required>
         </label>
         <br>
         <label for="">
@@ -20,7 +20,7 @@
         <br>
         <br>
         <Label> Select Image File: </Label>
-        <input type="file" name = "image">
+        <input type="file" name="image">
         <br>
         <br>
         <button type="submit" value="Upload">Submit Question</button>
