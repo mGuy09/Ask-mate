@@ -50,6 +50,7 @@ def question(id):
 def delete_question(id):
     data_manager.remove_question(questions, id)
 
+
     return redirect(url_for('list_page'))
 
 
@@ -69,7 +70,8 @@ def add_question_page():
         if len(request.files):
             image = request.files['image']
             # path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename))
-            path = os.path.join(os.path.dirname(__file__), secure_filename(image.filename))
+            path = os.path.join(os.path.dirname(__file__),'static','images',secure_filename(image.filename))
+            position_of_last_slash = path.rfind('/')
             image.save(path)
         connection.append_data(questions,
                                {
@@ -79,7 +81,7 @@ def add_question_page():
                                    'vote_number': "0",
                                    'title': request.form.get('title'),
                                    'message': request.form.get('message'),
-                                   'image': path
+                                   'image': path[position_of_last_slash+1:]
                                })
         # else:
         #
