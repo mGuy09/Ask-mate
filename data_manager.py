@@ -43,3 +43,8 @@ def remove_answer(data_csv, id):
     return question_id
 
 
+def remove_answers_from_q(data_csv, id):
+    answer_list = connection.read_question(data_csv)
+
+
+

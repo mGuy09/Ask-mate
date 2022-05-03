@@ -47,10 +47,25 @@ def question(id):
 
 
 @app.route('/question/<id>/delete')
-def delete_question(id):
+def delete_question(id, ):
+    question = data_manager.get_data(questions)
+    answer_list = data_manager.get_data(answers)
+    deleting_answer_list = []
+    for i in question:
+        if i["id"] == id:
+            path = os.path.join(os.path.dirname(__file__), 'static', 'images', i["image"])
+
+    position_of_last_slash = path.rfind('/')
+    if path[position_of_last_slash + 1:] == '':
+        path = ''
+    else:
+        os.remove(path)
+    for i in answer_list:
+        if i["question_id"] == id:
+            deleting_answer_list.append(i)
+    for i in deleting_answer_list:
+        data_manager.remove_answer(answers, i["id"])
     data_manager.remove_question(questions, id)
-
-
     return redirect(url_for('list_page'))
 
 
@@ -66,14 +81,15 @@ def add_question_page():
     new_id = connection.get_new_id(questions)
     current_time = util.get_time()
     if request.method == 'POST':
-        path = None
         if len(request.files):
             image = request.files['image']
-            # path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename))
             path = os.path.join(os.path.dirname(__file__),'static','images',secure_filename(image.filename))
             position_of_last_slash = path.rfind('/')
-            image.save(path)
-        connection.append_data(questions,
+            if path[position_of_last_slash+1:] == '':
+                path = ''
+            else:
+                image.save(path)
+            connection.append_data(questions,
                                {
                                    'id': new_id,
                                    'submission_time': current_time,
@@ -83,21 +99,8 @@ def add_question_page():
                                    'message': request.form.get('message'),
                                    'image': path[position_of_last_slash+1:]
                                })
-        # else:
-        #
-        #     connection.append_data(questions,
-        #                            {
-        #             'id':new_id,
-        #             'submission_time':current_time,
-        #             'view_number': "0",
-        #             'vote_number': "0",
-        #             'title': request.form.get('title'),
-        #             'message': request.form.get('message'),
-        #
-        #         })
 
         return redirect(url_for('question',id=new_id))
-
     return render_template('add_question.html')
 
 
