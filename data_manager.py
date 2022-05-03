@@ -27,6 +27,7 @@ def remove_question(data_csv, id):
     for i in question_list:
         if i["id"] == id:
             deleted_question = i
-    return question_list.remove(deleted_question)
+    question_list.remove(deleted_question)
+    connection.delete_question(data_csv, question_list)
 
 
