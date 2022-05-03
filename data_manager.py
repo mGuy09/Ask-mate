@@ -9,7 +9,7 @@ def get_data(csv_file):
 
 def sort_asc(csv_file, order_value, order_direction):
     csv_data = get_data(csv_file)
-    csv_data = sorted(csv_data, key=lambda row: row[order_value], reverse=(order_direction == 'desc'))
+    csv_data = sorted(csv_data, key=lambda row: row[order_value], reverse=(order_direction == 'asc'))
 
     for i in csv_data:
         i['submission_time'] = util.convert_time(i['submission_time'])

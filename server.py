@@ -16,7 +16,7 @@ strs =  sorted(lista, key = lambda key: key['submission_time'])
 @app.route("/list", methods=["GET"])
 def list_page():
     sorting = request.args.get("sort", default='submission_time')
-    direction = request.args.get("direction", default=False)
+    direction = request.args.get("direction", default=True)
 
     question_data = data_manager.sort_asc(questions, sorting, direction)
 
