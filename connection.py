@@ -30,9 +30,9 @@ def append_answer(data_csv, data):
         writer.writerow(data)
 
 
-def delete_question(data_csv, question):
+def delete_question(data_csv, id):
     with open(data_csv, "w") as file:
-        question_list = data_manager.remove_question(data_csv, question)
+        question_list = data_manager.remove_question(data_csv, id)
         writer = csv.DictWriter(file, fieldnames=DATA_HEADER)
         writer.writeheader()
         writer.writerow(question_list)

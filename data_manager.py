@@ -22,10 +22,10 @@ def sort_asc(csv_file, order_value, order_direction):
     return csv_data
 
 
-def remove_question(data_csv, question):
+def remove_question(data_csv, id):
     question_list = connection.read_question(data_csv)
     for i in question_list:
-        if i == question:
+        if i["id"] == id:
             deleted_question = i
     return question_list.remove(deleted_question)
 
