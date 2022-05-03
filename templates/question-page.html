@@ -5,9 +5,8 @@
 {% block content %}
     <h1>Question {{ id }}</h1>
     <a href="{{ url_for('list_page') }}">Home Page</a>
-    <form action="{{ url_for('delete_question',id=id)}}" method="post">
-    <button type="submit">Delete question</button>
-</form>
+
+        <button type="button" > <a href="{{ url_for('delete_question',id=id)}}">Delete question</a></button>
     <br>
     <h3>{{ question_dict.title }}</h3>
     <p>{{ question_dict.message }}</p>
