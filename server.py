@@ -7,10 +7,7 @@ app = Flask(__name__)
 
 questions = os.environ["QUESTION"]
 answers = os.environ["ANSWER"]
-'''
-strs =  sorted(lista, key = lambda key: key['submission_time'])
-'''
-
+UPLOAD_FOLDER = '/static/images'
 
 @app.route("/")
 @app.route("/list", methods=["GET"])
@@ -65,15 +62,33 @@ def add_question_page():
     new_id = connection.get_new_id(questions)
     current_time = util.get_time()
     if request.method == 'POST':
-        connection.append_data(questions,
-                               {
-                'id':new_id,
-                'submission_time':current_time,
-                'view_number': "0",
-                'vote_number': "0",
-                'title': request.form.get('title'),
-                'message': request.form.get('message'),
-            })
+        if 'image' in request.files:
+            image = request.files['image']
+            path = os.path.join(app.config['UPLOAD_FOLDER'],image.filename)
+            print(path)
+            image.save(path)
+            connection.append_data(questions,
+                                   {
+                                       'id': new_id,
+                                       'submission_time': current_time,
+                                       'view_number': "0",
+                                       'vote_number': "0",
+                                       'title': request.form.get('title'),
+                                       'message': request.form.get('message'),
+                                       'image': path
+                                   })
+        else:
+
+            connection.append_data(questions,
+                                   {
+                    'id':new_id,
+                    'submission_time':current_time,
+                    'view_number': "0",
+                    'vote_number': "0",
+                    'title': request.form.get('title'),
+                    'message': request.form.get('message'),
+
+                })
 
         return redirect(url_for('question',id=new_id))
 
