@@ -46,6 +46,14 @@ def question(id):
                            id=id)
 
 
+@app.route('/question/<id>/delete', methods = ["GET","POST"])
+def delete_question(id):
+    if request.method == 'POST':
+        data_manager.remove_question(questions, id)
+
+    return redirect(url_for('list_page'))
+
+
 @app.route("/add-question", methods=["GET", "POST"])
 def add_question_page():
     new_id = connection.get_new_id(questions)
