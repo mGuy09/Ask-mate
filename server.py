@@ -175,7 +175,11 @@ def vote_up(id):
     if request.method == 'POST':
         for question in question_data:
             if question['id'] == id:
-                question['vote_number']
+                question['vote_number'] = int(question['vote_number']) + 1
+
+        connection.rewrite_question_data(questions)
+
+
 
 
 
