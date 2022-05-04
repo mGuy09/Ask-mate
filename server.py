@@ -167,19 +167,19 @@ def update_question(id):
     return render_template('edit_question.html', result= current)
 
 
-@app.route('/question/<question_id>/vote-up' ,methods = ['POST','GET'])
+@app.route('/question/<id>/vote-up', methods=['POST','GET'])
 def vote_up(id):
     question_data = data_manager.get_data(questions)
     #current = [question for question in question_data if question.get('id') == id][0]
 
-    if request.method == 'POST':
+    if request.method == 'GET':
         for question in question_data:
             if question['id'] == id:
                 question['vote_number'] = int(question['vote_number']) + 1
 
         connection.rewrite_question_data(questions,question_data)
 
-        return redirect(url_for('list_page'))
+    return redirect(url_for('list_page'))
 
 
 
