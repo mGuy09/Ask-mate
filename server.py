@@ -198,5 +198,23 @@ def vote_down(id):
     return redirect(url_for('list_page'))
 
 
+@app.route('/answer/<answer_id>/vote-up')
+def answer_vote_up(answer_id):
+    answer_data = data_manager.get_data(answers)
+    if request.method == 'GET':
+        for answer in answer_data:
+            if answer['id'] == answer_id:
+                answer['vote_number'] = int(answer['vote_number']) + 1
+                question_id = answer['question_id']
+
+        connection.rewrite_answer_data(answers, answer_data)
+    return redirect(url_for('question', id=question_id))
+
+
+@app.route('/answer/<answer_id>/vote-down')
+def answer_vote_down():
+    pass
+
+
 if __name__ == "__main__":
     app.run(debug=True)

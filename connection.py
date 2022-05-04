@@ -54,3 +54,10 @@ def rewrite_question_data(data_csv,question_list):
             writer.writerow(row)
 
 
+def rewrite_answer_data(data_csv,answer_list):
+    with open(data_csv, 'w') as file:
+        writer = csv.DictWriter(file, fieldnames=answer_header)
+        writer.writeheader()
+        for row in answer_list:
+            writer.writerow(row)
+
