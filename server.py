@@ -151,13 +151,6 @@ def update_question(id):
 
 
     if request.method == 'POST':
-        # current['title'] = request.form.get('title')
-        # current['message'] = request.form.get('message')
-
-        # for index, row in enumerate(question_data):
-        #     if row['id'] == id:
-        #         question_data[index] = current
-
         for question in question_data:
             if question['id'] == id:
                 question['title'] = request.form.get('title')
@@ -212,8 +205,16 @@ def answer_vote_up(answer_id):
 
 
 @app.route('/answer/<answer_id>/vote-down')
-def answer_vote_down():
-    pass
+def answer_vote_down(answer_id):
+    answer_data = data_manager.get_data(answers)
+    if request.method == 'GET':
+        for answer in answer_data:
+            if answer['id'] == answer_id:
+                answer['vote_number'] = int(answer['vote_number']) - 1
+                question_id = answer['question_id']
+
+        connection.rewrite_answer_data(answers, answer_data)
+    return redirect(url_for('question', id=question_id))
 
 
 if __name__ == "__main__":

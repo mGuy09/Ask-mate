@@ -22,7 +22,7 @@
         <img src="{{ url_for('static', filename='images/'+answer.image) }}" alt="" width="150px">
         <br>
         <a href="{{ url_for('answer_vote_up', answer_id=answer.id) }}"><button>Up Vote</button></a>
-        <a href=""><button>Down Vote</button></a>
+        <a href="{{ url_for('answer_vote_down', answer_id = answer.id) }}"><button>Down Vote</button></a>
     {% endfor %}
     <br>
     <br>
