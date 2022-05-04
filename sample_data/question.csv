@@ -13,4 +13,4 @@ app.js (bundled file with webpack, including jquery)",images/image1.png
 
 This is the code I'm using to draw the image (that works on web/desktop but not cordova built ios app)",
 4,1651598037035.495,0,0,tttt,ttt,Screenshot_from_2022-02-17_11-37-10.png
-5,1651653922342.7278,0,4,aaaddd,aaaaasdasdasd,Screenshot_from_2022-05-03_17-15-43.png
+5,1651653922342.7278,1,5,aaaddd,aaaaasdasdasd,Screenshot_from_2022-05-03_17-15-43.png

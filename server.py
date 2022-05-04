@@ -32,6 +32,8 @@ def question(id):
     answer_list = []
     for question in question_data:
         if question['id'] == id:
+            if request.method == "GET":
+                question['view_number'] = int(question['view_number']) + 1
             question_dict = question
             for answer in time:
                 if answer['submission_time'] != format('%d/%m/%Y %H:%M'):
@@ -39,6 +41,7 @@ def question(id):
                 if id == answer['question_id']:
                     answer_list.append(answer)
 
+    connection.rewrite_question_data(questions, question_data)
     return render_template('question-page.html',
                            answer_list = answer_list,
                            question_dict = question_dict,
