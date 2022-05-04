@@ -44,6 +44,8 @@
             <td><a href="{{ url_for('question', id=question['id']) }}">{{ question.title}}</a></td>
             <td>{{ question.message }}</td>
             <td><img src="static/images/{{ question.image }}" alt="" width="250px" height="200px"></td>
+
+            <a href="{{ url_for('vote_up', id = id) }}"></a>
         </tr>
         {% endfor %}
     </table>
