@@ -8,6 +8,7 @@
 {#    <img src="https://image.shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg" alt="">#}
 
         <button type="button" formmethod="post"> <a href="{{ url_for('delete_question',id=id)}}">Delete question</a></button>
+        <button type="button" formmethod="post"> <a href="{{ url_for('update_question', id = id) }}">Update question</a></button>
     <br>
     <h3>{{ question_dict.title }}</h3>
     <p>{{ question_dict.message }}</p>

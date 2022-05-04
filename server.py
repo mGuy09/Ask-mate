@@ -141,5 +141,33 @@ def add_answer(id):
     return render_template("answer_question.html", id=id, question_dict=question_dict)
 
 
+@app.route('/question/<id>/edit',methods = ['POST','GET'])
+def update_question(id):
+    question_data = data_manager.get_data(questions)
+    current = [question for question in question_data if question.get('id') == id][0]
+    current_time = util.get_time()
+
+
+    if request.method == 'POST':
+        # current['title'] = request.form.get('title')
+        # current['message'] = request.form.get('message')
+
+        # for index, row in enumerate(question_data):
+        #     if row['id'] == id:
+        #         question_data[index] = current
+
+        for question in question_data:
+            if question['id'] == id:
+                question['title'] = request.form.get('title')
+                question['message'] = request.form.get('message')
+                question['submission_time'] = current_time
+        connection.rewrite_question_data(questions,question_data)
+
+        return redirect(url_for('question',id = id))
+
+    return render_template('edit_question.html', result= current)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
