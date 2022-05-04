@@ -168,6 +168,18 @@ def update_question(id):
     return render_template('edit_question.html', result= current)
 
 
+@app.route('/question/<question_id>/vote-up' ,methods = ['POST','GET'])
+def vote_up(id):
+    question_data = data_manager.get_data(questions)
+    current = [question for question in question_data if question.get('id') == id][0]
+
+    if request.method == 'POST':
+        for question in question_data:
+            if question['id'] == id:
+                question['vote_number']
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
