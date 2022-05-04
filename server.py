@@ -23,10 +23,9 @@ def list_page():
     return render_template("list-page.html", data=question_data)
 
 
-
-@app.route('/question/<id>')
+@app.route('/question/<id>', methods=['GET'])
 def question(id):
-    question_dict ={}
+    question_dict = {}
     question_data = data_manager.get_data(questions)
     answer_data = data_manager.get_data(answers)
     time = sorted(answer_data, key=lambda i: i['submission_time'], reverse=True)

@@ -16,8 +16,8 @@
     <label for="">Answers:</label>
     {% for answer in answer_list %}
         <p>{{ answer.submission_time }}  |  {{ answer.message }}  | votes:  {{ answer.vote_number }} | <a href="{{ url_for('delete_answer', answer_id=answer.id) }}">Delete</a>
-        <img src="images/{{ answer.image }}" alt="" width="200px"></p>
-
+        </p>
+        <img src="{{ url_for('static', filename='images/'+answer.image) }}" alt="" width="150px">
     {% endfor %}
     <a href="{{ url_for('add_answer', id=id) }}">
     <button type="button">Answer</button>
