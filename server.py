@@ -43,13 +43,13 @@ def question(id):
 
     connection.rewrite_question_data(questions, question_data)
     return render_template('question-page.html',
-                           answer_list = answer_list,
-                           question_dict = question_dict,
+                           answer_list=answer_list,
+                           question_dict=question_dict,
                            id=id)
 
 
 @app.route('/question/<id>/delete')
-def delete_question(id, ):
+def delete_question(id):
     question = data_manager.get_data(questions)
     answer_list = data_manager.get_data(answers)
     deleting_answer_list = []
@@ -170,7 +170,7 @@ def update_question(id):
     return render_template('edit_question.html', result= current)
 
 
-@app.route('/question/<id>/vote-up', methods=['POST','GET'])
+@app.route('/question/<id>/vote-up')
 def vote_up(id):
     question_data = data_manager.get_data(questions)
     #current = [question for question in question_data if question.get('id') == id][0]
@@ -185,7 +185,17 @@ def vote_up(id):
     return redirect(url_for('list_page'))
 
 
+@app.route('/question/<id>/vote-down')
+def vote_down(id):
+    question_data = data_manager.get_data(questions)
+    if request.method == 'GET':
+        for question in question_data:
+            if question['id'] == id:
+                question['vote_number'] = int(question['vote_number']) - 1
 
+        connection.rewrite_question_data(questions,question_data)
+
+    return redirect(url_for('list_page'))
 
 
 if __name__ == "__main__":

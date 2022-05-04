@@ -45,7 +45,7 @@
             <td><a href="{{ url_for('question', id=question['id']) }}">{{ question.title}}</a></td>
             <td>{{ question.message }}</td>
             <td><img src="static/images/{{ question.image }}" alt="" width="250px" height="200px"></td>
-            <td><a href="{{ url_for('vote_up', id=question.id) }}">Up Vote</a></td>
+            <td><a href="{{ url_for('vote_up', id=question.id) }}"><button type="button">Up Vote</button></a><a href="{{ url_for('vote_down', id=question.id) }}"><button type="button">Down Vote</button></a>
         </tr>
 
         {% endfor %}
