@@ -1,6 +1,5 @@
 import csv
 
-import data_manager
 
 DATA_HEADER = [
     "id",
@@ -22,60 +21,51 @@ answer_header = [
 
 
 def read_question(data_csv):
-    list_of_samples = []
     with open(data_csv, "r") as file:
         read_csv = csv.DictReader(file)
-        for row in read_csv:
-            list_of_samples.append(row)
-        return list_of_samples
+        return list(read_csv)
 
 
 def get_new_id(data_csv):
     data = read_question(data_csv)
     if len(data) == 0:
         return 1
-    return max([int(entry.get("id", 0)) for entry in read_question(data_csv)]) + 1
+    return max([int(entry.get("id", 0)) for entry in data]) + 1
+
+
+def append_to_file(file, data, headers):
+    with open(file, "a") as f:
+        writer = csv.DictWriter(f, fieldnames=headers)
+        writer.writerow(data)
 
 
 def append_data(data_csv, data):
-    with open(data_csv, "a") as file:
-        writer = csv.DictWriter(file, fieldnames=DATA_HEADER)
-        writer.writerow(data)
+    append_to_file(data_csv, data, DATA_HEADER)
 
 
 def append_answer(data_csv, data):
-    with open(data_csv, "a") as file:
-        writer = csv.DictWriter(file, fieldnames=answer_header)
-        writer.writerow(data)
+    append_to_file(data_csv, data, answer_header)
+
+
+def rewrite_file(filename, data, headers):
+    with open(filename, "w") as file:
+        writer = csv.DictWriter(file, fieldnames=headers)
+        writer.writeheader()
+        for row in data:
+            writer.writerow(row)
 
 
 def delete_question(data_csv, question_list):
-    with open(data_csv, "w") as file:
-        writer = csv.DictWriter(file, fieldnames=DATA_HEADER)
-        writer.writeheader()
-        for row in question_list:
-            writer.writerow(row)
+    rewrite_file(data_csv, question_list, DATA_HEADER)
 
 
 def delete_answer(data_csv, answer_list):
-    with open(data_csv, "w") as file:
-        writer = csv.DictWriter(file, fieldnames=answer_header)
-        writer.writeheader()
-        for row in answer_list:
-            writer.writerow(row)
+    rewrite_file(data_csv, answer_list, answer_header)
 
 
 def rewrite_question_data(data_csv, question_list):
-    with open(data_csv, "w") as file:
-        writer = csv.DictWriter(file, fieldnames=DATA_HEADER)
-        writer.writeheader()
-        for row in question_list:
-            writer.writerow(row)
+    rewrite_file(data_csv, question_list, DATA_HEADER)
 
 
 def rewrite_answer_data(data_csv, answer_list):
-    with open(data_csv, "w") as file:
-        writer = csv.DictWriter(file, fieldnames=answer_header)
-        writer.writeheader()
-        for row in answer_list:
-            writer.writerow(row)
+    rewrite_file(data_csv, answer_list, answer_header)
