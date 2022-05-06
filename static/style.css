@@ -1,53 +1,53 @@
-body{
-    font-family: Arial, sans-serif ;
+#navbar_buttons,
+.navbar,
+.navbar a,
+.navbar p,
+#sort-form,
+body {
     margin: 0;
     padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
     border: none;
     background: #0f0f0f;
 }
 
 /* Navigation bar */
-
-#navbar_buttons{
+#navbar_buttons,
+.navbar {
     list-style-type: none;
-    padding:0;
-    margin:0;
 }
 
-.navbar{
+.navbar {
     position: fixed;
     width: 100%;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     background-color: #0f0f0f;
-
 }
 
-.navbar li{
+.navbar li {
     float: left;
 }
 
-.navbar a{
+.navbar a {
     display: block;
     color: white;
-    margin: 0;
     text-align: center;
     padding: 18px 25px;
     text-decoration: none;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
-.navbar p{
+.navbar p {
     display: inline-flex;
     color: #f19952;
-    margin: 0;
     text-align: center;
     padding: 18px 25px;
     font-weight: bolder;
 }
 
-.navbar a:hover{
+.navbar a:hover {
     padding: 18px 25px;
     background-color: #ff8214;
     color: white;
@@ -62,7 +62,7 @@ body{
     border-radius: 3px;
     text-decoration: none;
     margin: 4px;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
 .buttons:hover {
     background-color: #ff8214;
@@ -70,21 +70,21 @@ body{
     color: white;
 }
 
-.buttons a{
+.buttons a {
     color: black;
     text-decoration: none;
 }
-.buttons a:hover{
+.buttons a:hover {
     color: white;
 }
 
-#button-submit-question{
+#button-submit-question {
     padding: 12px;
     background-color: #c4c4c4;
     margin: 4px;
     border: none;
     border-radius: 3px;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
     width: 10%;
 }
 #button-submit-question:hover {
@@ -98,15 +98,14 @@ body{
 #sort-form {
     background-color: #242424;
     color: white;
-    margin: 0;
     padding: 15px 4%;
 }
 
-.dropdown-sort{
+.dropdown-sort {
     border: 1px black solid;
     border-radius: 3px;
     padding: 3px;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
 
 .dropdown-sort:hover {
@@ -114,13 +113,13 @@ body{
     color: white;
 }
 
-.dropdown-sort:active{
+.dropdown-sort:active {
     background-color: white;
     color: black;
 }
 
-#list-page-header{
-    background-image: linear-gradient(to top left, #ff8214, #ab4f03, #660801) ;
+#list-page-header {
+    background-image: linear-gradient(to top left, #ff8214, #ab4f03, #660801);
     margin: 0;
     padding: 6%;
     display: grid;
@@ -128,27 +127,26 @@ body{
     color: white;
 }
 
-#list-page-header h2{
+#list-page-header h2 {
     font-size: 60px;
     color: white;
-
 }
 
-#question_page_header{
+#question_page_header {
     background-image: linear-gradient(to top right, #ff8214, #ab4f03, #660801);
     display: grid;
     padding: 30px 4%;
     margin: 0;
 }
-#question_page_header h1{
+#question_page_header h1 {
     color: white;
     font-size: 35px;
 }
 
-.table-list-questions{
+.table-list-questions {
     background: #0f0f0f;
     color: white;
-    padding: 20px 4% ;
+    padding: 20px 4%;
     border: none;
     display: flex;
     flex-wrap: wrap;
@@ -161,7 +159,7 @@ body{
     border-spacing: 0;
 }
 
-.table-list-questions td{
+.table-list-questions td {
     border-top: 2px #1f1f1f solid;
 
     font-size: 15px;
@@ -169,36 +167,36 @@ body{
     margin: 0;
 }
 
-.table-list-questions a{
+.table-list-questions a {
     color: #ff8214;
     text-decoration: none;
-    transition-duration: .5s;
+    transition-duration: 0.5s;
 }
-.table-list-questions a:hover{
+.table-list-questions a:hover {
     color: #f19952;
 }
 
 /* Add Question */
 
-#add-question-page-header{
+#add-question-page-header {
     background-image: linear-gradient(to top right, #ff8214, #ab4f03, #660801);
     display: grid;
     padding: 30px;
     margin: 0;
 }
 
-#add-question-page-header h1{
+#add-question-page-header h1 {
     font-size: 45px;
     color: white;
 }
 
-.form-add-question{
+.form-add-question {
     background-color: #0f0f0f;
     color: white;
     padding: 20px 4%;
 }
 
-.form-add-question #input-add-question{
+.form-add-question #input-add-question {
     background: #4b4b4b;
     padding: 5px;
     border-radius: 4px;
@@ -207,26 +205,26 @@ body{
     margin-bottom: 1%;
     margin-left: 2px;
     color: white;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
-.form-add-question #input-add-question:focus{
+.form-add-question #input-add-question:focus {
     background: #fff;
     border: 1px solid transparent;
     color: black;
     padding: 8px;
 }
-.form-add-question #input-add-question::selection{
+.form-add-question #input-add-question::selection {
     background-color: #ff8214;
     color: black;
 }
 
-.form-add-question #input-add-question:hover{
+.form-add-question #input-add-question:hover {
     border: 1px #ff8214 solid;
     color: black;
     padding: 8px;
 }
 
-.form-add-question textarea{
+.form-add-question textarea {
     background: #4b4b4b;
     padding: 5px;
     margin-top: 1%;
@@ -235,41 +233,41 @@ body{
     border-radius: 4px;
     border: none;
     color: white;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
-.form-add-question textarea::selection{
+.form-add-question textarea::selection {
     background-color: #ff8214;
     color: black;
 }
-.form-add-question textarea:focus{
+.form-add-question textarea:focus {
     background: #fff;
     color: black;
     padding: 8px;
     border: 1px transparent solid;
 }
 
-.form-add-question textarea:hover{
+.form-add-question textarea:hover {
     border: 1px #ff8214 solid;
     padding: 8px;
 }
 
-.mandatory-labels{
-    color: #FF9851E5;
+.mandatory-labels {
+    color: #ff9851e5;
 }
 
-.footer{
-    color: #FF9851E5;
+.footer {
+    color: #ff9851e5;
     padding: 20px 4%;
 }
-.question_message{
+.question_message {
     color: white;
     padding: 20px 4%;
 }
-.question_message p{
+.question_message p {
     padding: 15px 10px;
 }
 
-.question_answers{
+.question_answers {
     color: white;
     display: flex;
     flex-direction: column;
@@ -278,7 +276,7 @@ body{
     border-top: 4px #1f1f1f solid;
 }
 
-.question_answers p{
+.question_answers p {
     padding: 1%;
     border-top: 2px #1f1f1f solid;
     border-bottom: 2px #1f1f1f solid;
@@ -290,56 +288,55 @@ body{
     color: white;
     padding: 20px 4%;
 }
-#answer_header{
+#answer_header {
     background-image: linear-gradient(to top right, #ff8214, #ab4f03, #660801);
     display: grid;
     padding: 30px;
     margin: 0;
 }
-#answer_header h1{
+#answer_header h1 {
     color: white;
     font-size: 35px;
 }
 
-.form-add-answer{
+.form-add-answer {
     background-color: #0f0f0f;
     color: white;
     padding: 4% 4%;
 }
-.form-add-answer textarea{
+.form-add-answer textarea {
     resize: none;
     background-color: #4b4b4b;
     border-radius: 4px;
     color: white;
     transition-duration: 0.3s;
 }
-.form-add-answer textarea::selection{
+.form-add-answer textarea::selection {
     background-color: #ff8214;
     color: black;
 }
-.form-add-answer textarea:focus{
+.form-add-answer textarea:focus {
     background: #fff;
     color: black;
 }
 
-#edit-question-header{
+#edit-question-header {
     background-image: linear-gradient(to top right, #ff8214, #ab4f03, #660801);
     display: grid;
     padding: 30px 4%;
     margin: 0;
 }
-#edit-question-header h1{
+#edit-question-header h1 {
     color: white;
     font-size: 35px;
 }
 
-.form-edit-question{
+.form-edit-question {
     background-color: #0f0f0f;
     color: white;
     padding: 20px 4%;
-
 }
-.form-edit-question input{
+.form-edit-question input {
     background-color: #4b4b4b;
     color: white;
     padding: 5px;
@@ -351,22 +348,22 @@ body{
     transition-duration: 0.3s;
     border: none;
 }
-.form-edit-question input::selection{
+.form-edit-question input::selection {
     background-color: #ff8214;
     color: black;
 }
-.form-edit-question input:focus{
+.form-edit-question input:focus {
     background: #fff;
     border: 1px solid transparent;
     color: black;
     padding: 8px;
 }
 
-.form-edit-question input:hover{
+.form-edit-question input:hover {
     border: 1px #ff8214 solid;
     padding: 8px;
 }
-.form-edit-question textarea{
+.form-edit-question textarea {
     resize: none;
     background-color: #4b4b4b;
     margin-top: 1%;
@@ -378,135 +375,134 @@ body{
     border: none;
     transition-duration: 0.3s;
 }
-.form-edit-question textarea::selection{
+.form-edit-question textarea::selection {
     background-color: #ff8214;
     color: black;
 }
-.form-edit-question textarea:focus{
+.form-edit-question textarea:focus {
     background: #fff;
     padding: 8px;
     color: black;
     border: 1px solid transparent;
-
 }
-.form-edit-question textarea:hover{
+.form-edit-question textarea:hover {
     padding: 8px;
     border: 1px solid #ff8214;
-
 }
-.form-edit-question textarea::-webkit-scrollbar{
+.form-edit-question textarea::-webkit-scrollbar {
     background: transparent;
     width: 13px;
 }
-.form-edit-question textarea::-webkit-scrollbar-thumb{
+.form-edit-question textarea::-webkit-scrollbar-thumb {
     background: transparent;
     transition-duration: 0.3s;
 }
-.form-edit-question textarea:hover::-webkit-scrollbar-thumb{
+.form-edit-question textarea:hover::-webkit-scrollbar-thumb {
     background: #3d3d3d;
 }
-.form-edit-question textarea:hover::-webkit-scrollbar-thumb:hover{
+.form-edit-question textarea:hover::-webkit-scrollbar-thumb:hover {
     background: #282828;
 }
-.form-edit-question textarea:focus::-webkit-scrollbar-thumb{
+.form-edit-question textarea:focus::-webkit-scrollbar-thumb {
     background: #a6a6a6;
 }
-.form-edit-question textarea:focus::-webkit-scrollbar-thumb:hover{
+.form-edit-question textarea:focus::-webkit-scrollbar-thumb:hover {
     background: #868686;
 }
-.form-edit-question textarea:hover::-webkit-scrollbar-button{
+.form-edit-question textarea:hover::-webkit-scrollbar-button {
     background: #3d3d3d;
 }
-.form-edit-question textarea:hover::-webkit-scrollbar-button:hover{
+.form-edit-question textarea:hover::-webkit-scrollbar-button:hover {
     background: #282828;
 }
-.form-edit-question textarea:focus::-webkit-scrollbar-button{
+.form-edit-question textarea:focus::-webkit-scrollbar-button {
     background: #a6a6a6;
 }
-.form-edit-question textarea:focus::-webkit-scrollbar-button:hover{
+.form-edit-question textarea:focus::-webkit-scrollbar-button:hover {
     background: #868686;
 }
-.form-edit-question label{
+.form-edit-question label {
     font-size: 20px;
 }
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     background: transparent;
     width: 13px;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
-body::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb {
     background: #282828;
 }
-body::-webkit-scrollbar-button{
+body::-webkit-scrollbar-button {
     background: #282828;
 }
-body::-webkit-scrollbar-thumb:hover{
+body::-webkit-scrollbar-thumb:hover {
     background: #565656;
 }
-body::-webkit-scrollbar-button:hover{
+body::-webkit-scrollbar-button:hover {
     background: #565656;
 }
-.form-add-question textarea::-webkit-scrollbar{
+.form-add-question textarea::-webkit-scrollbar {
     background: transparent;
     width: 13px;
 }
-.form-add-question textarea::-webkit-scrollbar-thumb{
+.form-add-question textarea::-webkit-scrollbar-thumb {
     background: transparent;
     transition-duration: 0.3s;
 }
-.form-add-question textarea:hover::-webkit-scrollbar-thumb{
+.form-add-question textarea:hover::-webkit-scrollbar-thumb {
     background: #3d3d3d;
 }
-.form-add-question textarea:hover::-webkit-scrollbar-thumb:hover{
+.form-add-question textarea:hover::-webkit-scrollbar-thumb:hover {
     background: #282828;
 }
-.form-add-question textarea:focus::-webkit-scrollbar-thumb{
+.form-add-question textarea:focus::-webkit-scrollbar-thumb {
     background: #a6a6a6;
 }
-.form-add-question textarea:focus::-webkit-scrollbar-thumb:hover{
+.form-add-question textarea:focus::-webkit-scrollbar-thumb:hover {
     background: #868686;
 }
-.form-add-question textarea:hover::-webkit-scrollbar-button{
+.form-add-question textarea:hover::-webkit-scrollbar-button {
     background: #3d3d3d;
 }
-.form-add-question textarea:hover::-webkit-scrollbar-button:hover{
+.form-add-question textarea:hover::-webkit-scrollbar-button:hover {
     background: #282828;
 }
-.form-add-question textarea:focus::-webkit-scrollbar-button{
+.form-add-question textarea:focus::-webkit-scrollbar-button {
     background: #a6a6a6;
 }
-.form-add-question textarea:focus::-webkit-scrollbar-button:hover{
+.form-add-question textarea:focus::-webkit-scrollbar-button:hover {
     background: #868686;
 }
-.form-add-answer textarea::-webkit-scrollbar{
+.form-add-answer textarea::-webkit-scrollbar {
     background: transparent;
     width: 10px;
 }
-.form-add-answer textarea::-webkit-scrollbar-thumb{
+.form-add-answer textarea::-webkit-scrollbar-thumb {
     background: transparent;
     transition-duration: 0.3s;
 }
-.form-add-answer textarea:hover::-webkit-scrollbar-thumb{
+.form-add-answer textarea:hover::-webkit-scrollbar-thumb {
     background: #3d3d3d;
 }
-.form-add-answer textarea:hover::-webkit-scrollbar-thumb:hover{
+.form-add-answer textarea:hover::-webkit-scrollbar-thumb:hover {
     background: #282828;
 }
-.form-add-answer textarea:focus::-webkit-scrollbar-thumb{
+.form-add-answer textarea:focus::-webkit-scrollbar-thumb {
     background: #a6a6a6;
 }
-.form-add-answer textarea:focus::-webkit-scrollbar-thumb:hover{
+.form-add-answer textarea:focus::-webkit-scrollbar-thumb:hover {
     background: #868686;
 }
-.form-add-answer textarea:hover::-webkit-scrollbar-button{
+.form-add-answer textarea:hover::-webkit-scrollbar-button {
     background: #3d3d3d;
 }
-.form-add-answer textarea:hover::-webkit-scrollbar-button:hover{
+.form-add-answer textarea:hover::-webkit-scrollbar-button:hover {
     background: #282828;
 }
-.form-add-answer textarea:focus::-webkit-scrollbar-button{
+.form-add-answer textarea:focus::-webkit-scrollbar-button {
     background: #a6a6a6;
 }
-.form-add-answer textarea:focus::-webkit-scrollbar-button:hover{
+.form-add-answer textarea:focus::-webkit-scrollbar-button:hover {
     background: #868686;
 }
+
