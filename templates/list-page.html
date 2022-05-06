@@ -1,32 +1,32 @@
-{% extends "base.html" %}
-
-{% block title %}Home Page{% endblock %}
-
-{% block content %}
-    <div id="list-page-header">
+{% extends "base.html" %} {% block title %}Home Page{% endblock %} {% block
+content %}
+<div id="list-page-header">
     <h2>Welcome to the Question List</h2>
-    </div>
+</div>
 
-    <div id="sort-form">
+<div id="sort-form">
     <label for="">sort by:</label>
     <form action="{{ url_for('list_page')}}" method="get">
-    <select class="dropdown-sort" name="sort" id="sort">
+        <select class="dropdown-sort" name="sort" id="sort">
+            <option id="dropdown-option" value="submission_time">time</option>
+            <option id="dropdown-option" value="view_number">
+                view numbers
+            </option>
+            <option id="dropdown-option" value="vote_number">
+                vote numbers
+            </option>
+            <option id="dropdown-option" value="title">title</option>
+            <option id="dropdown-option" value="message">description</option>
+        </select>
 
-        <option id="dropdown-option" value="submission_time">time</option>
-        <option id="dropdown-option" value="view_number">view numbers</option>
-        <option id="dropdown-option" value="vote_number">vote numbers</option>
-        <option id="dropdown-option" value="title">title</option>
-        <option id="dropdown-option" value="message">description</option>
-    </select>
-
-    <select class="dropdown-sort" name="direction" id="direction">
-        <option id="dropdown-option" value="asc">Ascending</option>
-        <option id="dropdown-option" value="desc">Descending</option>
-    </select>
-    <button class="buttons" type="submit">Order</button>
+        <select class="dropdown-sort" name="direction" id="direction">
+            <option id="dropdown-option" value="asc">Ascending</option>
+            <option id="dropdown-option" value="desc">Descending</option>
+        </select>
+        <button class="buttons" type="submit">Order</button>
     </form>
-    </div>
-    <div class="table-list-questions" id="table_questions">
+</div>
+<div class="table-list-questions" id="table_questions">
     <table>
         <thead>
             <tr>
@@ -39,22 +39,48 @@
                 <th>Vote Up/Down</th>
             </tr>
         </thead>
-    <tbody>
-        {% for question in data %}
-        <tr>
-            <td>{{ question.submission_time }}</td>
-            <td>{{ question.view_number }}</td>
-            <td>{{ question.vote_number  }}</td>
-            <td><a href="{{ url_for('question', id=question['id']) }}">{{ question.title}}</a></td>
-            <td>{{ question.message }}</td>
-            <td><img src="static/images/{{ question.image }}" onerror="this.style.display='none'" alt="" width="250px" height="180px"></td>
-            <td><a href="{{ url_for('vote_up', id=question.id) }}"><button class="buttons" type="button">Up Vote</button></a><a href="{{ url_for('vote_down', id=question.id) }}"><button class="buttons" type="button">Down Vote</button></a>
-        </tr>
+        <tbody>
+            {% for question in data %}
+            <tr>
+                <td>{{ question.submission_time }}</td>
+                <td>{{ question.view_number }}</td>
+                <td>{{ question.vote_number }}</td>
+                <td>
+                    <a href="{{ url_for('question', id=question['id']) }}"
+                        >{{ question.title}}</a
+                    >
+                </td>
+                <td>{{ question.message }}</td>
+                <td>
+                    {% if question.image %}
+                    <img
+                        src="static/images/{{ question.image }}"
+                        alt=""
+                        width="250px"
+                        height="180px"
+                    />
+                    {% endif %}
+                </td>
+                <td>
+                    <a
+                        class="buttons"
+                        href="{{ url_for('vote_up', id=question.id) }}"
+                    >
+                        Up Vote
+                    </a>
+                    <a
+                        class="buttons"
+                        href="{{ url_for('vote_down', id=question.id) }}"
+                    >
+                        Down Vote
+                    </a>
+                </td>
+            </tr>
 
-        {% endfor %}
-    </tbody>
+            {% endfor %}
+        </tbody>
     </table>
-    </div>
-    <br>
+</div>
+<br />
 
 {% endblock %}

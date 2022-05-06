@@ -1,25 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="navbar" id="navbar">
-        <ul id="navbar_buttons">
-            <li><p>Ask-Mate</p></li>
-        <li><a href="{{ url_for('list_page') }}">Home Page</a></li>
-        <li><a href="{{ url_for('add_question_page') }}">Ask a question</a></li>
-        </ul>
-    </div>
-    <br>
-    <div class="container">
-    {% block content %}
-    {% endblock %}
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>{% block title %}{% endblock %}</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='style.css') }}"
+        />
+    </head>
+    <body>
+        <div class="navbar" id="navbar">
+            <ul id="navbar_buttons">
+                <li><p>Ask-Mate</p></li>
+                <li><a href="{{ url_for('list_page') }}">Home Page</a></li>
+                <li>
+                    <a href="{{ url_for('add_question_page') }}"
+                        >Ask a question</a
+                    >
+                </li>
+            </ul>
+        </div>
+        <br />
+        <div class="container">{% block content %} {% endblock %}</div>
+    </body>
 </html>
