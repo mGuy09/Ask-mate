@@ -2,12 +2,28 @@ import csv
 
 import data_manager
 
-DATA_HEADER = ['id','submission_time','view_number','vote_number','title','message','image']
-answer_header = ['id','submission_time','vote_number','question_id','message','image']
+DATA_HEADER = [
+    "id",
+    "submission_time",
+    "view_number",
+    "vote_number",
+    "title",
+    "message",
+    "image",
+]
+answer_header = [
+    "id",
+    "submission_time",
+    "vote_number",
+    "question_id",
+    "message",
+    "image",
+]
+
 
 def read_question(data_csv):
     list_of_samples = []
-    with open(data_csv, 'r') as file:
+    with open(data_csv, "r") as file:
         read_csv = csv.DictReader(file)
         for row in read_csv:
             list_of_samples.append(row)
@@ -49,18 +65,17 @@ def delete_answer(data_csv, answer_list):
             writer.writerow(row)
 
 
-def rewrite_question_data(data_csv,question_list):
-    with open(data_csv, 'w') as file:
-        writer = csv.DictWriter(file, fieldnames = DATA_HEADER)
+def rewrite_question_data(data_csv, question_list):
+    with open(data_csv, "w") as file:
+        writer = csv.DictWriter(file, fieldnames=DATA_HEADER)
         writer.writeheader()
         for row in question_list:
             writer.writerow(row)
 
 
-def rewrite_answer_data(data_csv,answer_list):
-    with open(data_csv, 'w') as file:
+def rewrite_answer_data(data_csv, answer_list):
+    with open(data_csv, "w") as file:
         writer = csv.DictWriter(file, fieldnames=answer_header)
         writer.writeheader()
         for row in answer_list:
             writer.writerow(row)
-
