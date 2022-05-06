@@ -3,31 +3,33 @@
 {% block title %}Question {{ id }}{% endblock %}
 
 {% block content %}
-    <h1>Question {{ id }}</h1>
-    <a href="{{ url_for('list_page') }}">Home Page</a>
-{#    <img src="https://image.shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg" alt="">#}
-
-        <button type="button" formmethod="post"> <a href="{{ url_for('delete_question',id=id)}}">Delete question</a></button>
-        <button type="button" formmethod="post"> <a href="{{ url_for('update_question', id = id) }}">Update question</a></button>
-    <br>
-    <h3>{{ question_dict.title }}</h3>
-    <p>{{ question_dict.message }}</p>
-    <p>votes: {{ question_dict.vote_number }}</p>
-    <br>
-    <br>
+    <div id="question_page_header">
+    <h1>{{ question_dict.title }}</h1>
+    </div>
+    <div class="question_buttons">
+        <button class="buttons" type="button" formmethod="post"> <a href="{{ url_for('delete_question',id=id)}}">Delete question</a></button>
+        <button class="buttons" type="button" formmethod="post"> <a href="{{ url_for('update_question', id = id) }}">Update question</a></button>
+    </div>
+    <div class="question_message">
+    <p id="question-message">{{ question_dict.message }}</p>
+    <img src="{{ url_for('static', filename='images/'+question_dict.image) }}" width="250px" alt="" onerror="this.style.display='none'"/>
+    <p id="question-votes">votes: {{ question_dict.vote_number }}</p>
+    </div>
+    <div class="question_answers">
     <label for="">Answers:</label>
     {% for answer in answer_list %}
-        <p>{{ answer.submission_time }}  |  {{ answer.message }}  | votes:  {{ answer.vote_number }} | <a href="{{ url_for('delete_answer', answer_id=answer.id) }}">Delete</a>
+        <p>{{ answer.submission_time }}  |  {{ answer.message }}  | votes:  {{ answer.vote_number }} | <a href="{{ url_for('delete_answer', answer_id=answer.id) }}"><button class="buttons">Delete</button></a> <a href="{{ url_for('answer_vote_up', answer_id=answer.id) }}"><button class="buttons">Up Vote</button></a>
+        <a href="{{ url_for('answer_vote_down', answer_id = answer.id) }}"><button class="buttons">Down Vote</button></a>
         </p>
-        <img src="{{ url_for('static', filename='images/'+answer.image) }}" alt="" width="150px">
-        <br>
-        <a href="{{ url_for('answer_vote_up', answer_id=answer.id) }}"><button>Up Vote</button></a>
-        <a href="{{ url_for('answer_vote_down', answer_id = answer.id) }}"><button>Down Vote</button></a>
+        <img src="{{ url_for('static', filename='images/'+answer.image) }}" width="150px" alt=""/>
+{#        <a href="{{ url_for('answer_vote_up', answer_id=answer.id) }}"><button>Up Vote</button></a>#}
+{#        <a href="{{ url_for('answer_vote_down', answer_id = answer.id) }}"><button>Down Vote</button></a>#}
     {% endfor %}
+
     <br>
     <br>
     <a href="{{ url_for('add_answer', id=id) }}">
-    <button type="button">Answer</button>
+    <button class="buttons" type="button">Answer</button>
     </a>
-
+    </div>
 {% endblock %}

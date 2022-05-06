@@ -15,6 +15,9 @@ def read_question(data_csv):
 
 
 def get_new_id(data_csv):
+    data = read_question(data_csv)
+    if len(data) == 0:
+        return 1
     return max([int(entry.get("id", 0)) for entry in read_question(data_csv)]) + 1
 
 

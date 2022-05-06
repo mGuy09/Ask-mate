@@ -3,17 +3,19 @@
 {% block title %}Answer Question {{ id }}{% endblock %}
 
 {% block content %}
-    <h1>{{ question_dict.title }}:</h1>
-
+    <div id="answer_header">
+    <h1 >Respond to: {{ question_dict.title }}</h1>
+    </div>
+    <div class="form-add-answer">
     <form action="{{ url_for('add_answer', id=id) }}" method="post" name="answer_message" enctype="multipart/form-data">
-        <label for="message"></label>
+        <label id="answer-label" for="message">Message:</label>
+        <br>
         <textarea name="message" id="" cols="30" rows="10"></textarea>
         <br>
         <Label> Select Image File: </Label>
         <input type="file" name="image">
         <br>
         <br>
-        <button type="submit">Submit</button>
-
-    </form>
+        <button id="button-submit-question" type="submit">Submit</button>
+    </form></div>
 {% endblock %}

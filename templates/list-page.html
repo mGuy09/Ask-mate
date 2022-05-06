@@ -1,55 +1,60 @@
 {% extends "base.html" %}
 
-{% block title %}Question List Page{% endblock %}
+{% block title %}Home Page{% endblock %}
 
 {% block content %}
-    <h1>Question list</h1>
-    <br>
-    <br>
+    <div id="list-page-header">
+    <h2>Welcome to the Question List</h2>
+    </div>
+
+    <div id="sort-form">
     <label for="">sort by:</label>
     <form action="{{ url_for('list_page')}}" method="get">
-    <select name="sort" id="sort">
+    <select class="dropdown-sort" name="sort" id="sort">
 
-        <option value="submission_time">time</option>
-        <option value="view_number">view numbers</option>
-        <option value="vote_number">vote numbers</option>
-        <option value="title">title</option>
-        <option value="message">description</option>
+        <option id="dropdown-option" value="submission_time">time</option>
+        <option id="dropdown-option" value="view_number">view numbers</option>
+        <option id="dropdown-option" value="vote_number">vote numbers</option>
+        <option id="dropdown-option" value="title">title</option>
+        <option id="dropdown-option" value="message">description</option>
     </select>
 
-    <select name="direction" id="direction">
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
+    <select class="dropdown-sort" name="direction" id="direction">
+        <option id="dropdown-option" value="asc">Ascending</option>
+        <option id="dropdown-option" value="desc">Descending</option>
     </select>
-    <button type="submit">Order</button>
+    <button class="buttons" type="submit">Order</button>
     </form>
+    </div>
+    <div class="table-list-questions" id="table_questions">
     <table>
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Submission_time</th>
-                <th>View_number</th>
-                <th>Vote_number</th>
+                <th>Submission time</th>
+                <th>View number</th>
+                <th>Vote number</th>
                 <th>Title</th>
                 <th>Message</th>
                 <th>Image</th>
                 <th>Vote Up/Down</th>
             </tr>
         </thead>
+    <tbody>
         {% for question in data %}
         <tr>
-            <td>{{ question.id }}</td>
             <td>{{ question.submission_time }}</td>
             <td>{{ question.view_number }}</td>
             <td>{{ question.vote_number  }}</td>
             <td><a href="{{ url_for('question', id=question['id']) }}">{{ question.title}}</a></td>
             <td>{{ question.message }}</td>
-            <td><img src="static/images/{{ question.image }}" alt="" width="250px" height="200px"></td>
-            <td><a href="{{ url_for('vote_up', id=question.id) }}"><button type="button">Up Vote</button></a><a href="{{ url_for('vote_down', id=question.id) }}"><button type="button">Down Vote</button></a>
+            <td><img src="static/images/{{ question.image }}" onerror="this.style.display='none'" alt="" width="250px" height="180px"></td>
+            <td><a href="{{ url_for('vote_up', id=question.id) }}"><button class="buttons" type="button">Up Vote</button></a><a href="{{ url_for('vote_down', id=question.id) }}"><button class="buttons" type="button">Down Vote</button></a>
         </tr>
 
         {% endfor %}
+    </tbody>
     </table>
+    </div>
     <br>
-    <a href="{{ url_for('add_question_page') }}">Ask a question</a>
+
 {% endblock %}

@@ -3,16 +3,18 @@
 {% block title %}Add Question{% endblock %}
 
 {% block content %}
+    <div id="add-question-page-header">
     <h1>Add a question</h1>
-    <br>
+    </div>
+    <div class="form-add-question">
     <form action="{{ url_for('add_question_page') }}" method='post' enctype="multipart/form-data">
-        <label for="">
-            Question's title:
+        <label class="mandatory-labels" for="">
+            Question's title*:
             <br>
-            <input type="text" name="title" required>
+            <input id="input-add-question" type="text" name="title" required>
         </label>
         <br>
-        <label for="">
+        <label id="label-add-question" for="">
             Message:
             <br>
             <textarea name="message" cols="25" rows="10" required style="resize: none"></textarea>
@@ -23,8 +25,10 @@
         <input type="file" name="image">
         <br>
         <br>
-        <button type="submit" value="Upload">Submit Question</button>
+        <button id="button-submit-question" type="submit" value="Upload">Submit Question</button>
     </form>
-
-
+    </div>
+    <div class="footer">
+        <p>Sections with (*) are mandatory</p>
+    </div>
 {% endblock %}
