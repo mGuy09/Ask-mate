@@ -44,7 +44,7 @@ def add_question():
 def add_answer(question_id):
     message = request.form.get('message')
     if request.method == 'POST':
-        data_manager.add_answer(message, question_id)
+        data_manager.add_data_answer(question_id,message)
         return redirect(url_for('question', id=question_id))
     return render_template('answer_question.html', message=message)
 

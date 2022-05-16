@@ -42,6 +42,15 @@ def add_question(cursor,title,message,image):
     return id
 
 
+@connection.connection_handler
+def add_data_answer(cursor,question_id,message):
+    query = f'''
+        insert into answer(submission_time,vote_number,question_id,message,image)
+        values (now(),0,'{question_id}','{message}',null)
+        
+    '''
+    value = {'question_id':question_id,'message':message}
+    cursor.execute(query,value)
 
 
 
