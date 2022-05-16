@@ -27,6 +27,17 @@ def get_question(cursor,id):
     value = {'id': id}
     cursor.execute(query,value)
     return cursor.fetchall()
+
+
+@connection.connection_handler
+def add_question(cursor,submission_time,view_number,vote_number,title,message,image):
+    query = '''
+        insert into question(submission_time,view_number,vote_number,title,message,image)
+        values ('{submission_time}','{view_number}','{vote_number}','{title}','{message}','{image}')
+    '''
+    cursor.execute(query)
+
+
 # def get_data(csv_file):
 #     return connection.read_question(csv_file)
 #

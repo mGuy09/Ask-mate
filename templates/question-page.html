@@ -1,16 +1,16 @@
-{#{% extends "base.html" %} {% block title %}Question {{ id }}{% endblock %} {%#}
-{#block content %}#}
-{#<div id="question_page_header">#}
-{#    <h1>{{ question_dict.title }}</h1>#}
-{#</div>#}
+{% extends "base.html" %} {% block title %}Question {{ id }}{% endblock %} {%
+block content %}
+<div id="question_page_header">
+    <h1>{{ question_dict.title }}</h1>
+</div>
 {#<div class="question_buttons">#}
 {#    <a class="buttons" href="{{ url_for('delete_question',id=id)}}"#}
 {#        >Delete question</a#}
 {#    >#}
 {#    <a class="buttons" href="{{ url_for('update_question', id = id) }}"#}
 {#        >Update question</a#}
-{#    >#}
-{#</div>#}
+    >
+</div>
 {#<div class="question_message">#}
 {#    <p id="question-message">{{ question_dict.message }}</p>#}
 {#    {% if question_dict.image %}#}
@@ -54,5 +54,5 @@
 {#    <br />#}
 {#    <br />#}
 {#    <a class="buttons" href="{{ url_for('add_answer', id=id) }}"> Answer </a>#}
-{#</div>#}
-{#{% endblock %}#}
+</div>
+{% endblock %}
