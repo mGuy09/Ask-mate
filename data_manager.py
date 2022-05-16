@@ -79,9 +79,7 @@ def delete_data(cursor, id):
 @connection.connection_handler
 def update_data_question(cursor,id,title,message):
     cursor.execute('''
-    Update question SET title = %s, message = %s 
-    where id = %s, (title,message)
-    ''')
+    Update question SET title = %s, message = %s where id = %s ''',(title,message,id))
 
 
 # def get_data(csv_file):

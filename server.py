@@ -49,17 +49,21 @@ def delete_question(id):
 
     return redirect(url_for('list_page'))
 
-@app.route('/question/<id>/edit', methods= ['POST'])
+
+@app.route('/question/<id>/edit', methods= ['POST','GET'])
 def update_question(id):
     question = data_manager.get_question(id)
-    title = question['title']
-    message = question['message']
+    current = question
+
+
+
     if request.method == 'POST':
+
         title = request.form.get("title")
         message = request.form.get("message")
         data_manager.update_data_question(id, title, message)
-        return redirect(url_for('question'))
-    return render_template('edit_question.html', question=question, id=id)
+        return redirect(url_for('question',id=id))
+    return render_template('edit_question.html', question=current, id=id)
 
 
 

@@ -8,7 +8,7 @@ block content %}
 <div class="form-edit-question">
     <form
         id="form"
-        action="{{ url_for('update_question', id = result.id) }}"
+        action="{{ url_for('update_question', id = question.id) }}"
         method="post"
     >
         <label for="title">Title:</label>
@@ -17,7 +17,7 @@ block content %}
             id="title"
             name="title"
             required
-            value="{{ result.title }}"
+            value="{{ question.title }}"
         />
         <br />
         <br />
@@ -30,7 +30,7 @@ block content %}
             required
             style="resize: none"
         >
-    {{ result.message }}</textarea
+{{ question.message }}</textarea
         >
         <br />
         <br />
