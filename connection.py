@@ -2,7 +2,7 @@ import os
 from psycopg2 import sql
 from psycopg2.extras import RealDictCursor
 from typing import List, Dict
-
+import psycopg2
 
 def get_connection_string():
 

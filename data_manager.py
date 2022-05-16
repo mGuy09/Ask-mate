@@ -1,6 +1,5 @@
 import connection
 
-import util
 
 
 @connection.connection_handler
