@@ -22,7 +22,7 @@ from werkzeug.utils import secure_filename
 
 
 def delete_image(item, id):
-    if item["id"] == int(id):
+    if item["id"] == int(id) and item['image'] != '<null>':
         os.remove(
             os.path.join(
                 os.path.dirname(__file__),
@@ -34,7 +34,7 @@ def delete_image(item, id):
 
 
 def upload_image():
-    if len(request.files):
+    if len(request.files) > 1:
         image = request.files["image"]
         path = os.path.join(
             os.path.dirname(__file__),
@@ -44,7 +44,7 @@ def upload_image():
         )
         image.save(path)
         return secure_filename(image.filename)
-    return ""
+    return "<null>"
 
 #
 # def vote_question(data, id, modifier):
