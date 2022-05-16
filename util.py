@@ -22,16 +22,15 @@ from werkzeug.utils import secure_filename
 
 
 def delete_image(item, id):
-    for i in item:
-        if i["id"] == id and i["image"]:
-            os.remove(
-                os.path.join(
-                    os.path.dirname(__file__),
-                    "static",
-                    "images",
-                    item["image"],
-                )
+    if item["id"] == int(id):
+        os.remove(
+            os.path.join(
+                os.path.dirname(__file__),
+                "static",
+                "images",
+                item["image"],
             )
+        )
 
 
 def upload_image():

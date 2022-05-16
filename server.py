@@ -44,8 +44,7 @@ def add_answer(id):
 
 @app.route("/question/<id>/delete")
 def delete_question(id):
-    question_data = data_manager.get_question(id)
-    util.delete_image(question_data, id)
+    util.delete_image(dict(data_manager.get_question(id)), id)
     data_manager.delete_data(id)
 
     return redirect(url_for('list_page'))
