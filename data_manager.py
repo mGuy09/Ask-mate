@@ -33,7 +33,7 @@ def get_question(cursor: RealDictCursor, id:int):
 def add_question(cursor,title,message,image):
     query = f'''
         insert into question(submission_time,view_number,vote_number,title,message,image)
-        values (now(),0,0, '{title}' , '{message}' ,null)
+        values (now(),0,0, '{title}' , '{message}' ,'{image}')
         returning id;
     '''
     # value = {'tile':title,'message':message,'image':image}
@@ -43,10 +43,10 @@ def add_question(cursor,title,message,image):
 
 
 @connection.connection_handler
-def add_data_answer(cursor,question_id,message):
+def add_data_answer(cursor,question_id,message, image):
     query = f'''
         insert into answer(submission_time,vote_number,question_id,message,image)
-        values (now(),0,{question_id}, '{message}' ,null)
+        values (now(),0,{question_id}, '{message}' ,'{image}')
         returning question_id
     '''
     # value = {'question_id':question_id,'message':message}

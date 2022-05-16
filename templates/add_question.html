@@ -2,15 +2,20 @@
 {% block content %}
     <h1>Add Question</h1>
     <br>
-    <form action="{{ url_for('add_question') }}" method="post">
+    <form action="{{ url_for('add_question') }}" method="post" enctype="multipart/form-data">
     <label for="">title:</label>
         <br>
-    <input type="text" name="title" required>
+    <input type="text" name="title" required >
     <br>
         <br>
     <label for="">message:</label>
         <br>
     <textarea name="message" id="" cols="30" rows="10" style="resize: none" required></textarea>
-    <button type="submit">Submit</button>
+        <br>
+        <label for="image"> Select Image File: </label>
+        <input type="file" id="image" name="image" />
+        <br>
+
+        <button type="submit">Submit</button>
     </form>
 {% endblock %}

@@ -4,11 +4,13 @@
 {% block title %} Question {% endblock %}
 
 {% block content %}
-
-<label>Question Title:</label>
-    <p> {{ question.title }} </p>
+<h1>{{ question.title }}</h1>
+    <br>
+    <br>
+    <a href="{{ url_for('delete_question', id=question.id) }}">Delete Question</a>
+    <br>
 <label>Question message</label>
     <p>{{ question.message}}</p>
     <a href="{{ url_for('add_answer', id=question.id)}}">add answer</a>
-    <a  href="{{ url_for('delete_question', id=question.id) }}">delete question</a>
+
 {% endblock %}

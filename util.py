@@ -1,7 +1,7 @@
 # from datetime import datetime
-# import os
-# from flask import request, redirect, url_for
-# from werkzeug.utils import secure_filename
+import os
+from flask import request, redirect, url_for
+from werkzeug.utils import secure_filename
 # from data_manager
 # from connection import rewrite_question_data, rewrite_answer_data
 #
@@ -19,34 +19,34 @@
 #     now = now.strftime("%d/%m/%Y %H:%M:%S:%fff")
 #     now = datetime.strptime(now, "%d/%m/%Y %H:%M:%S:%fff")
 #     current_time = now.timestamp() * 1000
-#     return current_time
-#
-#
-# def delete_image(item, id):
-#     if item["id"] == id and item["image"]:
-#         os.remove(
-#             os.path.join(
-#                 os.path.dirname(__file__),
-#                 "static",
-#                 "images",
-#                 item["image"],
-#             )
-#         )
-#
-#
-# def upload_image():
-#     if len(request.files):
-#         image = request.files["image"]
-#         path = os.path.join(
-#             os.path.dirname(__file__),
-#             "static",
-#             "images",
-#             secure_filename(image.filename),
-#         )
-#         image.save(path)
-#         return secure_filename(image.filename)
-#     return ""
-#
+
+
+def delete_image(item, id):
+    for i in item:
+        if i["id"] == id and i["image"]:
+            os.remove(
+                os.path.join(
+                    os.path.dirname(__file__),
+                    "static",
+                    "images",
+                    item["image"],
+                )
+            )
+
+
+def upload_image():
+    if len(request.files):
+        image = request.files["image"]
+        path = os.path.join(
+            os.path.dirname(__file__),
+            "static",
+            "images",
+            secure_filename(image.filename),
+        )
+        image.save(path)
+        return secure_filename(image.filename)
+    return ""
+
 #
 # def vote_question(data, id, modifier):
 #     question_data = get_data(data)
