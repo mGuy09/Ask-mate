@@ -1,58 +1,17 @@
-{% extends "base.html" %} {% block title %}Question {{ id }}{% endblock %} {%
-block content %}
-<div id="question_page_header">
-    <h1>{{ question_dict.title }}</h1>
-</div>
-{#<div class="question_buttons">#}
-{#    <a class="buttons" href="{{ url_for('delete_question',id=id)}}"#}
-{#        >Delete question</a#}
-{#    >#}
-{#    <a class="buttons" href="{{ url_for('update_question', id = id) }}"#}
-{#        >Update question</a#}
-    >
-</div>
-{#<div class="question_message">#}
-{#    <p id="question-message">{{ question_dict.message }}</p>#}
-{#    {% if question_dict.image %}#}
-{#    <img#}
-{#        src="{{ url_for('static', filename=f'images/{question_dict.image}') }}"#}
-{#        width="250px"#}
-{#        alt=""#}
-{#    />#}
-{#    {% endif %}#}
-{#    <p id="question-votes">votes: {{ question_dict.vote_number }}</p>#}
-{#</div>#}
-{#<div class="question_answers">#}
-{#    <label for="">Answers:</label>#}
-{#    {% for answer in answer_list %}#}
-{#    <p>#}
-{#        {{ answer.submission_time }} | {{ answer.message }} | votes: {{#}
-{#        answer.vote_number }} |#}
-{#        <a#}
-{#            class="buttons"#}
-{#            href="{{ url_for('delete_answer', answer_id=answer.id) }}"#}
-{#            >Delete</a#}
-{#        >#}
-{#        <a#}
-{#            class="buttons"#}
-{#            href="{{ url_for('answer_vote_up', answer_id=answer.id) }}"#}
-{#            >Up Vote</a#}
-{#        >#}
-{#        <a#}
-{#            class="buttons"#}
-{#            href="{{ url_for('answer_vote_down', answer_id = answer.id) }}"#}
-{#            >Down Vote</a#}
-{#        >#}
-{#    </p>#}
-{#    <img#}
-{#        src="{{ url_for('static', filename='images/'+answer.image) }}"#}
-{#        width="150px"#}
-{#        alt=""#}
-{#    />#}
-{#    {% endfor %}#}
-{##}
-{#    <br />#}
-{#    <br />#}
-{#    <a class="buttons" href="{{ url_for('add_answer', id=id) }}"> Answer </a>#}
-</div>
+{% extends "base.html" %}
+
+
+{% block title %} Question {% endblock %}
+
+{% block content %}
+<label>Question Title:</label>
+    <p> {{ question.title }}</p>
+<label>Question message</label>
+    <p>{{ question.message }}</p>
+
+
 {% endblock %}
+
+
+
+
