@@ -51,10 +51,19 @@ def add_data_answer(cursor,question_id,message):
     '''
     # value = {'question_id':question_id,'message':message}
     cursor.execute(query)
-    id = cursor.fetchone()['question_id']
+    # id = cursor.fetchone()['question_id']
     # return id
 
 
+@connection.connection_handler
+def sort_question_data(cursor,sorting,direction):
+    query = f'''
+        select *
+        from question
+        order by {sorting} {direction};
+    '''
+    cursor.execute(query)
+    return cursor.fetchall()
 
 
 

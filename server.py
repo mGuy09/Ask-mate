@@ -9,7 +9,11 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route("/")
 @app.route("/list")
 def list_page():
-    return render_template("list-page.html", data=data_manager.get_data_question())
+    sorting = request.args.get('sort',default='submission_time')
+    direction = request.args.get('direction',default=True)
+    question_data = data_manager.sort_question_data(sorting,direction)
+
+    return render_template("list-page.html", data=question_data)
 
 
 @app.route('/question/<id>',methods = ['POST','GET'])
