@@ -34,7 +34,7 @@ def delete_image(item, id):
 
 
 def upload_image():
-    if request.files is not None:
+    if request.files == '':
         image = request.files["image"]
         path = os.path.join(
             os.path.dirname(__file__),
