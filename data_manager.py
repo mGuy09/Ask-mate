@@ -106,6 +106,15 @@ def delete_answer(cursor,id):
 
 
 @connection.connection_handler
+def delete_answers_by_question(cursor, question_id):
+    query = '''
+        delete from answer where question_id=%(question_id)s
+    '''
+    value = {'question_id': question_id}
+    cursor.execute(query, value)
+
+
+@connection.connection_handler
 def update_data_question(cursor,id,title,message):
     cursor.execute('''
     Update question SET title = %s, message = %s where id = %s ''',(title,message,id))
