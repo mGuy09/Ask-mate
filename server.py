@@ -36,7 +36,11 @@ def add_answer(id):
         return redirect(url_for('question', id=id))
     return render_template('answer_question.html', id=id)
 
-
+@app.route("/question/<id>/delete", methods=['GET', 'POST'])
+def delete_question(id):
+    if request.method == 'POST':
+        data_manager.delete_data(id)
+    return redirect(url_for('list'))
 
 if __name__ == "__main__":
     app.run(debug=True)

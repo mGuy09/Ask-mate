@@ -54,8 +54,13 @@ def add_data_answer(cursor,question_id,message):
     id = cursor.fetchone()['question_id']
     # return id
 
-
-
+@connection.connection_handler
+def delete_data(cursor, id):
+    query = """
+        DELETE FROM question WHERE id = %(id)s
+    """
+    value = {'id': id}
+    cursor.execute(query, value)
 
 
 
