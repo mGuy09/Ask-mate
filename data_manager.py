@@ -15,6 +15,18 @@ def get_data(cursor):
     cursor.execute(query)
     return cursor.fetchall()
 
+
+
+@connection.connection_handler
+def get_question(cursor,id):
+    query = '''
+        select submission_time,view_number,vote_number,title,message,image
+        from question
+        where id = %(id)s
+    '''
+    value = {'id': id}
+    cursor.execute(query,value)
+    return cursor.fetchall()
 # def get_data(csv_file):
 #     return connection.read_question(csv_file)
 #

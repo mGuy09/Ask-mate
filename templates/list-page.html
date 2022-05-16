@@ -46,7 +46,7 @@ content %}
                 <td>{{ question.view_number }}</td>
                 <td>{{ question.vote_number }}</td>
                 <td>
-                    <a href="{{ url_for('question', id=question['id']) }}"
+{#                    <a href="{{ url_for('question', id=question['id']) }}"#}
                         >{{ question.title}}</a
                     >
                 </td>
@@ -54,7 +54,7 @@ content %}
                 <td>
                     {% if question.image %}
                     <img
-                        src="static/images/{{ question.image }}"
+{#                        src="static/images/{{ question.image }}"#}
                         alt=""
                         width="250px"
                         height="180px"
@@ -64,13 +64,13 @@ content %}
                 <td>
                     <a
                         class="buttons"
-                        href="{{ url_for('vote_up', id=question.id) }}"
+{#                        href="{{ url_for('vote_up', id=question.id) }}"#}
                     >
                         Up Vote
                     </a>
                     <a
                         class="buttons"
-                        href="{{ url_for('vote_down', id=question.id) }}"
+{#                        href="{{ url_for('vote_down', id=question.id) }}"#}
                     >
                         Down Vote
                     </a>

@@ -23,6 +23,12 @@ def list_page():
 
     return render_template("list-page.html", data=question_data)
 
+
+@app.route('/question/<id>')
+def question(id):
+
+
+
 #
 # @app.route("/question/<id>")
 # def question(id):
