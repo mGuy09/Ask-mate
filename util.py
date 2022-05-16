@@ -19,6 +19,7 @@ from werkzeug.utils import secure_filename
 #     now = now.strftime("%d/%m/%Y %H:%M:%S:%fff")
 #     now = datetime.strptime(now, "%d/%m/%Y %H:%M:%S:%fff")
 #     current_time = now.timestamp() * 1000
+import data_manager
 
 
 def delete_image(item, id):
@@ -46,17 +47,18 @@ def upload_image():
         return secure_filename(image.filename)
     return "<null>"
 
-#
+
+
 # def vote_question(data, id, modifier):
-#     question_data = get_data(data)
+#     question_data = data_manager.get_data_question()
 #     for question in question_data:
 #         if question["id"] == id:
 #             question["vote_number"] = int(question["vote_number"]) + modifier
 #
 #     rewrite_question_data(data, question_data)
 #     return redirect(url_for("list_page"))
-#
-#
+
+
 # def vote_answer(data, id, modifier):
 #     answer_data = get_data(data)
 #     for answer in answer_data:
