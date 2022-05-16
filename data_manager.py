@@ -18,14 +18,14 @@ def get_data_question(cursor):
 
 
 @connection.connection_handler
-def get_question(cursor: RealDictCursor,id:int):
-    query = '''
+def get_question(cursor: RealDictCursor, id:int):
+    query = f'''
         select id,submission_time,view_number,vote_number,title,message,image
         from question
-        where id = %(id)s
+        where id = {id}
     '''
-    value = {'id': id}
-    cursor.execute(query,value)
+    # value = {'id': id}
+    cursor.execute(query)
     return cursor.fetchone()
 
 
@@ -33,11 +33,11 @@ def get_question(cursor: RealDictCursor,id:int):
 def add_question(cursor,title,message,image):
     query = f'''
         insert into question(submission_time,view_number,vote_number,title,message,image)
-        values (now(),0,0,'{title}','{message}',null)
+        values (now(),0,0, '{title}' , '{message}' ,null)
         returning id;
     '''
-    value = {'tile':title,'message':message,'image':image}
-    cursor.execute(query,value)
+    # value = {'tile':title,'message':message,'image':image}
+    cursor.execute(query)
     id = cursor.fetchone()['id']
     return id
 
@@ -46,12 +46,13 @@ def add_question(cursor,title,message,image):
 def add_data_answer(cursor,question_id,message):
     query = f'''
         insert into answer(submission_time,vote_number,question_id,message,image)
-        values (now(),0,'{question_id}','{message}',null)
-        
+        values (now(),0,{question_id}, '{message}' ,null)
+        returning question_id
     '''
-    value = {'question_id':question_id,'message':message}
-    cursor.execute(query,value)
-
+    # value = {'question_id':question_id,'message':message}
+    cursor.execute(query)
+    id = cursor.fetchone()['question_id']
+    # return id
 
 
 

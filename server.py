@@ -12,7 +12,7 @@ def list_page():
     return render_template("list-page.html", data=data_manager.get_data_question())
 
 
-@app.get('/question/<id>')
+@app.route('/question/<id>',methods = ['POST','GET'])
 def question(id):
     return render_template('question-page.html', question=data_manager.get_question(id), id=id)
 
@@ -34,7 +34,8 @@ def add_answer(id):
         message = request.form.get('message')
         data_manager.add_data_answer(id, message)
         return redirect(url_for('question', id=id))
-    return render_template('answer_question.html')
+    return render_template('answer_question.html', id=id)
+
 
 
 if __name__ == "__main__":
