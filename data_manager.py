@@ -18,22 +18,22 @@ def get_data(cursor):
 
 
 @connection.connection_handler
-def get_question(cursor,id):
+def get_question(cursor: RealDictCursor,id:int):
     query = '''
-        select submission_time,view_number,vote_number,title,message,image
+        select id,submission_time,view_number,vote_number,title,message,image
         from question
         where id = %(id)s
     '''
     value = {'id': id}
     cursor.execute(query,value)
-    return cursor.fetchall()
+    return cursor.fetchone()
 
 
 @connection.connection_handler
 def add_question(cursor,submission_time,view_number,vote_number,title,message,image):
     query = '''
         insert into question(submission_time,view_number,vote_number,title,message,image)
-        values ('{submission_time}','{view_number}','{vote_number}','{title}','{message}','{image}')
+        values (now(),'0','0','{title}','{message}','{image}')
     '''
     cursor.execute(query)
 

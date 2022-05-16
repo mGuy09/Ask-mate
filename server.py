@@ -27,8 +27,20 @@ def list_page():
 @app.route('/question/<id>')
 def question(id):
     question = data_manager.get_question(id)
-    return render_template('question-page.html', question=question, id=id)
+    print(question)
+    return render_template('question-page.html', question=question)
 
+
+
+@app.route('/add_question',methods = ['POST','GET'])
+def add_question():
+    if request.method == 'POST':
+        view_number = request.form.get('view_number')
+        vote_number = request.form.get('vote_number')
+        title = request.form.get('title')
+        message = request.form.get('message')
+        image = request.form.get('image')
+        data_manager.add_question(view_number,vote_number,title,message,image)
 
 #
 # @app.route("/question/<id>")
