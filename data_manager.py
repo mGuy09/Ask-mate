@@ -1,5 +1,9 @@
-import connection
+from typing import List, Dict
 
+from psycopg2 import sql
+from psycopg2.extras import RealDictCursor
+
+import connection
 
 
 @connection.connection_handler
@@ -9,7 +13,7 @@ def get_data(cursor):
         from question
     '''
     cursor.execute(query)
-    return cursor.fetachall()
+    return cursor.fetchall()
 
 # def get_data(csv_file):
 #     return connection.read_question(csv_file)
