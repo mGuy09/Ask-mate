@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 import data_manager
 import util
 import os
-from werkzeug.utils import secure_filename
 import connection
 
 app = Flask(__name__)
