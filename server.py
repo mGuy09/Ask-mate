@@ -54,17 +54,18 @@ def delete_question(id):
 def update_question(id):
     question = data_manager.get_question(id)
     current = question
-
-
-
     if request.method == 'POST':
-
         title = request.form.get("title")
         message = request.form.get("message")
         data_manager.update_data_question(id, title, message)
         return redirect(url_for('question',id=id))
     return render_template('edit_question.html', question=current, id=id)
 
+
+@app.route('/answer/<id>/delete')
+def delete_answer(id):
+    util.delete_image(dict(data_manager.get_question(id)), id)
+    data_manager
 
 
 if __name__ == "__main__":

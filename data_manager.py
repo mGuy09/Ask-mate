@@ -15,6 +15,14 @@ def get_data_question(cursor):
     cursor.execute(query)
     return cursor.fetchall()
 
+@connection.connection_handler
+def get_data_answer(cursor):
+    query = '''
+        select *
+        from answer
+    '''
+    cursor.execute(query)
+    return cursor.fetchall()
 
 
 @connection.connection_handler
