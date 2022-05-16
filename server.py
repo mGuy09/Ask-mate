@@ -68,6 +68,19 @@ def vote_down(id):
     return redirect(url_for('list_page'))
 
 
+@app.route('/answer/<answer_id>/vote-up')
+def vote_up_answer(answer_id):
+    data_manager.vote_on_answer(answer_id, 1)
+    answer = dict(data_manager.get_answer(answer_id))
+    return redirect(url_for('question', id=answer['question_id']))
+
+
+@app.route('/answer/<answer_id>/vote-down')
+def vote_down_answer(answer_id):
+    data_manager.vote_on_answer(answer_id, -1)
+    answer = dict(data_manager.get_answer(answer_id))
+    return redirect(url_for('question', id=answer['question_id']))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

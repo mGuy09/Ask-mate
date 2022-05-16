@@ -120,6 +120,14 @@ def vote_on_question(cursor,id,modifier):
     cursor.execute(query)
 
 
+@connection.connection_handler
+def vote_on_answer(cursor,id,modifier):
+    query = f'''
+        update answer set vote_number = vote_number + {modifier} 
+        where id ={id}
+    '''
+    cursor.execute(query)
+
 # def get_data(csv_file):
 #     return connection.read_question(csv_file)
 #
