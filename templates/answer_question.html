@@ -1,24 +1,12 @@
-{#{% extends "base.html" %} {% block title %}Answer Question {{ id }}{% endblock#}
-{#%} {% block content %}#}
-{#<div id="answer_header">#}
-{#    <h1>Respond to: {{ question_dict.title }}</h1>#}
-{#</div>#}
-{#<div class="form-add-answer">#}
-{#    <form#}
-{#        action="{{ url_for('add_answer', id=id) }}"#}
-{#        method="post"#}
-{#        name="answer_message"#}
-{#        enctype="multipart/form-data"#}
-{#    >#}
-{#        <label id="answer-label" for="message">Message:</label>#}
-{#        <br />#}
-{#        <textarea name="message" id="message" cols="30" rows="10"></textarea>#}
-{#        <br />#}
-{#        <label for="image"> Select Image File: </label>#}
-{#        <input type="file" id="image" name="image" />#}
-{#        <br />#}
-{#        <br />#}
-{#        <button id="button-submit-question" type="submit">Submit</button>#}
-{#    </form>#}
-{#</div>#}
-{#{% endblock %}#}
+{% extends 'base.html' %}{% block title %}Add Answer{% endblock %}
+{% block content %}
+    <h1>Add Answer</h1>
+    <br>
+    <form action="{{ url_for('add_answer', id=id) }}" method="post">
+        <label for="">message:</label>
+        <br>
+        <textarea name="message" id="message" cols="30" rows="10" style="resize: none"></textarea>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
