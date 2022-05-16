@@ -10,9 +10,5 @@
 <label>Question message</label>
     <p>{{ question.message}}</p>
     <a href="{{ url_for('add_answer', id=question.id)}}">add answer</a>
-
+    <a  href="{{ url_for('delete_question', id=question.id) }}">delete question</a>
 {% endblock %}
-
-
-
-

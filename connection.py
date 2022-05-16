@@ -7,8 +7,6 @@ load_dotenv()
 
 def get_connection_string():
 
-
-
     user_name = os.environ.get('PSQL_USER_NAME')
     password = os.environ.get('PSQL_PASSWORD')
     host = os.environ.get('PSQL_HOST')

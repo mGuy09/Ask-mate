@@ -65,6 +65,7 @@ def sort_question_data(cursor,sorting,direction):
     cursor.execute(query)
     return cursor.fetchall()
 
+
 @connection.connection_handler
 def delete_data(cursor, id):
     query= """
