@@ -10,7 +10,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route("/list")
 def list_page():
     sorting = request.args.get('sort',default='submission_time')
-    direction = request.args.get('direction',default='desc')
+    direction = request.args.get('direction', default='desc')
     question_data = data_manager.sort_question_data(sorting,direction)
 
     return render_template("list-page.html", data=question_data)
@@ -40,7 +40,11 @@ def add_answer(id):
         return redirect(url_for('question', id=id))
     return render_template('answer_question.html', id=id)
 
-
+@app.route("/question/<id>/delete", methods=['GET', 'POST'])
+def delete_question(id):
+    if request.method == 'POST':
+        data_manager.delete_data(id)
+    return redirect(url_for('list'))
 
 if __name__ == "__main__":
     app.run(debug=True)

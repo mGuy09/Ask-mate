@@ -1,15 +1,13 @@
 import psycopg2
 import psycopg2.extras
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def get_connection_string():
 
-    os.environ['PSQL_USER_NAME'] = 'postgres'
-    os.environ['PSQL_PASSWORD'] = 'postgres'
-    os.environ['PSQL_HOST'] = 'localhost'
-    os.environ['PSQL_DB_NAME'] = 'sample_data'
+
 
     user_name = os.environ.get('PSQL_USER_NAME')
     password = os.environ.get('PSQL_PASSWORD')
