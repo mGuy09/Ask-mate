@@ -82,6 +82,17 @@ def delete_data(cursor, id):
     value = {'id': id}
     cursor.execute(query, value)
 
+@connection.connection_handler
+def delete_answer(cursor,id):
+    query = '''
+        delete from answer where id = %(id)s
+    '''
+    value = {'id':id}
+    cursor.execute(query,value)
+
+
+
+
 
 
 @connection.connection_handler
