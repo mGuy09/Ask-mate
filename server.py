@@ -15,7 +15,8 @@ def list_page():
 
 @app.route('/question/<id>',methods = ['POST','GET'])
 def question(id):
-    return render_template('question-page.html', question=data_manager.get_question(id),answers=data_manager.get_data_answer(id), id=id)
+    return render_template('question-page.html', question=data_manager.get_question(id),answers=data_manager.get_data_answer(id),
+                           comments= data_manager.get_comment(id), id=id)
 
 
 @app.route('/add-question', methods=['GET','POST'])
@@ -82,6 +83,14 @@ def vote_down_answer(answer_id):
     data_manager.vote_on_answer(answer_id, -1)
     answer = dict(data_manager.get_answer(answer_id))
     return redirect(url_for('question', id=answer['question_id']))
+
+
+@app.route('/question/<id>/new-comment', methods= ['GET', 'POST'])
+def add_comment(id):
+    if request.method == 'POST':
+        data_manager.add_comment(id, request.form.get('message'))
+        return redirect(url_for('question', id=id))
+    return render_template('new-comment.html', id=id,)
 
 
 if __name__ == "__main__":

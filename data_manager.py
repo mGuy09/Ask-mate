@@ -2,7 +2,7 @@ from typing import List, Dict
 
 from psycopg2 import sql
 from psycopg2.extras import RealDictCursor
-
+import datetime
 import connection
 
 
@@ -136,6 +136,27 @@ def vote_on_answer(cursor,id,modifier):
         where id ={id}
     '''
     cursor.execute(query)
+
+@connection.connection_handler
+def add_comment(cursor, question_id, message):
+    query = f'''
+    INSERT INTO comment(question_id,  message, submission_time, edited_count)
+    VALUES({question_id}, '{message}', now(), 0)
+    returning question_id
+    '''
+    cursor.execute(query)
+
+
+@connection.connection_handler
+def get_comment(cursor: RealDictCursor, question_id):
+    query = """
+    SELECT  *
+    FROM comment WHERE  question_id = %(question_id)s;
+    """
+    value = {'question_id':question_id}
+    cursor.execute(query, value)
+    return cursor.fetchall()
+
 
 # def get_data(csv_file):
 #     return connection.read_question(csv_file)
