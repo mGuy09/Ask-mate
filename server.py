@@ -55,5 +55,19 @@ def delete_answer(answer_id):
 
     return redirect(url_for('question', id=data_manager.delete_answer(answer_id)))
 
+
+@app.route('/question/<id>/vote-up')
+def vote_up(id):
+    data_manager.vote_on_question(id, 1)
+    return redirect(url_for('list_page'))
+
+
+@app.route('/question/<id>/vote-down')
+def vote_down(id):
+    data_manager.vote_on_question(id, -1)
+    return redirect(url_for('list_page'))
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -112,9 +112,9 @@ def update_data_question(cursor,id,title,message):
 
 
 @connection.connection_handler
-def vote_on_question(cursor,id,vote_number,modifier):
+def vote_on_question(cursor,id,modifier):
     query = f'''
-        update question set vote_number = {vote_number}+{modifier} 
+        update question set vote_number = vote_number + {modifier} 
         where id ={id}
     '''
     cursor.execute(query)
