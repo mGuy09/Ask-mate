@@ -26,7 +26,8 @@ def list_page():
 
 @app.route('/question/<id>')
 def question(id):
-
+    question = data_manager.get_question(id)
+    return render_template('question-page.html', question=question, id=id)
 
 
 #
