@@ -42,11 +42,11 @@ def add_question():
 
 @app.route("/question/<question_id>/new-answer", methods=["GET", "POST"])
 def add_answer(question_id):
-    message = request.form.get('message')
     if request.method == 'POST':
-        data_manager.add_data_answer(question_id,message)
+        message = request.form.get('message')
+        data_manager.add_data_answer(question_id, message)
         return redirect(url_for('question', id=question_id))
-    return render_template('answer_question.html', message=message)
+    return render_template('answer_question.html', id = question_id)
 
 
 # @app.route("/question/<id>")
