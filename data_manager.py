@@ -7,7 +7,7 @@ import connection
 
 
 @connection.connection_handler
-def get_data(cursor):
+def get_data_question(cursor):
     query = '''
         select * 
         from question
@@ -30,12 +30,23 @@ def get_question(cursor: RealDictCursor,id:int):
 
 
 @connection.connection_handler
-def add_question(cursor,submission_time,view_number,vote_number,title,message,image):
-    query = '''
+def add_question(cursor,title,message,image):
+    query = f'''
         insert into question(submission_time,view_number,vote_number,title,message,image)
-        values (now(),'0','0','{title}','{message}','{image}')
+        values (now(),0,0,'{title}','{message}',null)
+        returning id;
     '''
-    cursor.execute(query)
+    value = {'tile':title,'message':message,'image':image}
+    cursor.execute(query,value)
+    id = cursor.fetchone()['id']
+    return id
+
+
+
+
+
+
+
 
 
 # def get_data(csv_file):

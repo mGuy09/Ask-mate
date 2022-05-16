@@ -15,7 +15,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route("/")
 @app.route("/list")
 def list_page():
-    question_data = data_manager.get_data()
+    question_data = data_manager.get_data_question()
     # sorting = request.args.get("sort", default="submission_time")
     # direction = request.args.get("direction", default=True)
 
@@ -36,7 +36,7 @@ def add_question():
         message = request.form.get('message')
         image = request.form.get('image')
         id = data_manager.add_question(title, message, image)
-        return redirect(url_for(question, id=id))
+        return redirect(url_for('question',id=id))
     return render_template('add_question.html')
 
 # @app.route("/question/<id>")
