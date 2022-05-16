@@ -15,7 +15,7 @@ def list_page():
 
 @app.route('/question/<id>',methods = ['POST','GET'])
 def question(id):
-    return render_template('question-page.html', question=data_manager.get_question(id), id=id)
+    return render_template('question-page.html', question=data_manager.get_question(id),answers=data_manager.get_data_answer(id), id=id)
 
 
 @app.route('/add-question', methods=['GET','POST'])
@@ -49,11 +49,11 @@ def update_question(id):
     return render_template('edit_question.html', question=data_manager.get_question(id), id=id)
 
 
-@app.route('/answer/<id>/delete')
-def delete_answer(id):
-    util.delete_image(dict(data_manager.get_question(id)), id)
-    data_manager.
+@app.route('/answer/<answer_id>/delete')
+def delete_answer(answer_id):
+    util.delete_image(dict(data_manager.get_answer(answer_id)), answer_id)
 
+    return redirect(url_for('question', id=data_manager.delete_answer(answer_id)))
 
 if __name__ == "__main__":
     app.run(debug=True)

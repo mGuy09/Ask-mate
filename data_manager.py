@@ -16,12 +16,13 @@ def get_data_question(cursor):
     return cursor.fetchall()
 
 @connection.connection_handler
-def get_data_answer(cursor):
+def get_data_answer(cursor, question_id):
     query = '''
         select *
-        from answer
+        from answer where question_id = %(question_id)s
     '''
-    cursor.execute(query)
+    value = {"question_id": question_id}
+    cursor.execute(query, value)
     return cursor.fetchall()
 
 
@@ -36,6 +37,16 @@ def get_question(cursor: RealDictCursor, id:int):
     cursor.execute(query)
     return cursor.fetchone()
 
+
+@connection.connection_handler
+def get_answer(cursor: RealDictCursor, id:int):
+    query = '''
+        select *
+        from answer
+        where id = %(id)s'''
+    value = {'id': id}
+    cursor.execute(query, value)
+    return cursor.fetchone()
 
 @connection.connection_handler
 def add_question(cursor,title,message,image):
@@ -86,9 +97,12 @@ def delete_data(cursor, id):
 def delete_answer(cursor,id):
     query = '''
         delete from answer where id = %(id)s
+        returning question_id
     '''
     value = {'id':id}
     cursor.execute(query,value)
+    question_id = cursor.fetchone()['question_id']
+    return question_id
 
 
 
