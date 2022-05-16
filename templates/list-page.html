@@ -46,18 +46,18 @@ content %}
                 <td>{{ question.view_number }}</td>
                 <td>{{ question.vote_number }}</td>
                 <td>
-{#                    <a href="{{ url_for('question', id=question['id']) }}"#}
-{#                        >{{ question.title}}</a>#}
+                    <a href="{{ url_for('question', id=question['id']) }}"
+                        >{{ question.title}}</a>
                 </td>
                 <td>{{ question.message }}</td>
                 <td>
                     {% if question.image %}
-                    <img
+{#                    <img#}
 {#                        src="static/images/{{ question.image }}"#}
-                        alt=""
-                        width="250px"
-                        height="180px"
-                    />
+{#                        alt=""#}
+{#                        width="250px"#}
+{#                        height="180px"#}
+{#                    />#}
                     {% endif %}
                 </td>
                 <td>
