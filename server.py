@@ -10,7 +10,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route("/list")
 def list_page():
     sorting = request.args.get('sort',default='submission_time')
-    direction = request.args.get('direction',default=True)
+    direction = request.args.get('direction', default='desc')
     question_data = data_manager.sort_question_data(sorting,direction)
 
     return render_template("list-page.html", data=question_data)
