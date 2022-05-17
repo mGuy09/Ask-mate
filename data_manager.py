@@ -142,7 +142,6 @@ def add_comment(cursor, question_id, message):
     query = f'''
     INSERT INTO comment(question_id,  message, submission_time, edited_count)
     VALUES({question_id}, '{message}', now(), 0)
-    returning question_id
     '''
     cursor.execute(query)
 
