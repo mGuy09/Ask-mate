@@ -161,6 +161,26 @@ def get_comment(cursor: RealDictCursor, question_id):
     cursor.execute(query, value)
     return cursor.fetchall()
 
+@connection.connection_handler
+def add_comment_answer(cursor, answer_id, message):
+    query = '''
+        INSERT INTO comment( answer_id,  message, submission_time, edited_count)
+        VALUES( %(answer_id)s, %(message)s, now(), 0) 
+        RETURNING id;
+        '''
+    cursor.execute(query, dict(answer_id=answer_id, message=message))
+    return cursor.fetchone()
+
+
+@connection.connection_handler
+def get_comment_answer(cursor: RealDictCursor, answer_id):
+    query = """
+    SELECT  *
+    FROM comment WHERE  answer_id = %(answer_id)s;
+    """
+    value = {'answer_id':answer_id}
+    cursor.execute(query, value)
+    return cursor.fetchall()
 
 @connection.connection_handler
 def search_question(cursor,search_phrase):
