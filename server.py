@@ -68,6 +68,14 @@ def update_answer(answer_id):
     return render_template('edit_answer.html', data = data_manager.get_answer(answer_id),id=answer_id)
 
 
+@app.route('/comment/<comment_id>/edit',methods = ['POST','GET'])
+def update_comment(comment_id):
+    if request.method == 'POST':
+        data_manager.update_comments(comment_id,request.form.get('message'),request.form.get('edited_count'))
+        return redirect(url_for('question', id = dict(data_manager.get_comment(comment_id))['question_id']))
+    return render_template('edit_comment.html', data = data_manager.get_comment(comment_id),id = comment_id)
+
+
 @app.route('/answer/<answer_id>/delete')
 def delete_answer(answer_id):
     util.delete_image(dict(data_manager.get_answer(answer_id)), answer_id)

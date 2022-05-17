@@ -124,6 +124,12 @@ def update_data_answer(cursor,id,message):
     ''',(message,id))
 
 
+@connection.connection_handler
+def update_comments(cursor,id,message,edited_count):
+    cursor.execute('''
+    update comment set message = %s, edited_count = edited_count + 1 where id = %s
+    ''',(message,id,edited_count))
+
 
 @connection.connection_handler
 def vote_on_question(cursor,id,modifier):
