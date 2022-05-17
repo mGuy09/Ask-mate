@@ -12,18 +12,20 @@
 <label>Question message</label>
     <p>{{ question.message}}</p>
     <br>
+    <hr>
     <br>
     <label>Question comments:</label>
     <br>
         {%for comment in comments%}
-        <p>{{ comment.submission_time }}</p>
-        <p>{{ comment.message }}</p>
+        <p style="padding-left: 5%">{{ comment.submission_time }} <br><br> {{ comment.message }}</p>
 
+            <hr>
     <br>
     <br>
     {% endfor %}
     <label for="">Answers:</label>
     <br>
+    <hr>
     {% for answer in answers %}
     <p>{{ answer.message }}</p><p>Votes: {{ answer.vote_number }}</p><a href="{{ url_for('delete_answer', answer_id=answer.id) }}">Delete Answer</a>
         <a href="{{ url_for('vote_up_answer', answer_id=answer.id) }}">Vote up</a><a href="{{ url_for('vote_down_answer', answer_id=answer.id) }}">Vote down</a>
