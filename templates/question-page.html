@@ -16,7 +16,7 @@
     <br>
     <label>Question comments:</label>
     <br>
-        {%for comment in comments%}
+        {%for comment in question_comments%}
         <p style="padding-left: 5%">{{ comment.submission_time }} <br><br> {{ comment.message }}</p>
 
             <hr>
@@ -32,10 +32,10 @@
     <br>
     <br>
     <a href="{{ url_for('update_answer', answer_id = answer.id) }}">update answer</a>
-
+        <br><a href="{{ url_for('add_comment_to_answer', answer_id=answer.id) }}">add comment</a>
     {% endfor %}
 
-
+    <br><br><br>
     <a href="{{ url_for('add_answer', id=question.id)}}">add answer</a>
     <a href="{{ url_for('update_question', id=question.id)}}">edit question</a>
     <a href="{{ url_for('add_comment', id=question.id)}}">add comment</a>

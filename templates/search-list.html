@@ -31,7 +31,7 @@
                 <td>
                     <a href="{{ url_for('question', id=question.id) }}"
                         >{{ question.title}}</a>
-{#                    <p>{{ question.title }}</p>#}
+
                 </td>
                 <td>{{ question.message }}</td>
                 <td>
@@ -45,18 +45,18 @@
                     {% endif %}
                 </td>
                 <td>
-{#                    <a#}
-{#                        class="buttons"#}
-{#                        href="{{ url_for('vote_up', id=question.id) }}"#}
-{#                    >#}
-{#                        Up Vote#}
-{#                    </a>#}
-{#                    <a#}
-{#                        class="buttons"#}
-{#                        href="{{ url_for('vote_down', id=question.id) }}"#}
-{#                    >#}
-{#                        Down Vote#}
-{#                    </a>#}
+                    <a
+                        class="buttons"
+                        href="{{ url_for('vote_up', id=question.id) }}"
+                    >
+                        Up Vote
+                    </a>
+                    <a
+                        class="buttons"
+                        href="{{ url_for('vote_down', id=question.id) }}"
+                    >
+                        Down Vote
+                    </a>
                 </td>
             </tr>
             {% endfor %}
@@ -82,18 +82,18 @@
                     {% endif %}
                 </td>
                 <td>
-{#                    <a#}
-{#                        class="buttons"#}
-{#                        href="{{ url_for('vote_up', id=question.id) }}"#}
-{#                    >#}
-{#                        Up Vote#}
-{#                    </a>#}
-{#                    <a#}
-{#                        class="buttons"#}
-{#                        href="{{ url_for('vote_down', id=question.id) }}"#}
-{#                    >#}
-{#                        Down Vote#}
-{#                    </a>#}
+                    <a
+                        class="buttons"
+                        href="{{ url_for('vote_up', id=question.id) }}"
+                    >
+                        Up Vote
+                    </a>
+                    <a
+                        class="buttons"
+                        href="{{ url_for('vote_down', id=question.id) }}"
+                    >
+                        Down Vote
+                    </a>
                 </td>
             </tr>
 
