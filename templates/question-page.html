@@ -19,6 +19,7 @@
         {%for comment in question_comments%}
         <p style="padding-left: 5%">{{ comment.submission_time }} <br><br> {{ comment.message }}</p>
                 <a href="{{ url_for('update_comment', comment_id=comment.id) }}">update comment</a>
+                <a href="{{ url_for('delete_comment', comment_id=comment.id) }}">delete comment</a>
 
             <hr>
     <br>

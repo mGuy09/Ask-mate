@@ -88,6 +88,13 @@ def delete_answer(answer_id):
     return redirect(url_for('question', id=data_manager.delete_answer(answer_id)))
 
 
+@app.route('/comment/<comment_id>/delete')
+def delete_comment(comment_id):
+
+    return redirect(url_for('question', id=data_manager.delete_comment(comment_id)))
+
+
+
 @app.route('/question/<id>/vote-up')
 def vote_up(id):
     data_manager.vote_on_question(id, 1)

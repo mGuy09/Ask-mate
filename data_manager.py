@@ -101,6 +101,16 @@ def delete_answer(cursor,id):
     question_id = cursor.fetchone()['question_id']
     return question_id
 
+@connection.connection_handler
+def delete_comment(cursor,id):
+    query = '''
+        delete from comment where id = %(id)s
+        returning question_id
+    '''
+    value = {'id': id}
+    cursor.execute(query,value)
+    question_id = cursor.fetchone()['question_id']
+    return question_id
 
 @connection.connection_handler
 def delete_answers_by_question(cursor, question_id):
