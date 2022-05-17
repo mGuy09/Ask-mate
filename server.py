@@ -162,10 +162,19 @@ def search_bar():
 def add_comment_to_answer(answer_id):
     answer = data_manager.get_answer(answer_id)
     if request.method == 'POST':
-        print(answer)
         data_manager.add_comment_answer(answer_id, request.form.get('message'))
         return redirect(url_for('question', id=answer['question_id']))
     return render_template('comment-answer.html', id=answer_id)
+
+@app.route('/question/<question_id>/new-tag', methods = ['POST'])
+def add_tag_to_question(question_id):
+    tags = data_manager.get_tags()
+    if request.method == 'POST':
+        tag_id = request.form.get('tag_id')
+        data_manager.add_question_tags(question_id, tag_id )
+        return redirect(url_for('question', id=question_id))
+    return render_template('tags.html', tags=tags)
+
 
 
 if __name__ == "__main__":

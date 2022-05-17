@@ -234,8 +234,32 @@ def search_answer(cursor, search_phrase):
     cursor.execute(query)
     return cursor.fetchall()
 
+@connection.connection_handler
+def get_tags(cursor):
+    query = """
+    SELECT *
+    FROM tag
+    """
+    cursor.execute(query)
+    return cursor.fetchall()
 
+@connection.connection_handler
+def add_question_tags(cursor, question_id, tag_id ):
+    query = """
+    INSERT INTO question_tag(question_id, tag_id)
+    VALUES (%(question_id)s, %(tag_id)s )
+    """
+    values = {'question_id': question_id, 'tag_id': tag_id}
+    cursor.execute(query, values)
 
+@connection.connection_handler
+def add_new_tag(cursor, new_tag):
+    query = """
+    INSERT INTO tag (name)
+    VALUES (%(new_tag)s)
+    """
+    values= {'name': new_tag}
+    cursor.execute(query, values)
 
 
 # def get_data(csv_file):
