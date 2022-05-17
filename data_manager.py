@@ -209,7 +209,7 @@ def get_comment_answer(cursor: RealDictCursor, answer_id):
     """
     value = {'answer_id':answer_id}
     cursor.execute(query, value)
-    return cursor.fetchone()
+    return cursor.fetchall()
 
 
 @connection.connection_handler

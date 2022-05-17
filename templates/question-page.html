@@ -46,6 +46,17 @@
         <br><a href="{{ url_for('add_comment_to_answer', answer_id=answer.id) }}">add comment</a>
 
     {% endfor %}
+    <br>
+    <br>
+<label>Question comments:</label>
+    <br>
+        {%for comment in answer_comments%}
+        {{ comment.submission_time }}
+        {{ comment.message }}
+            <hr>
+    <br>
+    <br>
+    {% endfor %}
 
     <br><br><br>
     <a href="{{ url_for('add_answer', id=question.id)}}">add answer</a>
