@@ -13,6 +13,15 @@
     <p>{{ question.message}}</p>
     <br>
     <br>
+    <label>Question comments:</label>
+    <br>
+        {%for comment in comments%}
+        <p>{{ comment.submission_time }}</p>
+        <p>{{ comment.message }}</p>
+
+    <br>
+    <br>
+    {% endfor %}
     <label for="">Answers:</label>
     <br>
     {% for answer in answers %}
@@ -20,15 +29,10 @@
         <a href="{{ url_for('vote_up_answer', answer_id=answer.id) }}">Vote up</a><a href="{{ url_for('vote_down_answer', answer_id=answer.id) }}">Vote down</a>
     <br>
     <br>
-<label>Question comments:</label>
-    <br>
-        {%for comment in comments%}
-        <p>{{ comment.submission_time }}</p>
-        <p>{{ comment.message }}</p>
-         {% endfor %}
-    <br>
-    <br>
+
+
     {% endfor %}
+
 
     <a href="{{ url_for('add_answer', id=question.id)}}">add answer</a>
     <a href="{{ url_for('update_question', id=question.id)}}">edit question</a>
