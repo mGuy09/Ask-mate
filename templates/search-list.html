@@ -1,12 +1,16 @@
 {% extends 'base.html' %}{% block title %}Search{% endblock %}
 {% block content %}
+<head>
+    <link rel="stylesheet" href="/static/search.css">
+</head>
+<span class="highlightme">test</span>
 <h1>Search</h1>
-    <div>
+    <div class="container">
         <form action="{{ url_for('search_bar') }}" method="get">
-            <label for="">Search:</label>
+            <label for="search_phrase">Search:</label>
             <br>
-            <input type="search" name="search_phrase">
-            <button type="submit">Search</button>
+            <input type="search" name="search_phrase" id="search_phrase">
+            <button id="search_phrase" type="submit">Search</button>
         </form>
     </div>
     <div class="table-list-questions" id="table_questions">
@@ -30,10 +34,10 @@
                 <td>{{ question.vote_number }}</td>
                 <td>
                     <a href="{{ url_for('question', id=question.id) }}"
-                        >{{ question.title}}</a>
+                        >{{ question.title | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}}}</a>
 
                 </td>
-                <td>{{ question.message }}</td>
+                <td>{{ question.message | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}</td>
                 <td>
                     {% if question.image %}
                     <img
@@ -70,7 +74,7 @@
                         >{{ question.title}}</a>
 {#                    <p>{{ question.title }}</p>#}
                 </td>
-                <td>{{ question.message }}</td>
+                <td>{{ question.message | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe}}</td>
                 <td>
                     {% if question.image %}
                     <img

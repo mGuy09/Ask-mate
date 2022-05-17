@@ -30,15 +30,21 @@ def question(id):
     for answer in answers:
         good_answer = data_manager.get_comment_answer(answer.get('id'))
         for elem in good_answer:
-            answer_comment_list.append({
-                'message': elem.get('message'),
-                'submission_time': elem.get('submission_time')
-            })
+            answer_comment_list.append(elem
+                # 'message': elem.get('message'),
+                # 'submission_time': elem.get('submission_time')
+            )
+    lista=[]
+    for i in answer_comment_list:
+        # lista.append(i.get('submission_time'))
+        lista.append(i.get('message'))
+    print(lista)
     return render_template('question-page.html',
                            question=data_manager.get_question(id),
                            answers=data_manager.get_data_answer(id),
                            question_comments=data_manager.get_comment(id),
-                           answer_comments=answer_comment_list, id=id)
+                            lista=lista, id=id
+           )
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -138,8 +144,9 @@ def add_comment(id):
 
 @app.route('/search')
 def search_bar():
+    search_phrase = request.args.get('search_phrase')
     all_questions = data_manager.get_data_question()
-    search_answers = data_manager.search_answer(request.args.get('search_phrase'))
+    search_answers = data_manager.search_answer(request.args.get(search_phrase))
     selected_answers = []
     for question in all_questions:
         for answer in search_answers:
@@ -148,7 +155,7 @@ def search_bar():
 
     return render_template('search-list.html',
                            data=data_manager.search_question(request.args.get('search_phrase')),
-                           answer_questions=selected_answers)
+                           answer_questions=selected_answers, search_phrase=search_phrase)
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])

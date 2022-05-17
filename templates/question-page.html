@@ -35,10 +35,13 @@
     <br>
         <label for="">Comments:</label>
         <br>
-        {% for comment in answer_comments %}
-            <p>{{ comment.submission_time }}</p>
-            <p>{{ comment.message }}</p>
+        <div>
+
+        {% for comment in lista %}
+            <p>{{ comment }}</p>
+{#            <p>{{ comment.message }}</p>#}
             {% endfor %}
+        </div>
         <br>
         <br>
         <br>
