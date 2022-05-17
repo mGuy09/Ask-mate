@@ -18,6 +18,7 @@
     <br>
         {%for comment in question_comments%}
         <p style="padding-left: 5%">{{ comment.submission_time }} <br><br> {{ comment.message }}</p>
+                <a href="{{ url_for('update_comment', comment_id=comment.id) }}">update comment</a>
 
             <hr>
     <br>
@@ -31,6 +32,9 @@
         <a href="{{ url_for('vote_up_answer', answer_id=answer.id) }}">Vote up</a><a href="{{ url_for('vote_down_answer', answer_id=answer.id) }}">Vote down</a>
     <br>
     <br>
+        <br>
+        <br>
+        <br>
     <a href="{{ url_for('update_answer', answer_id = answer.id) }}">update answer</a>
         <br><a href="{{ url_for('add_comment_to_answer', answer_id=answer.id) }}">add comment</a>
     {% endfor %}

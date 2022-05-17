@@ -125,10 +125,11 @@ def update_data_answer(cursor,id,message):
 
 
 @connection.connection_handler
-def update_comments(cursor,id,message,edited_count):
-    cursor.execute('''
-    update comment set message = %s, edited_count = edited_count + 1 where id = %s
-    ''',(message,id,edited_count))
+def update_comments(cursor,id,message):
+    cursor.execute(f'''
+    update comment set message = '{message}', edited_count = edited_count +1  where id = {id}
+                    
+    ''')
 
 
 @connection.connection_handler
@@ -148,6 +149,7 @@ def vote_on_answer(cursor,id,modifier):
     '''
     cursor.execute(query)
 
+
 @connection.connection_handler
 def add_comment(cursor, question_id, message):
     query = f'''
@@ -166,6 +168,17 @@ def get_comment(cursor: RealDictCursor, question_id):
     value = {'question_id':question_id}
     cursor.execute(query, value)
     return cursor.fetchall()
+
+
+@connection.connection_handler
+def get_question_comment(cursor,id):
+    query = f'''
+    select *
+    from comment where id = {id}
+    '''
+    cursor.execute(query)
+    return cursor.fetchone()
+
 
 @connection.connection_handler
 def add_comment_answer(cursor, answer_id, message):
@@ -187,6 +200,7 @@ def get_comment_answer(cursor: RealDictCursor, answer_id):
     value = {'answer_id':answer_id}
     cursor.execute(query, value)
     return cursor.fetchall()
+
 
 @connection.connection_handler
 def search_question(cursor,search_phrase):

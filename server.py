@@ -76,9 +76,9 @@ def update_answer(answer_id):
 @app.route('/comment/<comment_id>/edit',methods = ['POST','GET'])
 def update_comment(comment_id):
     if request.method == 'POST':
-        data_manager.update_comments(comment_id,request.form.get('message'),request.form.get('edited_count'))
-        return redirect(url_for('question', id = dict(data_manager.get_comment(comment_id))['question_id']))
-    return render_template('edit_comment.html', data = data_manager.get_comment(comment_id),id = comment_id)
+        data_manager.update_comments(comment_id,request.form.get('message'))
+        return redirect(url_for('question', id=dict(data_manager.get_question_comment(comment_id))['question_id']))
+    return render_template('edit_comment.html', data=data_manager.get_question_comment(comment_id), id=comment_id)
 
 
 @app.route('/answer/<answer_id>/delete')
