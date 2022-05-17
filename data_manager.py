@@ -118,6 +118,14 @@ def update_data_question(cursor,id,title,message):
 
 
 @connection.connection_handler
+def update_data_answer(cursor,id,message):
+    cursor.execute('''
+    update answer set message = %s where id = %s
+    ''',(message,id))
+
+
+
+@connection.connection_handler
 def vote_on_question(cursor,id,modifier):
     query = f'''
         update question set vote_number = vote_number + {modifier} 

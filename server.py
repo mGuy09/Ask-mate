@@ -60,6 +60,14 @@ def update_question(id):
     return render_template('edit_question.html', question=data_manager.get_question(id), id=id)
 
 
+@app.route('/answer/<answer_id>/edit', methods=['POST','GET'])
+def update_answer(answer_id):
+    if request.method == 'POST':
+        data_manager.update_data_answer(answer_id,request.form.get('message'))
+        return redirect(url_for('question',id=dict(data_manager.get_answer(answer_id))['question_id']))
+    return render_template('edit_answer.html', data = data_manager.get_answer(answer_id),id=answer_id)
+
+
 @app.route('/answer/<answer_id>/delete')
 def delete_answer(answer_id):
     util.delete_image(dict(data_manager.get_answer(answer_id)), answer_id)
@@ -114,6 +122,9 @@ def search_bar():
     return render_template('search-list.html',
                            data=data_manager.search_question(request.args.get('search_phrase')),
                            answer_questions=mylist)
+
+
+
 
 
 if __name__ == "__main__":

@@ -31,7 +31,7 @@
         <a href="{{ url_for('vote_up_answer', answer_id=answer.id) }}">Vote up</a><a href="{{ url_for('vote_down_answer', answer_id=answer.id) }}">Vote down</a>
     <br>
     <br>
-
+    <a href="{{ url_for('update_answer', answer_id = answer.id) }}">update answer</a>
 
     {% endfor %}
 
