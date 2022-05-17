@@ -158,6 +158,28 @@ def get_comment(cursor: RealDictCursor, question_id):
     return cursor.fetchall()
 
 
+
+@connection.connection_handler
+def search_question(cursor,search_phrase):
+    query = '''
+        select *
+        from question
+        full outer join answer
+        on question.id = answer.question_id
+        where question.title like '%search_phrase%' OR
+        question.message like '%search_phrase%' OR
+        answer.message like '%search_phrase%'
+    '''
+
+    value = {'search_phrase': search_phrase}
+    cursor.execute(query,value)
+    return cursor.fetchall()
+
+
+
+
+
+
 # def get_data(csv_file):
 #     return connection.read_question(csv_file)
 #
