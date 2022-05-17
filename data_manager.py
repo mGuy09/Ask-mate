@@ -161,18 +161,17 @@ def get_comment(cursor: RealDictCursor, question_id):
 
 @connection.connection_handler
 def search_question(cursor,search_phrase):
-    query = '''
+    query = f'''
         select *
         from question
         full outer join answer
         on question.id = answer.question_id
-        where question.title like '%search_phrase%' OR
-        question.message like '%search_phrase%' OR
-        answer.message like '%search_phrase%'
+        where question.title like '%{search_phrase}%' OR
+        question.message like '%{search_phrase}%' OR
+        answer.message like '%{search_phrase}%'
     '''
 
-    value = {'search_phrase': search_phrase}
-    cursor.execute(query,value)
+    cursor.execute(query)
     return cursor.fetchall()
 
 

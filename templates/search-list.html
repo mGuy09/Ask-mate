@@ -1,0 +1,67 @@
+{% extends 'base.html' %}{% block title %}Search{% endblock %}
+{% block content %}
+<h1>Search</h1>
+    <div>
+        <form action="{{ url_for('search_bar') }}" method="get">
+            <label for="">Search:</label>
+            <br>
+            <input type="search">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div class="table-list-questions" id="table_questions">
+    <table>
+        <thead>
+            <tr>
+                <th>Submission time</th>
+                <th>View number</th>
+                <th>Vote number</th>
+                <th>Title</th>
+                <th>Message</th>
+                <th>Image</th>
+                <th>Vote Up/Down</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in data %}
+            <tr>
+                <td>{{ question.submission_time }}</td>
+                <td>{{ question.view_number }}</td>
+                <td>{{ question.vote_number }}</td>
+                <td>
+{#                    <a href="{{ url_for('question', id=question.id) }}"#}
+{#                        >{{ question.title}}</a>#}
+                    <p>{{ question.title }}</p>
+                </td>
+                <td>{{ question.message }}</td>
+                <td>
+                    {% if question.image %}
+                    <img
+                        src="static/images/{{ question.image }}"
+                        alt=""
+                        width="250px"
+                        height="180px"
+                    />
+                    {% endif %}
+                </td>
+                <td>
+{#                    <a#}
+{#                        class="buttons"#}
+{#                        href="{{ url_for('vote_up', id=question.id) }}"#}
+{#                    >#}
+{#                        Up Vote#}
+{#                    </a>#}
+{#                    <a#}
+{#                        class="buttons"#}
+{#                        href="{{ url_for('vote_down', id=question.id) }}"#}
+{#                    >#}
+{#                        Down Vote#}
+{#                    </a>#}
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -11,17 +11,19 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 def latest_questions():
     return render_template("latest-page.html",
                            data=data_manager.sort_question_data(request.args.get('sort',default='submission_time'),
-                                                           request.args.get('direction', default='desc'),
-                                                           5))
+                                                                request.args.get('direction', default='desc'),
+                                                                5))
+
 
 @app.route("/list")
 def list_page():
     return render_template("list-page.html",
                            data=data_manager.sort_question_data(request.args.get('sort',default='submission_time'),
-                                                                request.args.get('direction', default='desc'),'ALL'))
+                                                                request.args.get('direction', default='desc'),
+                                                                'ALL'))
 
 
-@app.route('/question/<id>',methods = ['POST','GET'])
+@app.route('/question/<id>',methods=['POST','GET'])
 def question(id):
     return render_template('question-page.html', question=data_manager.get_question(id),answers=data_manager.get_data_answer(id),
                            comments= data_manager.get_comment(id), id=id)
@@ -47,8 +49,6 @@ def delete_question(id):
     util.delete_image(dict(data_manager.get_question(id)), id)
     data_manager.delete_answers_by_question(id)
     data_manager.delete_data(id)
-
-
     return redirect(url_for('list_page'))
 
 
@@ -99,6 +99,13 @@ def add_comment(id):
         data_manager.add_comment(id, request.form.get('message'))
         return redirect(url_for('question', id=id))
     return render_template('new-comment.html', id=id,)
+
+
+@app.route('/search')
+def search_bar():
+    data = data_manager.search_question(request.args.get('search_phrase'))
+    return render_template('search-list.html',
+                           data=data)
 
 
 if __name__ == "__main__":
