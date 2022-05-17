@@ -189,6 +189,17 @@ def get_question_comment(cursor,id):
     cursor.execute(query)
     return cursor.fetchone()
 
+@connection.connection_handler
+def get_answer_by_id(cursor, id):
+    query = """
+    SELECT *
+    FROM answer
+    WHERE id = %(answer_id)s
+    """
+    value = {'id': id}
+    cursor.execute(query, value)
+    return cursor.fetchall()
+
 
 @connection.connection_handler
 def add_comment_answer(cursor, answer_id, message):
@@ -211,6 +222,14 @@ def get_comment_answer(cursor: RealDictCursor, answer_id):
     cursor.execute(query, value)
     return cursor.fetchall()
 
+@connection.connection_handler
+def get_all_comments(cursor):
+    query = """
+            SELECT *
+            FROM comment
+            """
+    cursor.execute(query)
+    return cursor.fetchall()
 
 @connection.connection_handler
 def search_question(cursor,search_phrase):

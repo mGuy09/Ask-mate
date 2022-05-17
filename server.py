@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import data_manager
 import util
+import datetime
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "static/images"
@@ -25,26 +26,26 @@ def list_page():
 
 @app.route('/question/<id>', methods=['POST', 'GET'])
 def question(id):
-    answers = data_manager.get_data_answer(id)
-    answer_comment_list = []
-    for answer in answers:
-        good_answer = data_manager.get_comment_answer(answer.get('id'))
-        for elem in good_answer:
-            answer_comment_list.append(elem
-                # 'message': elem.get('message'),
-                # 'submission_time': elem.get('submission_time')
-            )
-    lista=[]
-    for i in answer_comment_list:
-        # lista.append(i.get('submission_time'))
-        lista.append(i.get('message'))
-    print(lista)
+    # answers = data_manager.get_data_answer(id)
+    # answer_comment_list = []
+    # for answer in answers:
+    #     good_answer = data_manager.get_comment_answer(answer.get('id'))
+    #     for elem in good_answer:
+    #         answer_comment_list.append(elem
+    #             # 'message': elem.get('message'),
+    #             # 'submission_time': elem.get('submission_time')
+    #         )
+    # lista=[]
+    # for i in answer_comment_list:
+    #     # lista.append(i.get('submission_time'))
+    #     lista.append(i.get('message'))
+    # print(lista)
+    answer_comment = data_manager.get_all_comments()
     return render_template('question-page.html',
                            question=data_manager.get_question(id),
                            answers=data_manager.get_data_answer(id),
                            question_comments=data_manager.get_comment(id),
-                            lista=lista, id=id
-           )
+                           answer_comment= answer_comment, id=id)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -160,10 +161,14 @@ def search_bar():
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
 def add_comment_to_answer(answer_id):
-    answer = data_manager.get_answer(answer_id)
     if request.method == 'POST':
-        data_manager.add_comment_answer(answer_id, request.form.get('message'))
-        return redirect(url_for('question', id=answer['question_id']))
+        answer = data_manager.get_answer(answer_id)
+        message= request.form.get('message')
+        # submission_time = datetime.now()
+        data_manager.add_comment_answer(answer_id, message)
+        answers=data_manager.get_answer(answer_id)
+        question_id = answers.get('question_id','')
+        return redirect(url_for('question', id=question_id))
     return render_template('comment-answer.html', id=answer_id)
 
 @app.route('/question/<question_id>/new-tag', methods = ['POST'])

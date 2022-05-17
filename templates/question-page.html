@@ -33,15 +33,18 @@
         <a href="{{ url_for('vote_up_answer', answer_id=answer.id) }}">Vote up</a><a href="{{ url_for('vote_down_answer', answer_id=answer.id) }}">Vote down</a>
     <br>
     <br>
-        <label for="">Comments:</label>
+        <label for="">Answer Comments:</label>
         <br>
+
+            {% for comment in answer_comment %}
         <div>
 
-        {% for comment in lista %}
-            <p>{{ comment }}</p>
-{#            <p>{{ comment.message }}</p>#}
-            {% endfor %}
-        </div>
+                {% if answer.id == comment.answer_id %}
+            <p>{{comment.submission_time}} - {{ comment.message }} </p>
+        {% endif %}
+        {% endfor %}
+    </div>
+
         <br>
         <br>
         <br>
