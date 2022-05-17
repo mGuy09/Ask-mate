@@ -25,12 +25,18 @@ def list_page():
 
 @app.route('/question/<id>',methods=['POST','GET'])
 def question(id):
-
+    answers = data_manager.get_data_answer(id)
+    answer_id_list = []
+    answer_comment_list = []
+    for answer in answers:
+        answer_id_list.append(dict(answer)['id'])
+    for answer_id in answer_id_list:
+        answer_comment_list.append(data_manager.get_comment_answer(answer_id))
     return render_template('question-page.html',
                            question=data_manager.get_question(id),
                            answers=data_manager.get_data_answer(id),
                            question_comments=data_manager.get_comment(id),
-                           answer_comments=data_manager.get_comment_answer(id), id=id)
+                           answer_comments=answer_comment_list, id=id)
 
 
 
@@ -90,7 +96,6 @@ def delete_answer(answer_id):
 
 @app.route('/comment/<comment_id>/delete')
 def delete_comment(comment_id):
-
     return redirect(url_for('question', id=data_manager.delete_comment(comment_id)))
 
 
@@ -133,18 +138,15 @@ def add_comment(id):
 def search_bar():
     all_questions = data_manager.get_data_question()
     search_answers = data_manager.search_answer(request.args.get('search_phrase'))
-    mylist = []
+    selected_answers = []
     for question in all_questions:
         for answer in search_answers:
             if dict(answer)['question_id'] == dict(question)['id']:
-                mylist.append(question)
+                selected_answers.append(question)
 
     return render_template('search-list.html',
                            data=data_manager.search_question(request.args.get('search_phrase')),
-                           answer_questions=mylist)
-
-
-
+                           answer_questions=selected_answers)
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
