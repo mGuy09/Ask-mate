@@ -26,17 +26,14 @@ def list_page():
 @app.route('/question/<id>', methods=['POST', 'GET'])
 def question(id):
     answers = data_manager.get_data_answer(id)
-    answer_id_list = []
     answer_comment_list = []
-
     for answer in answers:
-        a = data_manager.get_comment_answer(answer.get('id'))
-        for x in a:
+        good_answer = data_manager.get_comment_answer(answer.get('id'))
+        for elem in good_answer:
             answer_comment_list.append({
-                'message': x.get('message'),
-                'submission_time': x.get('submission_time')
+                'message': elem.get('message'),
+                'submission_time': elem.get('submission_time')
             })
-    print(answer_comment_list)
     return render_template('question-page.html',
                            question=data_manager.get_question(id),
                            answers=data_manager.get_data_answer(id),
