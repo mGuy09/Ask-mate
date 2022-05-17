@@ -8,9 +8,17 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
 @app.route("/")
+def latest_questions():
+    return render_template("latest-page.html",
+                           data=data_manager.sort_question_data(request.args.get('sort',default='submission_time'),
+                                                           request.args.get('direction', default='desc'),
+                                                           5))
+
 @app.route("/list")
 def list_page():
-    return render_template("list-page.html", data=data_manager.sort_question_data(request.args.get('sort',default='submission_time'),request.args.get('direction', default='desc')))
+    return render_template("list-page.html",
+                           data=data_manager.sort_question_data(request.args.get('sort',default='submission_time'),
+                                                                request.args.get('direction', default='desc'),'ALL'))
 
 
 @app.route('/question/<id>',methods = ['POST','GET'])

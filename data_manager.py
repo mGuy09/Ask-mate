@@ -75,11 +75,12 @@ def add_data_answer(cursor,question_id,message, image):
 
 
 @connection.connection_handler
-def sort_question_data(cursor,sorting,direction):
+def sort_question_data(cursor,sorting,direction, modifier):
     query = f'''
         select *
         from question
-        order by {sorting} {direction};
+        order by {sorting} {direction}
+        limit {modifier};
     '''
     cursor.execute(query)
     return cursor.fetchall()

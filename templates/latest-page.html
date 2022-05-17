@@ -1,30 +1,7 @@
-{% extends "base.html" %} {% block title %}Home Page{% endblock %} {% block
+{% extends "base.html" %} {% block title %}Latest questions Page{% endblock %} {% block
 content %}
 <div id="list-page-header">
-    <h2>Welcome to the Question List</h2>
-</div>
-
-<div id="sort-form">
-    <label for="">sort by:</label>
-    <form action="{{ url_for('list_page')}}" method="get">
-        <select class="dropdown-sort" name="sort" id="sort">
-            <option id="dropdown-option" value="submission_time">time</option>
-            <option id="dropdown-option" value="view_number">
-                view numbers
-            </option>
-            <option id="dropdown-option" value="vote_number">
-                vote numbers
-            </option>
-            <option id="dropdown-option" value="title">title</option>
-            <option id="dropdown-option" value="message">description</option>
-        </select>
-
-        <select class="dropdown-sort" name="direction" id="direction">
-            <option id="dropdown-option" value="asc">Ascending</option>
-            <option id="dropdown-option" value="desc">Descending</option>
-        </select>
-        <button class="buttons" type="submit">Order</button>
-    </form>
+    <h2>Welcome to the Latest questions</h2>
 </div>
 <div class="table-list-questions" id="table_questions">
     <table>
