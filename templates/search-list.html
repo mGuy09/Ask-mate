@@ -5,7 +5,7 @@
         <form action="{{ url_for('search_bar') }}" method="get">
             <label for="">Search:</label>
             <br>
-            <input type="search">
+            <input type="search" name="search_phrase">
             <button type="submit">Search</button>
         </form>
     </div>
@@ -29,9 +29,46 @@
                 <td>{{ question.view_number }}</td>
                 <td>{{ question.vote_number }}</td>
                 <td>
-{#                    <a href="{{ url_for('question', id=question.id) }}"#}
-{#                        >{{ question.title}}</a>#}
-                    <p>{{ question.title }}</p>
+                    <a href="{{ url_for('question', id=question.id) }}"
+                        >{{ question.title}}</a>
+{#                    <p>{{ question.title }}</p>#}
+                </td>
+                <td>{{ question.message }}</td>
+                <td>
+                    {% if question.image %}
+                    <img
+                        src="static/images/{{ question.image }}"
+                        alt=""
+                        width="250px"
+                        height="180px"
+                    />
+                    {% endif %}
+                </td>
+                <td>
+{#                    <a#}
+{#                        class="buttons"#}
+{#                        href="{{ url_for('vote_up', id=question.id) }}"#}
+{#                    >#}
+{#                        Up Vote#}
+{#                    </a>#}
+{#                    <a#}
+{#                        class="buttons"#}
+{#                        href="{{ url_for('vote_down', id=question.id) }}"#}
+{#                    >#}
+{#                        Down Vote#}
+{#                    </a>#}
+                </td>
+            </tr>
+            {% endfor %}
+                {% for question in answer_questions %}
+                    <tr>
+                <td>{{ question.submission_time }}</td>
+                <td>{{ question.view_number }}</td>
+                <td>{{ question.vote_number }}</td>
+                <td>
+                    <a href="{{ url_for('question', id=question.id) }}"
+                        >{{ question.title}}</a>
+{#                    <p>{{ question.title }}</p>#}
                 </td>
                 <td>{{ question.message }}</td>
                 <td>

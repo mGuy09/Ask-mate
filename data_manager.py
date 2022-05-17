@@ -1,8 +1,4 @@
-from typing import List, Dict
-
-from psycopg2 import sql
 from psycopg2.extras import RealDictCursor
-import datetime
 import connection
 
 
@@ -158,22 +154,27 @@ def get_comment(cursor: RealDictCursor, question_id):
     return cursor.fetchall()
 
 
-
 @connection.connection_handler
 def search_question(cursor,search_phrase):
     query = f'''
         select *
         from question
-        full outer join answer
-        on question.id = answer.question_id
-        where question.title like '%{search_phrase}%' OR
-        question.message like '%{search_phrase}%' OR
-        answer.message like '%{search_phrase}%'
+        where question.title like '%{search_phrase}%%' OR
+        question.message like '%{search_phrase}%%';
     '''
-
     cursor.execute(query)
     return cursor.fetchall()
 
+
+@connection.connection_handler
+def search_answer(cursor, search_phrase):
+    query = f'''
+        select *
+        from answer
+        where answer.message like '%{search_phrase}%%'    
+    '''
+    cursor.execute(query)
+    return cursor.fetchall()
 
 
 

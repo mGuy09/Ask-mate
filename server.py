@@ -103,9 +103,17 @@ def add_comment(id):
 
 @app.route('/search')
 def search_bar():
-    data = data_manager.search_question(request.args.get('search_phrase'))
+    all_questions = data_manager.get_data_question()
+    search_answers = data_manager.search_answer(request.args.get('search_phrase'))
+    mylist = []
+    for question in all_questions:
+        for answer in search_answers:
+            if dict(answer)['question_id'] == dict(question)['id']:
+                mylist.append(question)
+
     return render_template('search-list.html',
-                           data=data)
+                           data=data_manager.search_question(request.args.get('search_phrase')),
+                           answer_questions=mylist)
 
 
 if __name__ == "__main__":
