@@ -33,6 +33,7 @@ def question(id):
                            answer_comments=data_manager.get_comment_answer(id), id=id)
 
 
+
 @app.route('/add-question', methods=['GET','POST'])
 def add_question():
     if request.method == 'POST':
