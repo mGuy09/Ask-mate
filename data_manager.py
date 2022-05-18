@@ -129,7 +129,7 @@ def update_data_question(cursor,id,title,message):
 @connection.connection_handler
 def update_data_answer(cursor,id,message):
     cursor.execute('''
-    update answer set message = %s where id = %s
+    update answer set message = %s, submission_time = now()::timestamp(0) where id = %s 
     ''',(message,id))
 
 
