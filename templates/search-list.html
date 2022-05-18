@@ -34,7 +34,7 @@
                 <td>{{ question.vote_number }}</td>
                 <td>
                     <a href="{{ url_for('question', id=question.id) }}"
-                        >{{ question.title | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}}}</a>
+                        >{{ question.title | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}</a>
 
                 </td>
                 <td>{{ question.message | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}</td>
@@ -72,7 +72,6 @@
                 <td>
                     <a href="{{ url_for('question', id=question.id) }}"
                         >{{ question.title}}</a>
-{#                    <p>{{ question.title }}</p>#}
                 </td>
                 <td>{{ question.message | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe}}</td>
                 <td>

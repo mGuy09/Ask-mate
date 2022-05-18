@@ -26,26 +26,12 @@ def list_page():
 
 @app.route('/question/<id>', methods=['POST', 'GET'])
 def question(id):
-    # answers = data_manager.get_data_answer(id)
-    # answer_comment_list = []
-    # for answer in answers:
-    #     good_answer = data_manager.get_comment_answer(answer.get('id'))
-    #     for elem in good_answer:
-    #         answer_comment_list.append(elem
-    #             # 'message': elem.get('message'),
-    #             # 'submission_time': elem.get('submission_time')
-    #         )
-    # lista=[]
-    # for i in answer_comment_list:
-    #     # lista.append(i.get('submission_time'))
-    #     lista.append(i.get('message'))
-    # print(lista)
-    answer_comment = data_manager.get_all_comments()
     return render_template('question-page.html',
                            question=data_manager.get_question(id),
                            answers=data_manager.get_data_answer(id),
                            question_comments=data_manager.get_comment(id),
-                           answer_comment= answer_comment, id=id)
+                           answer_comment= data_manager.get_all_comments(),
+                           id=id)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -145,18 +131,15 @@ def add_comment(id):
 
 @app.route('/search')
 def search_bar():
-    search_phrase = request.args.get('search_phrase')
-    all_questions = data_manager.get_data_question()
-    search_answers = data_manager.search_answer(request.args.get(search_phrase))
     selected_answers = []
-    for question in all_questions:
-        for answer in search_answers:
+    for question in data_manager.get_data_question():
+        for answer in data_manager.search_answer(request.args.get('search_phrase')):
             if dict(answer)['question_id'] == dict(question)['id']:
                 selected_answers.append(question)
 
     return render_template('search-list.html',
                            data=data_manager.search_question(request.args.get('search_phrase')),
-                           answer_questions=selected_answers, search_phrase=search_phrase)
+                           answer_questions=selected_answers, search_phrase=request.args.get('search_phrase'))
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
@@ -167,14 +150,14 @@ def add_comment_to_answer(answer_id):
     return render_template('comment-answer.html', id=answer_id)
 
 
-@app.route('/question/<question_id>/new-tag', methods = ['POST'])
+@app.route('/question/<question_id>/new-tag', methods=['GET','POST'])
 def add_tag_to_question(question_id):
     tags = data_manager.get_tags()
     if request.method == 'POST':
         tag_id = request.form.get('tag_id')
         data_manager.add_question_tags(question_id, tag_id )
         return redirect(url_for('question', id=question_id))
-    return render_template('tags.html', tags=tags)
+    return render_template('add_new_tag.html', tags=tags)
 
 
 
