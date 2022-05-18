@@ -30,7 +30,8 @@ def question(id):
                            question=data_manager.get_question(id),
                            answers=data_manager.get_data_answer(id),
                            question_comments=data_manager.get_comment(id),
-                           answer_comment= data_manager.get_all_comments(),
+                           answer_comment=data_manager.get_all_comments(),
+                           tags=data_manager.get_tag_by_question_id(id),
                            id=id)
 
 
@@ -152,13 +153,17 @@ def add_comment_to_answer(answer_id):
 
 @app.route('/question/<question_id>/new-tag', methods=['GET','POST'])
 def add_tag_to_question(question_id):
-    tags = data_manager.get_tags()
     if request.method == 'POST':
-        tag_id = request.form.get('tag_id')
-        data_manager.add_question_tags(question_id, tag_id )
+        data_manager.add_new_tag(request.form.get('tag'))
+        data_manager.add_question_tags(question_id, len(data_manager.get_tags()) + 1)
         return redirect(url_for('question', id=question_id))
-    return render_template('add_new_tag.html', tags=tags)
+    return render_template('add_new_tag.html', tags=data_manager.get_tags(), question_id=question_id)
 
+
+@app.get('/question/<question_id>/tag/<tag_id>/delete')
+def delete_tag(question_id, tag_id):
+    data_manager.delete_tag(tag_id, question_id)
+    return redirect(url_for('question', id=question_id))
 
 
 if __name__ == "__main__":

@@ -1,13 +1,17 @@
 {% extends 'base.html' %}{% block title %}Add tag{% endblock %}
-{% block contents %}
+{% block content %}
     <h1>Add tags to question</h1>
 
     <br>
     <div>
-    <form action="">
-        <label for="">Tags:</label>
+    <form action="{{ url_for('add_tag_to_question', question_id=question_id) }}" method="post">
+        <label for="">tags:</label>
         <br>
-        <input type="text">
+        <input type="text" name="tag" autocomplete="on">
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+
     </form>
     </div>
 

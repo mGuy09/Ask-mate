@@ -272,48 +272,33 @@ def add_question_tags(cursor, question_id, tag_id ):
     cursor.execute(query, values)
 
 @connection.connection_handler
-def add_new_tag(cursor, new_tag):
+def add_new_tag(cursor, name):
     query = """
     INSERT INTO tag (name)
-    VALUES (%(new_tag)s)
+    VALUES (%(name)s)
     """
-    values= {'name': new_tag}
+    values = {'name': name}
     cursor.execute(query, values)
 
 
-# def get_data(csv_file):
-#     return connection.read_question(csv_file)
-#
-#
-# def sort_asc(csv_file, order_value, order_direction):
-#     direction = "desc" if order_value in ["view_number", "vote_number"] else "asc"
-#
-#     csv_data = sorted(
-#         get_data(csv_file),
-#         key=lambda row: row[order_value],
-#         reverse=(order_direction == direction),
-#     )
-#
-#     for i in csv_data:
-#         i["submission_time"] = util.convert_time(i["submission_time"])
-#
-#     return csv_data
-#
-#
-# def remove_question(data_csv, id):
-#     question_list = connection.read_question(data_csv)
-#     for i in question_list:
-#         if i["id"] == id:
-#             question_list.remove(i)
-#     connection.delete_question(data_csv, question_list)
-#
-#
-# def remove_answer(data_csv, id):
-#     answer_list = connection.read_question(data_csv)
-#     for i in answer_list:
-#         if i["id"] == id:
-#             deleted_answer = i
-#     question_id = deleted_answer["question_id"]
-#     answer_list.remove(deleted_answer)
-#     connection.delete_answer(data_csv, answer_list)
-#     return question_id
+@connection.connection_handler
+def get_tag_by_question_id(cursor, question_id):
+    query = '''
+        select *
+        from tag
+        join question_tag qt on tag.id = qt.tag_id
+        where qt.question_id = %(question_id)s and qt.tag_id = tag.id
+    '''
+    values = {'question_id': question_id}
+    cursor.execute(query, values)
+    return cursor.fetchall()
+
+
+@connection.connection_handler
+def delete_tag(cursor, tag_id, question_id):
+    query = '''
+        delete 
+        from question_tag where tag_id = %(tag_id)s and question_id = %(question_id)s;
+    '''
+    values = {'tag_id': tag_id, 'question_id': question_id}
+    cursor.execute(query, values)
