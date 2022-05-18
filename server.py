@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import data_manager
 import util
-import datetime
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "static/images"
@@ -168,3 +167,4 @@ def delete_tag(question_id, tag_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
