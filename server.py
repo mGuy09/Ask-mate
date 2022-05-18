@@ -1,11 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 import data_manager
 import util
-import datetime
 
 app = Flask(__name__)
-UPLOAD_FOLDER = "static/images"
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
 @app.route("/")
@@ -31,7 +28,7 @@ def question(id):
                            answers=data_manager.get_data_answer(id),
                            question_comments=data_manager.get_comment(id),
                            answer_comment=data_manager.get_all_comments(),
-                           tags=data_manager.get_tag_by_question_id(id),
+                           tags=data_manager.get_all_tags_by_question_id(id),
                            id=id)
 
 
@@ -93,7 +90,14 @@ def delete_answer(answer_id):
 
 @app.route('/comment/<comment_id>/delete')
 def delete_comment(comment_id):
-    return redirect(url_for('question', id=data_manager.delete_comment(comment_id)))
+    question_id = dict(data_manager.get_question_comment(comment_id))['question_id']
+    answer_id = dict(data_manager.get_question_comment(comment_id))['answer_id']
+    if question_id is None:
+        question_id = dict(data_manager.get_answer(answer_id))['question_id']
+    data_manager.delete_comment(comment_id)
+    print(question_id)
+    print(answer_id)
+    return redirect(url_for('question', id=question_id))
 
 
 @app.route('/question/<id>/vote-up')
@@ -154,8 +158,16 @@ def add_comment_to_answer(answer_id):
 @app.route('/question/<question_id>/new-tag', methods=['GET','POST'])
 def add_tag_to_question(question_id):
     if request.method == 'POST':
-        data_manager.add_new_tag(request.form.get('tag'))
-        data_manager.add_question_tags(question_id, len(data_manager.get_tags()) + 1)
+        tag_list = []
+        tag_id = 1
+        for tag in data_manager.get_tags():
+            tag_list.append(dict(tag)['name'])
+        if request.form.get('tag') not in tag_list:
+            data_manager.add_new_tag(request.form.get('tag'))
+        for tag in data_manager.get_tags():
+            if dict(tag)['name'] == request.form.get('tag'):
+                tag_id = dict(tag)['id']
+        data_manager.add_question_tags(question_id, tag_id)
         return redirect(url_for('question', id=question_id))
     return render_template('add_new_tag.html', tags=data_manager.get_tags(), question_id=question_id)
 

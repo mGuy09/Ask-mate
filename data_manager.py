@@ -35,7 +35,7 @@ def get_question(cursor: RealDictCursor, id:int):
 
 
 @connection.connection_handler
-def get_answer(cursor: RealDictCursor, id:int):
+def get_answer(cursor: RealDictCursor, id):
     query = '''
         select *
         from answer
@@ -101,16 +101,15 @@ def delete_answer(cursor,id):
     question_id = cursor.fetchone()['question_id']
     return question_id
 
+
 @connection.connection_handler
 def delete_comment(cursor,id):
     query = '''
         delete from comment where id = %(id)s
-        returning question_id
     '''
     value = {'id': id}
     cursor.execute(query,value)
-    question_id = cursor.fetchone()['question_id']
-    return question_id
+
 
 @connection.connection_handler
 def delete_answers_by_question(cursor, question_id):
@@ -291,7 +290,31 @@ def get_tag_by_question_id(cursor, question_id):
     '''
     values = {'question_id': question_id}
     cursor.execute(query, values)
+    return cursor.fetchone()
+
+
+@connection.connection_handler
+def get_all_tags_by_question_id(cursor, question_id):
+    query = '''
+        select *
+        from tag
+        join question_tag qt on tag.id = qt.tag_id
+        where qt.question_id = %(question_id)s and qt.tag_id = tag.id
+    '''
+    values = {'question_id': question_id}
+    cursor.execute(query, values)
     return cursor.fetchall()
+
+@connection.connection_handler
+def get_tag_from_id(cursor, tag_id):
+    query = '''
+            select *
+            from tag
+            where id = %(tag_id)s
+        '''
+    values = {'tag_id': tag_id}
+    cursor.execute(query, values)
+    return cursor.fetchone()
 
 
 @connection.connection_handler

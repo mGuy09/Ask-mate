@@ -12,10 +12,12 @@
 <label>Question message</label>
     <p>{{ question.message}}</p>
     <br>
+
     <hr>
     {% for tag in tags %}
         <a href="{{ url_for('delete_tag', question_id=question.id, tag_id=tag.id) }}">{{ tag.name }}</a>
     {% endfor %}
+
     <hr>
     <br>
     <label>Question comments:</label>
@@ -44,7 +46,7 @@
         <div>
 
                 {% if answer.id == comment.answer_id %}
-            <p>{{comment.submission_time}} - {{ comment.message }} </p>
+            <p>{{comment.submission_time}} - {{ comment.message }} <a href="{{ url_for('delete_comment', comment_id=comment.id) }}">Delete Comment</a> </p>
         {% endif %}
         {% endfor %}
     </div>
@@ -55,18 +57,9 @@
     <a href="{{ url_for('update_answer', answer_id = answer.id) }}">update answer</a>
         <br><a href="{{ url_for('add_comment_to_answer', answer_id=answer.id) }}">add comment</a>
 
+
     {% endfor %}
-    <br>
-    <br>
-<label>Question comments:</label>
-    <br>
-        {%for comment in answer_comments%}
-        {{ comment.submission_time }}
-        {{ comment.message }}
-            <hr>
-    <br>
-    <br>
-    {% endfor %}
+
 
     <br><br><br>
     <a href="{{ url_for('add_answer', id=question.id)}}">add answer</a>
