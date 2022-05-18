@@ -123,7 +123,7 @@ def delete_answers_by_question(cursor, question_id):
 @connection.connection_handler
 def update_data_question(cursor,id,title,message):
     cursor.execute('''
-    Update question SET title = %s, message = %s where id = %s ''',(title,message,id))
+    Update question SET title = %s, message = %s, submission_time = now()::timestamp(0)where id = %s ''',(title,message,id))
 
 
 @connection.connection_handler
@@ -136,8 +136,8 @@ def update_data_answer(cursor,id,message):
 @connection.connection_handler
 def update_comments(cursor,id,message):
     cursor.execute(f'''
-    update comment set message = '{message}', edited_count = edited_count +1  where id = {id}
-                    
+    update comment set message = '{message}', edited_count = edited_count +1 , 
+    submission_time = now()::timestamp(0) where id = {id}
     ''')
 
 

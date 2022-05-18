@@ -77,7 +77,11 @@ def update_answer(answer_id):
 def update_comment(comment_id):
     if request.method == 'POST':
         data_manager.update_comments(comment_id, request.form.get('message'))
-        return redirect(url_for('question', id=dict(data_manager.get_question_comment(comment_id))['question_id']))
+        question_id = dict(data_manager.get_question_comment(comment_id))['question_id']
+        answer_id = dict(data_manager.get_question_comment(comment_id))['answer_id']
+        if question_id is None:
+            question_id = dict(data_manager.get_answer(answer_id))['question_id']
+        return redirect(url_for('question', id=question_id))
     return render_template('edit_comment.html', data=data_manager.get_question_comment(comment_id), id=comment_id)
 
 
