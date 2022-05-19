@@ -1,9 +1,7 @@
 {% extends 'base.html' %}{% block title %}Search{% endblock %}
 {% block content %}
-<head>
-    <link rel="stylesheet" href="/static/search.css">
-</head>
-<span class="highlightme">test</span>
+
+
 <h1>Search</h1>
     <div class="container">
         <form action="{{ url_for('search_bar') }}" method="get">
