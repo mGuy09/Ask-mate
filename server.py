@@ -164,8 +164,11 @@ def add_tag_to_question(question_id):
     if request.method == 'POST':
         tag_list = []
         tag_id = 1
+        a = data_manager.get_tags()
+        print(a)
         for tag in data_manager.get_tags():
             tag_list.append(dict(tag)['name'])
+        print(tag_list)
         if request.form.get('tag') not in tag_list:
             data_manager.add_new_tag(request.form.get('tag'))
         for tag in data_manager.get_tags():
