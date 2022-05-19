@@ -72,12 +72,7 @@
     <a href="{{ url_for('add_answer', id=question.id)}}">add answer</a>
     <a href="{{ url_for('update_question', id=question.id)}}">edit question</a>
     <a href="{{ url_for('add_comment', id=question.id)}}">add comment</a>
-     <button type="button"><a href="/question/{{ id }}/new-tag">Add Tags</a></button>
-{#<div>#}
-{#    {% for tag in tags %}#}
-{#            <button type="button" >{{ tag.get('name','') }}</button>#}
-{#    {% endfor %}#}
-{##}
-{#</div>#}
+    <a href="{{ url_for('add_tag_to_question', question_id=question.id) }}">Add Tags</a>
+
 
 {% endblock %}

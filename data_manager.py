@@ -230,13 +230,14 @@ def get_all_comments(cursor):
     cursor.execute(query)
     return cursor.fetchall()
 
+
 @connection.connection_handler
 def search_question(cursor,search_phrase):
     query = f'''
         select *
         from question
-        where question.title like '%{search_phrase}%%' OR
-        question.message like '%{search_phrase}%%';
+        where lower(question.title) like lower('%{search_phrase}%%') OR
+        lower(question.message) like lower('%{search_phrase}%%');
     '''
     cursor.execute(query)
     return cursor.fetchall()
@@ -252,6 +253,7 @@ def search_answer(cursor, search_phrase):
     cursor.execute(query)
     return cursor.fetchall()
 
+
 @connection.connection_handler
 def get_tags(cursor):
     query = """
@@ -261,6 +263,7 @@ def get_tags(cursor):
     cursor.execute(query)
     return cursor.fetchall()
 
+
 @connection.connection_handler
 def add_question_tags(cursor, question_id, tag_id ):
     query = """
@@ -269,6 +272,7 @@ def add_question_tags(cursor, question_id, tag_id ):
     """
     values = {'question_id': question_id, 'tag_id': tag_id}
     cursor.execute(query, values)
+
 
 @connection.connection_handler
 def add_new_tag(cursor, name):
@@ -304,6 +308,7 @@ def get_all_tags_by_question_id(cursor, question_id):
     values = {'question_id': question_id}
     cursor.execute(query, values)
     return cursor.fetchall()
+
 
 @connection.connection_handler
 def get_tag_from_id(cursor, tag_id):

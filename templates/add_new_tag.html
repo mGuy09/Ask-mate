@@ -5,15 +5,12 @@
     <br>
     <div>
     <form action="{{ url_for('add_tag_to_question', question_id=question_id) }}" method="post">
-        <label for="">tags:</label>
-        <br>
-        <select name="tag">
-            <option>Choose a tag</option>
+        <input type="text" name="tag" placeholder="tag" autofocus list="tag-name">
+        <datalist id="tag-name">
             {% for tag in tags %}
-            <option value="{{ tag.name }}">{{ tag.name }}</option>
+            <option value="{{ tag.name }}">
             {% endfor %}
-        </select>
-        <input type="text" name="tag" autocomplete="off">
+        </datalist>
         <br>
         <br>
         <button type="submit">Submit</button>
