@@ -56,6 +56,7 @@ def delete_question(id):
     for answer_id in answers:
         data_manager.delete_comment_by_answer_id(dict(answer_id)['id'])
     data_manager.delete_answers_by_question(id)
+    data_manager.delete_tags_from_question(id)
     data_manager.delete_comment_by_question_id(id)
     data_manager.delete_data(id)
     return redirect(url_for('list_page'))
@@ -165,22 +166,20 @@ def add_comment_to_answer(answer_id):
 
 @app.route('/question/<question_id>/new-tag', methods=['GET','POST'])
 def add_tag_to_question(question_id):
+    error = False
     if request.method == 'POST':
-        tag_list = []
-        tag_id = 1
-        a = data_manager.get_tags()
-        print(a)
+        new_tag = request.form.get('tag')
+        all_tags = data_manager.get_tags()
+        util.add_tag_to_db(all_tags, new_tag)
         for tag in data_manager.get_tags():
-            tag_list.append(dict(tag)['name'])
-        print(tag_list)
-        if request.form.get('tag') not in tag_list:
-            data_manager.add_new_tag(request.form.get('tag'))
-        for tag in data_manager.get_tags():
-            if dict(tag)['name'] == request.form.get('tag'):
+            if dict(tag)['name'] == new_tag:
                 tag_id = dict(tag)['id']
-        data_manager.add_question_tags(question_id, tag_id)
-        return redirect(url_for('question', id=question_id))
-    return render_template('add_new_tag.html', tags=data_manager.get_tags(), question_id=question_id)
+        if not data_manager.get_tag_from_question_tag(question_id, tag_id):
+            data_manager.add_question_tag(question_id, tag_id)
+            return redirect(url_for('question', id=question_id))
+        else:
+            error = True
+    return render_template('add_new_tag.html', tags=data_manager.get_tags(), question_id=question_id, error=error)
 
 
 @app.get('/question/<question_id>/tag/<tag_id>/delete')
@@ -190,5 +189,6 @@ def delete_tag(question_id, tag_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,
+            port=5001)
 

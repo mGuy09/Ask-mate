@@ -1,6 +1,7 @@
 import os
 from flask import request
 from werkzeug.utils import secure_filename
+import data_manager
 
 
 def delete_image(item, id):
@@ -29,5 +30,10 @@ def upload_image():
     return ''
 
 
-
+def add_tag_to_db(all_tags, new_tag):
+    for tag in all_tags:
+        if dict(tag)["name"] == new_tag:
+            break
+    else:
+        data_manager.add_new_tag(new_tag)
 

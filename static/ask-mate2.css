@@ -351,3 +351,18 @@ body {
     animation-name: delete-tag;
     animation-duration: 1s;
 }
+#input-error-tag,
+#input-tag{
+    padding: .5rem;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+#input-error-tag{
+    border: 2px #b90d0d solid;
+}
+#alert{
+    color: #b90d0d;
+    font-size: 17px;
+    letter-spacing: 2px;
+}

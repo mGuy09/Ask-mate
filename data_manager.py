@@ -282,7 +282,7 @@ def get_tags(cursor):
 
 
 @connection.connection_handler
-def add_question_tags(cursor, question_id, tag_id ):
+def add_question_tag(cursor, question_id, tag_id ):
     query = """
     INSERT INTO question_tag(question_id, tag_id)
     VALUES (%(question_id)s, %(tag_id)s )
@@ -315,15 +315,25 @@ def get_tag_by_question_id(cursor, question_id):
 
 
 @connection.connection_handler
+def check_if_tag_exists(cursor, question_id, tag_id):
+    query = '''
+        select *
+        from tag
+        
+            
+    '''
+
+
+@connection.connection_handler
 def get_all_tags_by_question_id(cursor, question_id):
     query = '''
         select *
         from tag
-        join question_tag qt on tag.id = qt.tag_id
-        where qt.question_id = %(question_id)s and qt.tag_id = tag.id
+        join question_tag on tag.id = question_tag.tag_id
+        where question_tag.question_id = %(question_id)s and question_tag.tag_id = tag.id;
+            
     '''
-    values = {'question_id': question_id}
-    cursor.execute(query, values)
+    cursor.execute(query, {'question_id': question_id})
     return cursor.fetchall()
 
 
@@ -347,3 +357,21 @@ def delete_tag(cursor, tag_id, question_id):
     '''
     values = {'tag_id': tag_id, 'question_id': question_id}
     cursor.execute(query, values)
+
+
+@connection.connection_handler
+def delete_tags_from_question(cursor, question_id):
+    query = '''
+        delete from question_tag where question_id = %(question_id)s
+    '''
+    cursor.execute(query, {'question_id': question_id})
+
+
+@connection.connection_handler
+def get_tag_from_question_tag(cursor, question_id, tag_id):
+    cursor.execute('''select * 
+                      from question_tag
+                      where question_id = %(question_id)s and tag_id = %(tag_id)s''',
+                   {'question_id': question_id,
+                    'tag_id': tag_id})
+    return cursor.fetchone()

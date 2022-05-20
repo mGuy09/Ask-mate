@@ -6,7 +6,11 @@
     <div class="background-table">
     <div class="form-add-question">
     <form action="{{ url_for('add_tag_to_question', question_id=question_id) }}" method="post">
-        <input type="text" name="tag" placeholder="tag" autofocus list="tag-name">
+        {% if not error %}
+        <input id="input-tag" type="text" name="tag" placeholder="tag" autofocus list="tag-name" autocomplete="off">
+        {% else %}
+        <input id="input-error-tag" type="text" name="tag" placeholder="tag" autofocus list="tag-name" autocomplete="off"><p id="alert">Tag already added.</p>
+        {% endif %}
         <datalist id="tag-name">
             {% for tag in tags %}
             <option value="{{ tag.name }}">
@@ -14,7 +18,7 @@
         </datalist>
         <br>
         <br>
-        <button type="submit">Submit</button>
+        <button class="buttons" type="submit">Submit</button>
 
     </form>
     </div>
