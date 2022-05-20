@@ -4,75 +4,70 @@
 {% block title %} Question {% endblock %}
 
 {% block content %}
-<h1>{{ question.title }}</h1>
-    <br>
-    <br>
-    <a href="{{ url_for('delete_question', id=question.id) }}">Delete Question</a>
-    <br>
-    <br>
-{#    <a href="{{ url_for('add_tags',id=id) }}">Add tag</a>#}
-
-    <br>
-    <br>
-<label>Question message</label>
+    <div class="add-question-header">
+    <h1>{{ question.title }}</h1>
+    </div>
+    <div id="sort-form"></div>
+    <div class="background-table">
+    <div class="question-detail-box">
     <p>{{ question.message}}</p>
     <p>{{ question.submission_time}}</p>
     <br>
-
-    <hr>
+    <div class="question-tags">
     {% for tag in tags %}
-        <a href="{{ url_for('delete_tag', question_id=question.id, tag_id=tag.id) }}">{{ tag.name }}</a>
+        <a class="tags" href="{{ url_for('delete_tag', question_id=question.id, tag_id=tag.id) }}">{{ tag.name }}</a>
     {% endfor %}
-
-    <hr>
-    <br>
-    <label>Question comments:</label>
-    <br>
-        {%for comment in question_comments%}
-        <p style="padding-left: 5%">{{ comment.submission_time }} <br><br> {{ comment.message }}</p>
-                <a href="{{ url_for('update_comment', comment_id=comment.id) }}">update comment</a>
-                <a href="{{ url_for('delete_comment', comment_id=comment.id) }}">delete comment</a>
-
-            <hr>
-    <br>
-    <br>
-    {% endfor %}
-    <label for="">Answers:</label>
-    <br>
-    <hr>
-    {% for answer in answers %}
-    <p>{{ answer.message }}</p><p>{{ answer.submission_time }}</p><p>Votes: {{ answer.vote_number }}</p><a href="{{ url_for('delete_answer', answer_id=answer.id) }}">Delete Answer</a>
-        <a href="{{ url_for('vote_up_answer', answer_id=answer.id) }}">Vote up</a><a href="{{ url_for('vote_down_answer', answer_id=answer.id) }}">Vote down</a>
-    <br>
-    <br>
-        <label for="">Answer Comments:</label>
+    </div>
         <br>
+        <a class="buttons" href="{{ url_for('update_question', id=question.id)}}">Edit question</a>
+        <a class="buttons" href="{{ url_for('add_answer', id=question.id)}}">Add answer</a>
+    <a class="buttons" href="{{ url_for('add_tag_to_question', question_id=question.id) }}">Add Tags</a>
+
+        <a id="delete-button" class="buttons" href="{{ url_for('delete_question', id=question.id) }}">Delete Question</a>
+
+</div>
+    <div class="question-comments-box">
+    <label>Question comments:</label>
+        {%for comment in question_comments%}
+            <div class="comment-box">
+            <p> {{ comment.message }}</p><p id="comment-time">{{comment.submission_time}}</p>
+                <a class="buttons" href="{{ url_for('update_comment', comment_id=comment.id) }}">Update comment</a>
+                <a id="delete-button" class="buttons" id="last_line" href="{{ url_for('delete_comment', comment_id=comment.id) }}">Delete comment</a>
+            </div>
+        {% endfor %}
+            <a class="buttons" href="{{ url_for('add_comment', id=question.id)}}">Add comment</a>
+
+    </div>
+    <div id="answer-box">
+    <label for="">Answers:</label>
+    </div>{% for answer in answers %}
+        <div class="question-detail-box">
+    <p id="answer-message">{{ answer.message }}</p><p>{{ answer.submission_time }}</p><p>Votes: {{ answer.vote_number }}</p><a id="delete-button" class="buttons" href="{{ url_for('delete_answer', answer_id=answer.id) }}">Delete Answer</a>
+        <a class="buttons" href="{{ url_for('vote_up_answer', answer_id=answer.id) }}">Vote up</a><a class="buttons" href="{{ url_for('vote_down_answer', answer_id=answer.id) }}">Vote down</a>
+        <a class="buttons" href="{{ url_for('update_answer', answer_id = answer.id) }}">update answer</a>
+
+    </div>
+        <div id="answer-comments" class="question-comments-box">
+        <label for="">Answer Comments:</label>
+
 
             {% for comment in answer_comment %}
-        <div>
 
                 {% if answer.id == comment.answer_id %}
-            <p>{{comment.submission_time}} - {{ comment.message }}</p> <a href="{{ url_for('delete_comment', comment_id=comment.id) }}">Delete Comment</a> <a
-                    href="{{ url_for('update_comment', comment_id=comment.id) }}">edit comment</a>
-        {% endif %}
-        {% endfor %}
+                    <div class="comment-box">
+                        <p> {{ comment.message }}</p><p id="comment-time">{{comment.submission_time}}</p><a class="buttons" href="{{ url_for('update_comment', comment_id=comment.id) }}">Update comment</a>
+                    <a id="delete-button" class="buttons" href="{{ url_for('delete_comment', comment_id=comment.id) }}">Delete Comment</a>
+
+
+                    </div>
+                {% endif %}
+            {% endfor %}
+                <a class="buttons" href="{{ url_for('add_comment_to_answer', answer_id=answer.id) }}">add comment</a>
+
     </div>
-
-        <br>
-        <br>
-        <br>
-    <a href="{{ url_for('update_answer', answer_id = answer.id) }}">update answer</a>
-        <br><a href="{{ url_for('add_comment_to_answer', answer_id=answer.id) }}">add comment</a>
-
-
     {% endfor %}
 
 
-    <br><br><br>
-    <a href="{{ url_for('add_answer', id=question.id)}}">add answer</a>
-    <a href="{{ url_for('update_question', id=question.id)}}">edit question</a>
-    <a href="{{ url_for('add_comment', id=question.id)}}">add comment</a>
-    <a href="{{ url_for('add_tag_to_question', question_id=question.id) }}">Add Tags</a>
 
-
+</div>
 {% endblock %}

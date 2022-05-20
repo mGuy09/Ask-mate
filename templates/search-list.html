@@ -1,105 +1,52 @@
 {% extends 'base.html' %}{% block title %}Search{% endblock %}
 {% block content %}
 
-
+<div class="add-question-header">
 <h1>Search</h1>
-    <div class="container">
-        <form action="{{ url_for('search_bar') }}" method="get">
-            <label for="search_phrase">Search:</label>
-            <br>
-            <input type="search" name="search_phrase" id="search_phrase">
-            <button id="search_phrase" type="submit">Search</button>
-        </form>
-    </div>
-    <div class="table-list-questions" id="table_questions">
-    <table>
-        <thead>
-            <tr>
-                <th>Submission time</th>
-                <th>View number</th>
-                <th>Vote number</th>
-                <th>Title</th>
-                <th>Message</th>
-                <th>Image</th>
-                <th>Vote Up/Down</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for question in data %}
-            <tr>
-                <td>{{ question.submission_time }}</td>
-                <td>{{ question.view_number }}</td>
-                <td>{{ question.vote_number }}</td>
-                <td>
-                    <a href="{{ url_for('question', id=question.id) }}"
-                        >{{ question.title | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}</a>
-
-                </td>
-                <td>{{ question.message | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}</td>
-                <td>
-                    {% if question.image %}
-                    <img
-                        src="static/images/{{ question.image }}"
-                        alt=""
-                        width="250px"
-                        height="180px"
-                    />
-                    {% endif %}
-                </td>
-                <td>
-                    <a
-                        class="buttons"
-                        href="{{ url_for('vote_up', id=question.id) }}"
-                    >
-                        Up Vote
-                    </a>
-                    <a
-                        class="buttons"
-                        href="{{ url_for('vote_down', id=question.id) }}"
-                    >
-                        Down Vote
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-                {% for question in answer_questions %}
-                    <tr>
-                <td>{{ question.submission_time }}</td>
-                <td>{{ question.view_number }}</td>
-                <td>{{ question.vote_number }}</td>
-                <td>
-                    <a href="{{ url_for('question', id=question.id) }}"
-                        >{{ question.title}}</a>
-                </td>
-                <td>{{ question.message | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe}}</td>
-                <td>
-                    {% if question.image %}
-                    <img
-                        src="static/images/{{ question.image }}"
-                        alt=""
-                        width="250px"
-                        height="180px"
-                    />
-                    {% endif %}
-                </td>
-                <td>
-                    <a
-                        class="buttons"
-                        href="{{ url_for('vote_up', id=question.id) }}"
-                    >
-                        Up Vote
-                    </a>
-                    <a
-                        class="buttons"
-                        href="{{ url_for('vote_down', id=question.id) }}"
-                    >
-                        Down Vote
-                    </a>
-                </td>
-            </tr>
-
-            {% endfor %}
-        </tbody>
-    </table>
 </div>
+    <div id="sort-form"></div>
+<div class="background-table">
+    <div class="list-questions" id="list-questions">
+
+            {% for question in data %}
+            <div id="question_box">
+
+                <h3 id="question_title">
+                    <a href="{{ url_for('question', id=question['id']) }}"
+                        >{{ question.title | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe}}</a>
+                </h3>
+                <p id="question_message">{{ question.message | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}</p>
+                <p id="question_image">
+                    {% if question.image %}
+                    <img
+                        src="static/images/{{ question.image }}"
+                        alt=""
+
+                    />
+                    {% endif %}
+                </p>
+                <p id="question_time">{{ question.submission_time }}</p>
+
+                <a
+                        class="buttons"
+                        href="{{ url_for('vote_up', id=question.id) }}"
+                >Up
+                </a>
+
+                <a
+                        class="buttons"
+                        href="{{ url_for('vote_down', id=question.id) }}"
+                >Down
+                </a>
+                <p id="question_views_n_votes">views: {{ question.view_number }} | votes: {{ question.vote_number }} </p>
+
+
+            </div>
+
+            {% endfor %}
+
+
+    </div>
 {% endblock %}
+
+| replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe

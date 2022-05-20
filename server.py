@@ -52,7 +52,11 @@ def add_answer(id):
 @app.route("/question/<id>/delete")
 def delete_question(id):
     util.delete_image(dict(data_manager.get_question(id)), id)
+    answers = data_manager.get_data_answer(id)
+    for answer_id in answers:
+        data_manager.delete_comment_by_answer_id(dict(answer_id)['id'])
     data_manager.delete_answers_by_question(id)
+    data_manager.delete_comment_by_question_id(id)
     data_manager.delete_data(id)
     return redirect(url_for('list_page'))
 
@@ -88,7 +92,7 @@ def update_comment(comment_id):
 @app.route('/answer/<answer_id>/delete')
 def delete_answer(answer_id):
     util.delete_image(dict(data_manager.get_answer(answer_id)), answer_id)
-
+    data_manager.delete_comment_by_answer_id(answer_id)
     return redirect(url_for('question', id=data_manager.delete_answer(answer_id)))
 
 

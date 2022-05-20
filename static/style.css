@@ -62,15 +62,15 @@
 
 /*!* Buttons for whole site *!*/
 
-/*.buttons {*/
-/*    background-color: #c4c4c4;*/
-/*    border: none;*/
-/*    padding: 4px;*/
-/*    border-radius: 3px;*/
-/*    text-decoration: none;*/
-/*    margin: 4px;*/
-/*    transition-duration: 0.3s;*/
-/*}*/
+.buttons {
+    background-color: #c4c4c4;
+    border: none;
+    padding: 4px;
+    border-radius: 3px;
+    text-decoration: none;
+    margin: 4px;
+    transition-duration: 0.3s;
+}
 /*.buttons:hover {*/
 /*    background-color: #ff8214;*/
 /*    border: none;*/

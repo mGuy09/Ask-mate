@@ -1,18 +1,17 @@
 {% extends "base.html" %} {% block title %} Update question {% endblock %} {%
 block content %}
-<div id="edit-question-header">
+<div class="add-question-header">
     <h1>Update your question</h1>
 </div>
-<br />
-<br />
-<div class="form-edit-question">
+<div id="sort-form"></div>
+    <div class="background-table">
+<div class="form-add-question">
+
     <form
         id="form"
         action="{{ url_for('update_comment', comment_id = id) }}"
         method="post"
     >
-
-        <label for="message">Message:</label>
         <textarea
             name="message"
             id="message"
@@ -24,9 +23,9 @@ block content %}
         >
         <br />
         <br />
-        <p>{{ data.edited_count }}</p>
+        <p>Edited for: {{ data.edited_count }} times</p>
         <button id="button-submit-question" type="submit">Update</button>
     </form>
 </div>
-
+</div>
 {% endblock %}

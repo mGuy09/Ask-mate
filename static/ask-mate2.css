@@ -1,0 +1,353 @@
+mark {
+    background-color: #71ef9f;
+}
+
+#navbar_buttons,
+.navbar,
+.navbar a,
+.navbar p,
+#sort-form,
+body{
+    font-family: Source Sans Pro,sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-image: linear-gradient(
+            to top left, #000000 40% , #868686, #ffffff 90%);
+}
+
+@media(min-width: 748px){
+#navbar_buttons,
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    list-style-type: none;
+}
+.search-form input{
+    flex-basis: 100%;
+    justify-content: flex-end;
+}
+.search-form{
+    display: flex;
+    place-content: flex-end;
+    justify-content: flex-end;
+}
+}
+.navbar {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(166, 166, 166, 0.95);
+    transition: all .3s ease-in-out;
+}
+.navbar:hover{
+    background: #a6a6a6;
+}
+
+.navbar #home_button{
+    color: black;
+}
+
+.navbar a{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 17px 25px ;
+    color: white;
+    font-size: 17px;
+    text-decoration: none;
+    transition-duration: .3s;
+}
+
+
+.navbar a:hover{
+    background-color: #c4c4c4;
+    padding: 17px 35px;
+}
+
+
+.search-form{
+    display: flex;
+    justify-content: center;
+    padding: 8px 25px;
+    margin-left: auto;
+}
+
+.search-form input{
+    padding: 8px 8px 7px ;
+    width: 17rem;
+    font-size: 14px;
+    justify-content: center;
+}
+
+
+#list-page-header {
+        padding: 8%;
+        background: transparent;
+        display: flex;
+        font-size: 3.2rem;
+        transition: all 1s ease-in-out;;
+    }
+@media(min-width: 748px) {
+    #list-page-header{
+        font-size: 5.2rem;
+    }
+}
+
+#list-page-header:hover{
+    color: #ffffff;
+    background-color: black;
+}
+
+@media(min-width: 748px) {
+    #latest-page-header {
+        padding: 15%;
+        background: transparent;
+        display: grid;
+        font-size: 5.4rem;
+        place-items: center;
+        transition: all 1s ease-in-out;;
+    }
+}
+
+#latest-page-header:hover{
+    color: #ffffff;
+    background-color: black;
+}
+#latest-page-header::-moz-viewport-scroll{
+    font-size: 2rem;
+}
+
+.background-table{
+    background: #4b4b4b;
+}
+@media(min-width: 748px){
+    .list-questions {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 50%;
+        margin: 0 20%;
+        justify-content: space-around;
+    }
+}
+
+
+.list-questions #question_box{
+    border: 1px black solid;
+    justify-content: center;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15%;
+}
+
+.list-questions #question_image{
+    display: flex;
+    justify-content: center;
+    flex-shrink: 50;
+}
+.list-questions #question_title{
+    font-size: 25px
+}
+
+#sort-form{
+    background: #4b4b4b;
+    display: flex;
+    padding: 1.5rem;
+}
+#delete-button,
+.buttons {
+    background-color: #c4c4c4;
+    border: none;
+    padding: 7px 1rem 7px 1rem;
+    border-radius: 3px;
+    text-decoration: none;
+    margin: 4px;
+    transition:all 0.3s ease-in-out;
+    color: black;
+}
+
+
+.buttons:hover{
+    background-color: #8c8c8c;
+}
+
+.dropdown-sort{
+    flex: 8%;
+    padding: 6px;
+    background-color: white;
+    transition: all .3s ease-in-out;
+}
+
+.dropdown-sort:hover{
+    background-color: #c4c4c4;
+}
+.dropdown-sort:active{
+    background: white;
+    border: none;
+}
+
+.add-question-header{
+    display: flex;
+    padding: 3%;
+    background: black;
+    color: white;
+    font-size: 30px;
+}
+
+#background{
+    background: #4b4b4b;
+}
+
+.footer{
+    padding: 5rem;
+    margin:  0;
+    background: #343434;
+}
+
+.form-add-question{
+    background: white;
+    display: flex;
+    padding: 7%;
+    margin:1rem 20%  1rem 20% ;
+    justify-content: center;
+    text-align: center;
+
+}
+.form-add-question #input-title{
+    margin: 10% 0 5% 0;
+
+}
+.form-add-question #input-title input{
+    width: 20rem;
+    padding: 4%;
+    border: 2px #c4c4c4 solid;
+    letter-spacing: 2px;
+    font-size: 20px;
+
+    transition: all .3s ease-in-out;
+}
+.form-add-question #input-title input:hover{
+    background: #d9d9d9;
+    border: 2px #969595 solid;
+}
+
+.form-add-question textarea{
+    width: 20rem;
+    border: 2px #d9d9d9 solid;
+    padding: 4%;
+    transition: all .3s ease-in-out;
+}
+.form-add-question textarea:hover{
+    background: #c4c4c4;
+    border: 2px #969595 solid;
+}
+
+
+.question-detail-box{
+    border-bottom: 2rem #4b4b4b solid;
+}
+
+.question-comments-box{
+    padding: 2rem;
+    border-radius: 5px;
+     border-bottom: 10rem #4b4b4b solid;
+
+}
+.question-detail-box{
+    border-radius: 5px;
+    display: flex;
+    background: white;
+    padding: 2rem;
+    flex-direction: column;
+    flex-basis: 50%;
+    margin: 0 20%;
+    justify-content: space-around;
+}
+.question-comments-box,
+.comment-box,
+#answer-box{
+    display: flex;
+    background: white;
+    flex-direction: column;
+    margin: 0 20%;
+    justify-content: space-around;
+}
+
+.comment-box{
+    width: 50%;
+    padding: 1rem;
+    border-bottom: 1px #c4c4c4 solid;
+}
+#comment-time{
+    font-size: 14px;
+}
+#answer-message{
+    font-size: 20px;
+}
+
+#answer-box{
+    border-radius: 5px;
+    padding: 2rem;
+
+}
+
+.question-tags{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 1rem 0 1rem 0;
+    border-top:2px #a6a6a6 solid;
+    border-bottom: 2px #a6a6a6 solid;
+}
+
+.tags{
+    background: #c4c4c4;
+    padding: 4px;
+    border: 1px #4b4b4b solid;
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 5px;
+    text-decoration: none;
+    color: black;
+    letter-spacing: 1px;
+
+    transition: all .3s ease-in-out;
+}
+@keyframes delete-tag{
+    from{
+        background: #8c8c8c;
+    }
+    to{
+        background: #f81515;
+    }
+}
+@keyframes delete-tag {
+    0%{background: #f86415;}
+    25%{background: #8c8c8c;}
+    50%{background: #f86415;}
+    75%{background: #8c8c8c;}
+    100%{background: #f86415;}
+}
+
+.tags:hover{
+    background: #8c8c8c;
+    animation: infinite;
+    animation-name: delete-tag;
+    animation-duration: 1s;
+    padding: 6px;
+}
+#delete-button{
+    transition: all .3s ease-in-out;
+}
+
+#delete-button:hover{
+    animation-delay: .3s;
+    animation: infinite;
+    animation-name: delete-tag;
+    animation-duration: 1s;
+}

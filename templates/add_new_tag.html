@@ -1,9 +1,10 @@
 {% extends 'base.html' %}{% block title %}Add tag{% endblock %}
 {% block content %}
+    <div class="add-question-header">
     <h1>Add tags to question</h1>
-
-    <br>
-    <div>
+</div>
+    <div class="background-table">
+    <div class="form-add-question">
     <form action="{{ url_for('add_tag_to_question', question_id=question_id) }}" method="post">
         <input type="text" name="tag" placeholder="tag" autofocus list="tag-name">
         <datalist id="tag-name">
@@ -17,5 +18,5 @@
 
     </form>
     </div>
-
+</div>
 {% endblock %}

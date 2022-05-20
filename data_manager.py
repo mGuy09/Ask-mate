@@ -48,20 +48,20 @@ def get_answer(cursor: RealDictCursor, id):
 def add_question(cursor,title,message,image):
     query = f'''
         insert into question(submission_time,view_number,vote_number,title,message,image)
-        values (now(),0,0, '{title}' , '{message}' ,'{image}')
+        values (now()::timestamp(0),0,0, '{title}' , '{message}' ,'{image}')
         returning id;
     '''
     # value = {'tile':title,'message':message,'image':image}
     cursor.execute(query)
-    id = cursor.fetchone()['id']
-    return id
+    return cursor.fetchone()['id']
+
 
 
 @connection.connection_handler
 def add_data_answer(cursor,question_id,message, image):
     query = f'''
         insert into answer(submission_time,vote_number,question_id,message,image)
-        values (now(),0,{question_id}, '{message}' ,'{image}')
+        values (now()::timestamp(0),0,{question_id}, '{message}' ,'{image}')
         returning question_id
     '''
     # value = {'question_id':question_id,'message':message}
@@ -112,12 +112,29 @@ def delete_comment(cursor,id):
 
 
 @connection.connection_handler
+def delete_comment_by_answer_id(cursor, answer_id):
+    query = '''
+        delete from comment where answer_id = %(answer_id)s
+    '''
+    cursor.execute(query,{'answer_id': answer_id})
+
+
+@connection.connection_handler
+def delete_comment_by_question_id(cursor, question_id):
+    query = '''
+        delete from comment where question_id = %(question_id)s
+    '''
+    cursor.execute(query, {'question_id': question_id})
+
+
+@connection.connection_handler
 def delete_answers_by_question(cursor, question_id):
     query = '''
         delete from answer where question_id=%(question_id)s
+        returning id
     '''
     value = {'question_id': question_id}
-    cursor.execute(query, value)
+    return cursor.execute(query, value)
 
 
 @connection.connection_handler
@@ -189,13 +206,13 @@ def get_question_comment(cursor,id):
     return cursor.fetchone()
 
 @connection.connection_handler
-def get_answer_by_id(cursor, id):
+def get_answer_by_id(cursor, answer_id):
     query = """
     SELECT *
     FROM answer
     WHERE id = %(answer_id)s
     """
-    value = {'id': id}
+    value = {'id': answer_id}
     cursor.execute(query, value)
     return cursor.fetchall()
 

@@ -1,62 +1,46 @@
-{% extends "base.html" %} {% block title %}Latest questions Page{% endblock %} {% block
-content %}
-<div id="list-page-header">
-    <h2>Welcome to the Latest questions</h2>
+{% extends "base.html" %} {% block title %}Latest questions Page{% endblock %}
+{% block content %}
+<div id="latest-page-header">
+    <h2>Welcome to Ask-Mate</h2>
 </div>
-<div class="table-list-questions" id="table_questions">
-    <table>
-        <thead>
-            <tr>
-                <th>Submission time</th>
-                <th>View number</th>
-                <th>Vote number</th>
-                <th>Title</th>
-                <th>Message</th>
-                <th>Image</th>
-                <th>Vote Up/Down</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for question in data %}
-            <tr>
-                <td>{{ question.submission_time }}</td>
-                <td>{{ question.view_number }}</td>
-                <td>{{ question.vote_number }}</td>
-                <td>
+    <div id="sort-form"></div>
+    <div class="background-table">
+<div class="list-questions" id="questions-box">
+        {% for question in data %}
+            <div id="question_box">
+            <h3 id="question_title">
                     <a href="{{ url_for('question', id=question['id']) }}"
                         >{{ question.title}}</a>
-                </td>
-                <td>{{ question.message }}</td>
-                <td>
+                </h3>
+                <p id="question_message">{{ question.message }}</p>
+                <p id="question_image">
                     {% if question.image %}
                     <img
                         src="static/images/{{ question.image }}"
                         alt=""
-                        width="250px"
-                        height="180px"
+
                     />
                     {% endif %}
-                </td>
-                <td>
-                    <a
+                </p>
+                <p id="question_time">{{ question.submission_time }}</p>
+
+                <a
                         class="buttons"
                         href="{{ url_for('vote_up', id=question.id) }}"
-                    >
-                        Up Vote
-                    </a>
-                    <a
+                >Up
+                </a>
+
+                <a
                         class="buttons"
                         href="{{ url_for('vote_down', id=question.id) }}"
-                    >
-                        Down Vote
-                    </a>
-                </td>
-            </tr>
+                >Down
+                </a>
+                <p id="question_views_n_votes">views: {{ question.view_number }} | votes: {{ question.vote_number }} </p>
+
+
+    </div>
 
             {% endfor %}
-        </tbody>
-    </table>
 </div>
-<br />
-
+</div>
 {% endblock %}

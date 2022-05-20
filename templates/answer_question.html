@@ -1,15 +1,21 @@
 {% extends 'base.html' %}{% block title %}Add Answer{% endblock %}
 {% block content %}
+    <div class="add-question-header">
     <h1>Add Answer</h1>
-    <br>
-    <form action="{{ url_for('add_answer', id=id) }}" method="post">
-        <label for="">message:</label>
-        <br>
-        <textarea name="message" id="message" cols="30" rows="10" style="resize: none"></textarea>
-        <br>
-        <label for="image"> Select Image File: </label>
+    </div>
+    <div id="sort-form"></div>
+    <div class="background-table">
+    <div class="form-add-question">
+    <form  action="{{ url_for('add_answer', id=id) }}" method="post" enctype="multipart/form-data">
+
+        <textarea placeholder="Message" name="message" id="message" cols="30" rows="10" style="resize: none"></textarea>
+
+
         <input type="file" id="image" name="image" />
-        <br>
-        <button type="submit">Submit</button>
+
+        <button class="buttons" type="submit">Submit</button>
+
     </form>
+    </div>
+    </div>
 {% endblock %}
