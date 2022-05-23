@@ -1,5 +1,8 @@
-{% extends "base.html" %} {% block title %}Home Page{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
 <div id="list-page-header">
     <h1>Welcome to the Question List</h1>
 </div>
@@ -7,68 +10,62 @@ content %}
 <div id="sort-form">
     <form action="{{ url_for('list_page')}}" method="get">
         <select class="dropdown-sort" name="sort" id="sort">
-            <option id="dropdown-option" value="" disabled selected>Sort By</option>
-            <option id="dropdown-option" value="submission_time">Time</option>
-            <option id="dropdown-option" value="view_number">
+            <option value="" disabled selected>
+                Sort By
+            </option>
+            <option value="submission_time">Time</option>
+            <option value="view_number">
                 View numbers
             </option>
-            <option id="dropdown-option" value="vote_number">
+            <option value="vote_number">
                 Vote numbers
             </option>
-            <option id="dropdown-option" value="title">Title</option>
-            <option id="dropdown-option" value="message">Description</option>
+            <option value="title">Title</option>
+            <option value="message">Description</option>
         </select>
 
         <select class="dropdown-sort" name="direction" id="direction">
-            <option id="dropdown-option" value="" disabled selected>Choose Order</option>
-            <option id="dropdown-option" value="asc">Ascending</option>
-            <option id="dropdown-option" value="desc">Descending</option>
+            <option value="" disabled selected>
+                Choose Order
+            </option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
         </select>
         <button class="buttons" type="submit">Order</button>
     </form>
 </div>
 <div class="background-table">
     <div class="list-questions" id="list-questions">
+        {% for question in data %}
+        <div id="question_box">
+            <h3 id="question_title">
+                <a href="{{ url_for('question', id=question['id']) }}"
+                    >{{ question.title}}</a
+                >
+            </h3>
+            <p id="question_message">{{ question.message }}</p>
+            <p id="question_image">
+                {% if question.image %}
+                <img src="static/images/{{ question.image }}" alt="" />
+                {% endif %}
+            </p>
+            <p id="question_time">{{ question.submission_time }}</p>
 
-            {% for question in data %}
-            <div id="question_box">
-
-                <h3 id="question_title">
-                    <a href="{{ url_for('question', id=question['id']) }}"
-                        >{{ question.title}}</a>
-                </h3>
-                <p id="question_message">{{ question.message }}</p>
-                <p id="question_image">
-                    {% if question.image %}
-                    <img
-                        src="static/images/{{ question.image }}"
-                        alt=""
-
-                    />
-                    {% endif %}
-                </p>
-                <p id="question_time">{{ question.submission_time }}</p>
-
-                <a
-                        class="buttons"
-                        href="{{ url_for('vote_up', id=question.id) }}"
+            <a class="buttons" href="{{ url_for('vote_up', id=question.id) }}"
                 >Up
-                </a>
+            </a>
 
-                <a
-                        class="buttons"
-                        href="{{ url_for('vote_down', id=question.id) }}"
+            <a class="buttons" href="{{ url_for('vote_down', id=question.id) }}"
                 >Down
-                </a>
-                <p id="question_views_n_votes">views: {{ question.view_number }} | votes: {{ question.vote_number }} </p>
+            </a>
+            <p id="question_views_n_votes">
+                views: {{ question.view_number }} | votes: {{
+                question.vote_number }}
+            </p>
+        </div>
 
-
-            </div>
-
-            {% endfor %}
-
-
+        {% endfor %}
     </div>
 
-{% endblock %}
+    {% endblock %}
 </div>

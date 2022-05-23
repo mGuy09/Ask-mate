@@ -1,26 +1,50 @@
-{% extends 'base.html' %}{% block title %}Add tag{% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}Add tag{% endblock %}
+
 {% block content %}
-    <div class="add-question-header">
+<div class="add-question-header">
     <h1>Add tags to question</h1>
 </div>
-    <div class="background-table">
+<div class="background-table">
     <div class="form-add-question">
-    <form action="{{ url_for('add_tag_to_question', question_id=question_id) }}" method="post">
-        {% if not error %}
-        <input id="input-tag" type="text" name="tag" placeholder="tag" autofocus list="tag-name" autocomplete="off">
-        {% else %}
-        <input id="input-error-tag" type="text" name="tag" placeholder="tag" autofocus list="tag-name" autocomplete="off"><p id="alert">Tag already added.</p>
-        {% endif %}
-        <datalist id="tag-name">
-            {% for tag in tags %}
-            <option value="{{ tag.name }}">
-            {% endfor %}
-        </datalist>
-        <br>
-        <br>
-        <button class="buttons" type="submit">Submit</button>
+        <form
+            action="{{ url_for('add_tag_to_question', question_id=question_id) }}"
+            method="post"
+        >
+            {% if not error %}
+            <input
+                id="input-tag"
+                type="text"
+                name="tag"
+                placeholder="tag"
+                autofocus
+                list="tag-name"
+                autocomplete="off"
+            />
+            {% else %}
+            <input
+                id="input-error-tag"
+                type="text"
+                name="tag"
+                placeholder="tag"
+                autofocus
+                list="tag-name"
+                autocomplete="off"
+            />
+            <p id="alert">Tag already added.</p>
+            {% endif %}
+            <datalist id="tag-name">
+                {% for tag in tags %}
+                    <option value="{{ tag.name }}">{{ tag.name }}</option>
+                {% endfor %}
+                
+            </datalist>
 
-    </form>
+            <br />
+            <br />
+            <button class="buttons" type="submit">Submit</button>
+        </form>
     </div>
 </div>
 {% endblock %}
