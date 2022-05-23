@@ -62,7 +62,9 @@ def add_question():
 def add_answer(id):
     if request.method == "POST":
         data_manager.add_data_answer(
-            id, request.form.get("message"), util.upload_image()
+            id,
+            request.form.get("message"),
+            util.upload_image(),
         )
         return redirect(url_for("question", id=id))
     return render_template("answer_question.html", id=id)
@@ -71,8 +73,7 @@ def add_answer(id):
 @app.route("/question/<id>/delete")
 def delete_question(id):
     util.delete_image(dict(data_manager.get_question(id)), id)
-    answers = data_manager.get_data_answer(id)
-    for answer_id in answers:
+    for answer_id in data_manager.get_data_answer(id):
         data_manager.delete_comment_by_answer_id(dict(answer_id)["id"])
     data_manager.delete_answers_by_question(id)
     data_manager.delete_tags_from_question(id)
@@ -85,11 +86,15 @@ def delete_question(id):
 def update_question(id):
     if request.method == "POST":
         data_manager.update_data_question(
-            id, request.form.get("title"), request.form.get("message")
+            id,
+            request.form.get("title"),
+            request.form.get("message"),
         )
         return redirect(url_for("question", id=id))
     return render_template(
-        "edit_question.html", question=data_manager.get_question(id), id=id
+        "edit_question.html",
+        question=data_manager.get_question(id),
+        id=id,
     )
 
 
@@ -99,11 +104,21 @@ def update_answer(answer_id):
         data_manager.update_data_answer(answer_id, request.form.get("message"))
         return redirect(
             url_for(
-                "question", id=dict(data_manager.get_answer(answer_id))["question_id"]
+                "question",
+                id=dict(data_manager.get_answer(answer_id))["question_id"],
             )
         )
     return render_template(
-        "edit_answer.html", data=data_manager.get_answer(answer_id), id=answer_id
+        "edit_answer.html",
+        data=data_manager.get_answer(answer_id),
+        id=answer_id,
+    )
+
+
+def get_question_answer_ids(id):
+    return (
+        dict(data_manager.get_question_comment(id))["question_id"],
+        dict(data_manager.get_question_comment(id))["answer_id"],
     )
 
 
@@ -111,9 +126,8 @@ def update_answer(answer_id):
 def update_comment(comment_id):
     if request.method == "POST":
         data_manager.update_comments(comment_id, request.form.get("message"))
-        question_id = dict(data_manager.get_question_comment(comment_id))["question_id"]
-        answer_id = dict(data_manager.get_question_comment(comment_id))["answer_id"]
-        if question_id is None:
+        question_id, answer_id = get_question_answer_ids(comment_id)
+        if not question_id:
             question_id = dict(data_manager.get_answer(answer_id))["question_id"]
         return redirect(url_for("question", id=question_id))
     return render_template(
@@ -132,13 +146,10 @@ def delete_answer(answer_id):
 
 @app.route("/comment/<comment_id>/delete")
 def delete_comment(comment_id):
-    question_id = dict(data_manager.get_question_comment(comment_id))["question_id"]
-    answer_id = dict(data_manager.get_question_comment(comment_id))["answer_id"]
-    if question_id is None:
+    question_id, answer_id = get_question_answer_ids(comment_id)
+    if not question_id:
         question_id = dict(data_manager.get_answer(answer_id))["question_id"]
     data_manager.delete_comment(comment_id)
-    print(question_id)
-    print(answer_id)
     return redirect(url_for("question", id=question_id))
 
 
@@ -201,7 +212,8 @@ def add_comment_to_answer(answer_id):
         data_manager.add_comment_answer(answer_id, request.form.get("message"))
         return redirect(
             url_for(
-                "question", id=data_manager.get_answer(answer_id).get("question_id", "")
+                "question",
+                id=data_manager.get_answer(answer_id).get("question_id", ""),
             )
         )
     return render_template("comment-answer.html", id=answer_id)
