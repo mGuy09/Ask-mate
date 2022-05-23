@@ -5,7 +5,7 @@ import data_manager
 
 
 def delete_image(item, id):
-    if item["id"] == int(id) and item['image'] != '':
+    if item["id"] == int(id) and item["image"] != "":
         os.remove(
             os.path.join(
                 os.path.dirname(__file__),
@@ -17,7 +17,7 @@ def delete_image(item, id):
 
 
 def upload_image():
-    if request.files['image']:
+    if request.files["image"]:
         image = request.files["image"]
         path = os.path.join(
             os.path.dirname(__file__),
@@ -27,7 +27,7 @@ def upload_image():
         )
         image.save(path)
         return secure_filename(image.filename)
-    return ''
+    return ""
 
 
 def add_tag_to_db(all_tags, new_tag):
@@ -36,4 +36,3 @@ def add_tag_to_db(all_tags, new_tag):
             break
     else:
         data_manager.add_new_tag(new_tag)
-

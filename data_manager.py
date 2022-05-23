@@ -4,31 +4,32 @@ import connection
 
 @connection.connection_handler
 def get_data_question(cursor):
-    query = '''
+    query = """
         select * 
         from question
-    '''
+    """
     cursor.execute(query)
     return cursor.fetchall()
 
+
 @connection.connection_handler
 def get_data_answer(cursor, question_id):
-    query = '''
+    query = """
         select *
         from answer where question_id = %(question_id)s
-    '''
+    """
     value = {"question_id": question_id}
     cursor.execute(query, value)
     return cursor.fetchall()
 
 
 @connection.connection_handler
-def get_question(cursor: RealDictCursor, id:int):
-    query = f'''
+def get_question(cursor: RealDictCursor, id: int):
+    query = f"""
         select id,submission_time,view_number,vote_number,title,message,image
         from question
         where id = {id}
-    '''
+    """
     # value = {'id': id}
     cursor.execute(query)
     return cursor.fetchone()
@@ -36,34 +37,34 @@ def get_question(cursor: RealDictCursor, id:int):
 
 @connection.connection_handler
 def get_answer(cursor: RealDictCursor, id):
-    query = '''
+    query = """
         select *
         from answer
-        where id = %(id)s'''
-    value = {'id': id}
+        where id = %(id)s"""
+    value = {"id": id}
     cursor.execute(query, value)
     return cursor.fetchone()
 
+
 @connection.connection_handler
-def add_question(cursor,title,message,image):
-    query = f'''
+def add_question(cursor, title, message, image):
+    query = f"""
         insert into question(submission_time,view_number,vote_number,title,message,image)
         values (now()::timestamp(0),0,0, '{title}' , '{message}' ,'{image}')
         returning id;
-    '''
+    """
     # value = {'tile':title,'message':message,'image':image}
     cursor.execute(query)
-    return cursor.fetchone()['id']
-
+    return cursor.fetchone()["id"]
 
 
 @connection.connection_handler
-def add_data_answer(cursor,question_id,message, image):
-    query = f'''
+def add_data_answer(cursor, question_id, message, image):
+    query = f"""
         insert into answer(submission_time,vote_number,question_id,message,image)
         values (now()::timestamp(0),0,{question_id}, '{message}' ,'{image}')
         returning question_id
-    '''
+    """
     # value = {'question_id':question_id,'message':message}
     cursor.execute(query)
     # id = cursor.fetchone()['question_id']
@@ -71,117 +72,126 @@ def add_data_answer(cursor,question_id,message, image):
 
 
 @connection.connection_handler
-def sort_question_data(cursor,sorting,direction, modifier):
-    query = f'''
+def sort_question_data(cursor, sorting, direction, modifier):
+    query = f"""
         select *
         from question
         order by {sorting} {direction}
         limit {modifier};
-    '''
+    """
     cursor.execute(query)
     return cursor.fetchall()
 
 
 @connection.connection_handler
 def delete_data(cursor, id):
-    query= """
+    query = """
     Delete from question where id = %(id)s
     """
-    value = {'id': id}
+    value = {"id": id}
     cursor.execute(query, value)
 
+
 @connection.connection_handler
-def delete_answer(cursor,id):
-    query = '''
+def delete_answer(cursor, id):
+    query = """
         delete from answer where id = %(id)s
         returning question_id
-    '''
-    value = {'id':id}
-    cursor.execute(query,value)
-    question_id = cursor.fetchone()['question_id']
+    """
+    value = {"id": id}
+    cursor.execute(query, value)
+    question_id = cursor.fetchone()["question_id"]
     return question_id
 
 
 @connection.connection_handler
-def delete_comment(cursor,id):
-    query = '''
+def delete_comment(cursor, id):
+    query = """
         delete from comment where id = %(id)s
-    '''
-    value = {'id': id}
-    cursor.execute(query,value)
+    """
+    value = {"id": id}
+    cursor.execute(query, value)
 
 
 @connection.connection_handler
 def delete_comment_by_answer_id(cursor, answer_id):
-    query = '''
+    query = """
         delete from comment where answer_id = %(answer_id)s
-    '''
-    cursor.execute(query,{'answer_id': answer_id})
+    """
+    cursor.execute(query, {"answer_id": answer_id})
 
 
 @connection.connection_handler
 def delete_comment_by_question_id(cursor, question_id):
-    query = '''
+    query = """
         delete from comment where question_id = %(question_id)s
-    '''
-    cursor.execute(query, {'question_id': question_id})
+    """
+    cursor.execute(query, {"question_id": question_id})
 
 
 @connection.connection_handler
 def delete_answers_by_question(cursor, question_id):
-    query = '''
+    query = """
         delete from answer where question_id=%(question_id)s
         returning id
-    '''
-    value = {'question_id': question_id}
+    """
+    value = {"question_id": question_id}
     return cursor.execute(query, value)
 
 
 @connection.connection_handler
-def update_data_question(cursor,id,title,message):
-    cursor.execute('''
-    Update question SET title = %s, message = %s, submission_time = now()::timestamp(0)where id = %s ''',(title,message,id))
+def update_data_question(cursor, id, title, message):
+    cursor.execute(
+        """
+    Update question SET title = %s, message = %s, submission_time = now()::timestamp(0)where id = %s """,
+        (title, message, id),
+    )
 
 
 @connection.connection_handler
-def update_data_answer(cursor,id,message):
-    cursor.execute('''
+def update_data_answer(cursor, id, message):
+    cursor.execute(
+        """
     update answer set message = %s, submission_time = now()::timestamp(0) where id = %s 
-    ''',(message,id))
+    """,
+        (message, id),
+    )
 
 
 @connection.connection_handler
-def update_comments(cursor,id,message):
-    cursor.execute(f'''
+def update_comments(cursor, id, message):
+    cursor.execute(
+        f"""
     update comment set message = '{message}', edited_count = edited_count +1 , 
     submission_time = now()::timestamp(0) where id = {id}
-    ''')
+    """
+    )
 
 
 @connection.connection_handler
-def vote_on_question(cursor,id,modifier):
-    query = f'''
+def vote_on_question(cursor, id, modifier):
+    query = f"""
         update question set vote_number = vote_number + {modifier} 
         where id ={id}
-    '''
+    """
     cursor.execute(query)
 
 
 @connection.connection_handler
-def vote_on_answer(cursor,id,modifier):
-    query = f'''
+def vote_on_answer(cursor, id, modifier):
+    query = f"""
         update answer set vote_number = vote_number + {modifier} 
         where id ={id}
-    '''
+    """
     cursor.execute(query)
 
 
 @connection.connection_handler
 def add_comment(cursor, question_id, message):
-    query = f'''
+    query = f"""
     INSERT INTO comment(question_id,  message, submission_time, edited_count)
     VALUES({question_id}, '{message}', now(), 0)
-    '''
+    """
     cursor.execute(query)
 
 
@@ -191,19 +201,20 @@ def get_comment(cursor: RealDictCursor, question_id):
     SELECT  *
     FROM comment WHERE  question_id = %(question_id)s;
     """
-    value = {'question_id':question_id}
+    value = {"question_id": question_id}
     cursor.execute(query, value)
     return cursor.fetchall()
 
 
 @connection.connection_handler
-def get_question_comment(cursor,id):
-    query = f'''
+def get_question_comment(cursor, id):
+    query = f"""
     select *
     from comment where id = {id}
-    '''
+    """
     cursor.execute(query)
     return cursor.fetchone()
+
 
 @connection.connection_handler
 def get_answer_by_id(cursor, answer_id):
@@ -212,18 +223,18 @@ def get_answer_by_id(cursor, answer_id):
     FROM answer
     WHERE id = %(answer_id)s
     """
-    value = {'id': answer_id}
+    value = {"id": answer_id}
     cursor.execute(query, value)
     return cursor.fetchall()
 
 
 @connection.connection_handler
 def add_comment_answer(cursor, answer_id, message):
-    query = '''
+    query = """
         INSERT INTO comment( answer_id,  message, submission_time, edited_count)
         VALUES( %(answer_id)s, %(message)s, now(), 0) 
         RETURNING id;
-        '''
+        """
     cursor.execute(query, dict(answer_id=answer_id, message=message))
     return cursor.fetchone()
 
@@ -234,9 +245,10 @@ def get_comment_answer(cursor: RealDictCursor, answer_id):
     SELECT  *
     FROM comment WHERE  answer_id = %(answer_id)s;
     """
-    value = {'answer_id':answer_id}
+    value = {"answer_id": answer_id}
     cursor.execute(query, value)
     return cursor.fetchall()
+
 
 @connection.connection_handler
 def get_all_comments(cursor):
@@ -249,24 +261,24 @@ def get_all_comments(cursor):
 
 
 @connection.connection_handler
-def search_question(cursor,search_phrase):
-    query = f'''
+def search_question(cursor, search_phrase):
+    query = f"""
         select *
         from question
         where lower(question.title) like lower('%{search_phrase}%%') OR
         lower(question.message) like lower('%{search_phrase}%%');
-    '''
+    """
     cursor.execute(query)
     return cursor.fetchall()
 
 
 @connection.connection_handler
 def search_answer(cursor, search_phrase):
-    query = f'''
+    query = f"""
         select *
         from answer
         where answer.message like '%{search_phrase}%%'    
-    '''
+    """
     cursor.execute(query)
     return cursor.fetchall()
 
@@ -282,12 +294,12 @@ def get_tags(cursor):
 
 
 @connection.connection_handler
-def add_question_tag(cursor, question_id, tag_id ):
+def add_question_tag(cursor, question_id, tag_id):
     query = """
     INSERT INTO question_tag(question_id, tag_id)
     VALUES (%(question_id)s, %(tag_id)s )
     """
-    values = {'question_id': question_id, 'tag_id': tag_id}
+    values = {"question_id": question_id, "tag_id": tag_id}
     cursor.execute(query, values)
 
 
@@ -297,81 +309,82 @@ def add_new_tag(cursor, name):
     INSERT INTO tag (name)
     VALUES (%(name)s)
     """
-    values = {'name': name}
+    values = {"name": name}
     cursor.execute(query, values)
 
 
 @connection.connection_handler
 def get_tag_by_question_id(cursor, question_id):
-    query = '''
+    query = """
         select *
         from tag
         join question_tag qt on tag.id = qt.tag_id
         where qt.question_id = %(question_id)s and qt.tag_id = tag.id
-    '''
-    values = {'question_id': question_id}
+    """
+    values = {"question_id": question_id}
     cursor.execute(query, values)
     return cursor.fetchone()
 
 
 @connection.connection_handler
 def check_if_tag_exists(cursor, question_id, tag_id):
-    query = '''
+    query = """
         select *
         from tag
         
             
-    '''
+    """
 
 
 @connection.connection_handler
 def get_all_tags_by_question_id(cursor, question_id):
-    query = '''
+    query = """
         select *
         from tag
         join question_tag on tag.id = question_tag.tag_id
         where question_tag.question_id = %(question_id)s and question_tag.tag_id = tag.id;
             
-    '''
-    cursor.execute(query, {'question_id': question_id})
+    """
+    cursor.execute(query, {"question_id": question_id})
     return cursor.fetchall()
 
 
 @connection.connection_handler
 def get_tag_from_id(cursor, tag_id):
-    query = '''
+    query = """
             select *
             from tag
             where id = %(tag_id)s
-        '''
-    values = {'tag_id': tag_id}
+        """
+    values = {"tag_id": tag_id}
     cursor.execute(query, values)
     return cursor.fetchone()
 
 
 @connection.connection_handler
 def delete_tag(cursor, tag_id, question_id):
-    query = '''
+    query = """
         delete 
         from question_tag where tag_id = %(tag_id)s and question_id = %(question_id)s;
-    '''
-    values = {'tag_id': tag_id, 'question_id': question_id}
+    """
+    values = {"tag_id": tag_id, "question_id": question_id}
     cursor.execute(query, values)
 
 
 @connection.connection_handler
 def delete_tags_from_question(cursor, question_id):
-    query = '''
+    query = """
         delete from question_tag where question_id = %(question_id)s
-    '''
-    cursor.execute(query, {'question_id': question_id})
+    """
+    cursor.execute(query, {"question_id": question_id})
 
 
 @connection.connection_handler
 def get_tag_from_question_tag(cursor, question_id, tag_id):
-    cursor.execute('''select * 
+    cursor.execute(
+        """select * 
                       from question_tag
-                      where question_id = %(question_id)s and tag_id = %(tag_id)s''',
-                   {'question_id': question_id,
-                    'tag_id': tag_id})
+                      where question_id = %(question_id)s and tag_id = %(tag_id)s""",
+        {"question_id": question_id, "tag_id": tag_id},
+    )
     return cursor.fetchone()
