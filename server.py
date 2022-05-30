@@ -72,14 +72,18 @@ def question(id):
 @app.route("/add-question", methods=["GET", "POST"])
 def add_question():
     if request.method == "POST":
-        return redirect(
-            url_for(
-                "question",
-                id=data_manager.add_question(
+        question_id = data_manager.add_question(
                     request.form['title'],
                     request.form.get("message"),
                     util.upload_image(),
-                ),
+                    )
+        question_user_id = data_manager.add_question_and_user(question_id,session['user_id'])
+        return redirect(
+            url_for(
+                "question",
+                id=question_id,
+                question_user_id=question_user_id
+
             )
         )
     return render_template("add_question.html")

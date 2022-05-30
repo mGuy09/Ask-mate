@@ -390,3 +390,16 @@ def get_user(cursor, email_or_name):
     '''
     cursor.execute(query, {'email_or_name': email_or_name})
     return cursor.fetchone()
+
+
+@connection.connection_handler
+def add_question_and_user(cursor,question_id,user_id):
+    query = '''
+        insert into question_user_id (question_id, user_id)
+        values (%(question_id)s,%(user_id)s)
+    '''
+    values = {
+        'question_id':question_id,
+        'user_id': user_id
+    }
+    cursor.execute(query,values)
