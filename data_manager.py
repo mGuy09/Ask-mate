@@ -501,3 +501,4 @@ def get_number_of_comments(cursor, user_id):
             where comment.id = comment_user_id.user_id
             '''
     cursor.execute(query)
+    return cursor.fetchall()
