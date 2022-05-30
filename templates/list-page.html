@@ -5,10 +5,15 @@
 {% block content %}
 <div id="list-page-header">
     <h1>Welcome to the Question List</h1>
+
 </div>
     {% if session %}
     <h1>{{ session.logged_in}}</h1>
+       <div>
+        <a href="{{ url_for('get_user_page', user_id=session.user_id) }}">User</a>
+       </div>
 {% endif %}
+
 <div id="sort-form">
     <form action="{{ url_for('list_page')}}" method="get">
         <select class="dropdown-sort" name="sort" id="sort">
@@ -34,6 +39,7 @@
             <option value="desc">Descending</option>
         </select>
         <button class="buttons" type="submit">Order</button>
+
     </form>
 </div>
 <div class="background-table">
