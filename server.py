@@ -77,12 +77,12 @@ def add_question():
                     request.form.get("message"),
                     util.upload_image(),
                     )
-        question_user_id = data_manager.add_question_and_user(question_id,session['user_id'])
+        data_manager.add_question_and_user(question_id,session['user_id'])
         return redirect(
             url_for(
                 "question",
                 id=question_id,
-                question_user_id=question_user_id
+
 
             )
         )
@@ -92,11 +92,13 @@ def add_question():
 @app.route("/question/<id>/new-answer", methods=["GET", "POST"])
 def add_answer(id):
     if request.method == "POST":
-        data_manager.add_data_answer(
+
+        answer_id = data_manager.add_data_answer(
             id,
             request.form.get("message"),
             util.upload_image(),
         )
+        data_manager.add_answer_and_user(answer_id,session['user_id'])
         return redirect(url_for("question", id=id))
     return render_template("answer_question.html", id=id)
 
