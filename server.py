@@ -286,12 +286,15 @@ def delete_tag(question_id, tag_id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        if util.verify_password(request.form['password'], dict(data_manager.get_user(request.form['email_or_name']))['password']):
-            user_id = dict(data_manager.get_user_id(request.form['email_or_name']))
+        if data_manager.get_user(request.form['email_or_name']) is not None and util.verify_password(request.form['password'],
+                                dict(data_manager.get_user(request.form['email_or_name']))['password']):
+
             session['logged_in'] = dict(data_manager.get_user(request.form['email_or_name']))['username']
             session['user_id'] = dict(data_manager.get_user(request.form['email_or_name']))['id']
-            return redirect(url_for('list_page', user_id=user_id))
-    return render_template('login_page.html')
+            return redirect(url_for('list_page'))
+        else:
+            return render_template('login_page.html', error=True)
+    return render_template('login_page.html', error=False)
 
 
 @app.get('/logout')
@@ -300,20 +303,5 @@ def logout():
     return redirect(url_for('latest_questions'))
 
 
-@app.route('/user/<user_id>', methods=['GET', 'POST'])
-def get_user_page(user_id):
-    username = session['logged_in']
-    id = data_manager.get_id_user(username)['id']
-    submission_time = data_manager.get_time(id)['registration_time']
-    number_questions= data_manager.get_number_of_questions(id)[0]['count']
-    number_answers = data_manager.get_number_of_answers(id)[0]['count']
-    number_comments = data_manager.get_number_of_comments(id)[0]['count']
-    return render_template('user_page.html', id=id,
-                           username=username,submission_time=submission_time,
-                           number_questions=number_questions, number_answers=number_answers,
-                           number_comments=number_comments)
-
-
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

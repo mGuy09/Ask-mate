@@ -181,7 +181,7 @@ def add_comment(cursor, question_id, message):
         "INSERT INTO comment (question_id, message, submission_time, edited_count) VALUES (%(question_id)s, %(message)s, now(), 0) returning id",
         {
             "question_id": question_id,
-            "message": message,
+            "message": message
         },
     )
     return cursor.fetchone()['id']
@@ -374,8 +374,8 @@ def get_tag_from_question_tag(cursor, question_id, tag_id):
 @connection.connection_handler
 def add_user(cursor,email,username,password):
     query = """
-    INSERT INTO user_data (registration_time,email,username,password)
-    VALUES (now()::timestamp(0),%(email)s,%(username)s,%(password)s)
+    INSERT INTO user_data (registration_time,reputation,email,username,password)
+    VALUES (now()::timestamp(0),0,%(email)s,%(username)s,%(password)s)
     """
     values = {"email": email,
               "username": username,
@@ -394,14 +394,6 @@ def get_user(cursor, email_or_name):
     cursor.execute(query, {'email_or_name': email_or_name})
     return cursor.fetchone()
 
-@connection.connection_handler
-def get_user_id(cursor, email_or_name):
-    query = '''
-        select id from user_data ud
-        where ud.email = %(email_or_name)s or ud.username = %(email_or_name)s
-    '''
-    cursor.execute(query, {'email_or_name': email_or_name})
-    return cursor.fetchone()
 
 @connection.connection_handler
 def add_question_and_user(cursor,question_id,user_id):
@@ -441,75 +433,8 @@ def add_comment_and_user(cursor, comment_id, user_id):
     }
     cursor.execute(query, values)
 
-@connection.connection_handler
-def get_user_info(cursor, id):
-    query = '''
-    select id, username, registration_time, 
-    from user_data
-    where id = %(id)s'''
-    cursor.execute(query, {'id': id})
-    return cursor.fetchall()
 
 @connection.connection_handler
-def get_id_user(cursor, username):
-    query = '''
-    select id
-    from user_data
-    where username = %(username)s
-    '''
-    cursor.execute(query, {'username':username})
-    return cursor.fetchone()
-
-@connection.connection_handler
-def get_time(cursor, id):
-    query = '''
-    select registration_time
-    from user_data
-    where id = %(id)s'''
-    cursor.execute(query, {'id': id})
-    return cursor.fetchone()
-
-@connection.connection_handler
-def get_time(cursor, id):
-    query = '''
-    select registration_time
-    from user_data
-    where id = %(id)s'''
-    cursor.execute(query, {'id': id})
-    return cursor.fetchone()
-
-@connection.connection_handler
-def get_number_of_questions(cursor, user_id):
-    query = '''
-    select count(question.title)
-    from question
-    inner join question_user_id
-    on question_user_id.user_id = user_id
-    where question.id = question_user_id.question_id
-    '''
-    cursor.execute(query)
-    return cursor.fetchall()
-
-@connection.connection_handler
-def get_number_of_answers(cursor, user_id):
-    query = '''
-        select count(answer.message)
-        from answer
-        inner join answer_user_id
-        on answer_user_id.user_id = user_id
-        where answer.id = answer_user_id.answer_id
-        '''
-    cursor.execute(query)
-    return cursor.fetchall()
-
-@connection.connection_handler
-def get_number_of_comments(cursor, user_id):
-    query = '''
-            select count(comment.message)
-            from comment
-            inner join comment_user_id
-            on comment_user_id.user_id = user_id
-            where comment.id = comment_user_id.user_id
-            '''
-    cursor.execute(query)
+def get_all_users(cursor):
+    cursor.execute('select * from user_data')
     return cursor.fetchall()
