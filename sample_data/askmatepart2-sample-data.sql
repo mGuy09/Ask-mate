@@ -15,6 +15,18 @@ ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS pk_ques
 ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS fk_question_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.tag DROP CONSTRAINT IF EXISTS pk_tag_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS fk_tag_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.user_data DROP CONSTRAINT IF EXISTS pk_user_data_id CASCADE;
+
+
+DROP TABLE IF EXISTS public.user_data;
+CREATE TABLE user_data (
+    id serial NOT NULL,
+    registration_time timestamp without time zone,
+    username text,
+    email text,
+    password text
+                 );
+
 
 DROP TABLE IF EXISTS public.question;
 CREATE TABLE question (

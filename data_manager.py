@@ -68,7 +68,7 @@ def add_data_answer(cursor, question_id, message, image):
 @connection.connection_handler
 def sort_question_data(cursor, sorting, direction, modifier):
     cursor.execute(
-        f"SELECT * FROM question ORDER BY {sorting} {direction} LIMIT %(modifier)s;"
+        f"SELECT * FROM question ORDER BY {sorting} {direction} LIMIT {modifier};"
     )
     return cursor.fetchall()
 
