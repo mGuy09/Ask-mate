@@ -6,8 +6,8 @@
 <div id="list-page-header">
     <h1>Welcome to the Question List</h1>
 </div>
-    {% if logged_in %}
-    <h1>fa ceva ba</h1>
+    {% if session %}
+    <h1>{{ session.logged_in}}</h1>
 {% endif %}
 <div id="sort-form">
     <form action="{{ url_for('list_page')}}" method="get">
