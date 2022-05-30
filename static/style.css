@@ -1,0 +1,9 @@
+.buttons {
+    background-color: #c4c4c4;
+    border: none;
+    padding: 4px;
+    border-radius: 3px;
+    text-decoration: none;
+    margin: 4px;
+    transition-duration: 0.3s;
+}

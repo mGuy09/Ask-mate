@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Latest questions Page{% endblock %}
+
+{% block content %}
+<div id="latest-page-header">
+    <h2>Welcome to Ask-Mate</h2>
+</div>
+<div id="sort-form"></div>
+<div class="background-table">
+    <div class="list-questions" id="questions-box">
+        {% for question in data %}
+        <div id="question_box">
+            <h3 id="question_title">
+                <a href="{{ url_for('question', id=question['id']) }}"
+                    >{{ question.title}}</a
+                >
+            </h3>
+            <p id="question_message">{{ question.message }}</p>
+            <p id="question_image">
+                {% if question.image %}
+                <img src="static/images/{{ question.image }}" alt="" />
+                {% endif %}
+            </p>
+            <p id="question_time">{{ question.submission_time }}</p>
+
+            <a class="buttons" href="{{ url_for('vote_up', id=question.id) }}"
+                >Up
+            </a>
+
+            <a class="buttons" href="{{ url_for('vote_down', id=question.id) }}"
+                >Down
+            </a>
+            <p id="question_views_n_votes">
+                views: {{ question.view_number }} | votes: {{
+                question.vote_number }}
+            </p>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

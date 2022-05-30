@@ -1,0 +1,402 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+mark {
+    background-color: #71ef9f;
+}
+
+body {
+    font-family: Source Sans Pro, sans-serif;
+    background-image: linear-gradient(
+        to top left,
+        #000000 40%,
+        #868686,
+        #ffffff 90%
+    );
+}
+
+.tags,
+.form-add-question textarea,
+.form-add-question #input-title input,
+.dropdown-sort,
+#delete-button,
+.buttons,
+.navbar {
+    transition: all 0.3s ease-in-out;
+}
+
+#list-page-header {
+    transition: all 1s ease-in-out;
+}
+
+.question-tags,
+.question-comments-box,
+.comment-box,
+#answer-box,
+.question-detail-box,
+.form-add-question,
+.add-question-header,
+#sort-form,
+.list-questions #question_image,
+#list-page-header,
+.search-form,
+.navbar a {
+    display: flex;
+}
+
+.tags,
+.form-add-question,
+.list-questions #question_image,
+.list-questions #question_box,
+.search-form input,
+.search-form,
+.navbar a {
+    justify-content: center;
+    text-align: center;
+}
+
+.add-question-header,
+#latest-page-header:hover,
+#list-page-header:hover,
+.navbar a {
+    color: #fff;
+}
+
+.question-comments-box,
+.comment-box,
+#answer-box,
+.question-detail-box,
+.form-add-question,
+.dropdown-sort:active,
+.dropdown-sort,
+.list-questions #question_box {
+    background-color: #fff;
+}
+
+.dropdown-sort:hover,
+#delete-button,
+.buttons,
+.navbar a:hover {
+    background-color: #c4c4c4;
+}
+
+.tags,
+#delete-button,
+.buttons,
+.navbar #home_button {
+    color: #000;
+}
+
+.add-question-header,
+#latest-page-header:hover,
+#list-page-header:hover {
+    background-color: #000;
+}
+
+#background,
+#sort-form,
+.background-table {
+    background: #4b4b4b;
+}
+
+#list-page-header {
+    background: transparent;
+}
+
+#comment-time,
+.search-form input {
+    font-size: 14px;
+}
+
+#alert,
+.navbar a {
+    font-size: 17px;
+}
+
+.tags,
+#answer-box,
+.question-detail-box,
+.question-comments-box,
+.list-questions #question_box {
+    border-radius: 5px;
+}
+
+.tags,
+#delete-button,
+.buttons,
+.navbar a {
+    text-decoration: none;
+}
+
+#alert,
+#input-error-tag,
+#input-tag,
+.form-add-question #input-title input {
+    letter-spacing: 2px;
+}
+
+@media (min-width: 748px) {
+    #navbar_buttons,
+    .search-form,
+    .navbar {
+        display: flex;
+    }
+
+    #navbar_buttons,
+    .navbar {
+        justify-content: flex-start;
+        flex-direction: row;
+        list-style-type: none;
+    }
+
+    .search-form {
+        place-content: flex-end;
+        justify-content: flex-end;
+    }
+    .search-form,
+    .search-form input {
+        justify-content: flex-end;
+    }
+    .search-form input {
+        flex-basis: 100%;
+    }
+}
+.navbar {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(166, 166, 166, 0.95);
+}
+.navbar:hover {
+    background: #a6a6a6;
+}
+.navbar a {
+    padding: 17px 25px;
+    transition-duration: 0.3s;
+}
+.navbar a:hover {
+    padding: 17px 35px;
+}
+
+.search-form {
+    padding: 8px 25px;
+    margin-left: auto;
+}
+.search-form input {
+    padding: 8px 8px 7px;
+    width: 17rem;
+}
+
+#list-page-header {
+    padding: 8%;
+    font-size: 3.2rem;
+}
+@media (min-width: 748px) {
+    #list-page-header {
+        font-size: 5.2rem;
+    }
+
+    #latest-page-header {
+        padding: 15%;
+        background-color: transparent;
+        display: grid;
+        font-size: 5.4rem;
+        place-items: center;
+        transition: all 1s ease-in-out;
+    }
+}
+#latest-page-header::-moz-viewport-scroll {
+    font-size: 2rem;
+}
+
+@media (min-width: 748px) {
+    .list-questions {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 50%;
+        margin: 0 20%;
+        justify-content: space-around;
+    }
+}
+.list-questions #question_box {
+    border: 1px black solid;
+    padding: 15px;
+    margin-bottom: 15%;
+}
+.list-questions #question_image {
+    flex-shrink: 50;
+}
+.list-questions #question_title {
+    font-size: 25px;
+}
+
+#sort-form {
+    padding: 1.5rem;
+}
+
+#delete-button,
+.buttons {
+    border: none;
+    padding: 7px 1rem 7px 1rem;
+    border-radius: 3px;
+    margin: 4px;
+}
+
+.buttons:hover {
+    background-color: #8c8c8c;
+}
+
+.dropdown-sort {
+    flex: 8%;
+    padding: 6px;
+}
+.dropdown-sort:active {
+    border: none;
+}
+
+.add-question-header {
+    padding: 3%;
+    font-size: 30px;
+}
+
+.footer {
+    padding: 5rem;
+    background: #343434;
+}
+
+.form-add-question {
+    padding: 7%;
+    margin: 1rem 20% 1rem 20%;
+}
+.form-add-question #input-title {
+    margin: 10% 0 5% 0;
+}
+.form-add-question #input-title input {
+    width: 20rem;
+    padding: 4%;
+    border: 2px #c4c4c4 solid;
+    font-size: 20px;
+}
+.form-add-question #input-title input:hover {
+    background: #d9d9d9;
+    border: 2px #969595 solid;
+}
+.form-add-question textarea {
+    width: 20rem;
+    border: 2px #d9d9d9 solid;
+    padding: 4%;
+}
+.form-add-question textarea:hover {
+    background: #c4c4c4;
+    border: 2px #969595 solid;
+}
+
+.question-comments-box,
+.question-detail-box {
+    border-bottom: 2rem #4b4b4b solid;
+}
+
+.question-comments-box {
+    padding: 2rem;
+}
+
+.question-detail-box {
+    padding: 2rem;
+    flex-direction: column;
+    flex-basis: 50%;
+    margin: 0 20%;
+    justify-content: space-around;
+}
+
+.question-comments-box,
+.comment-box,
+#answer-box {
+    flex-direction: column;
+    margin: 0 20%;
+    justify-content: space-around;
+}
+
+.comment-box {
+    width: 50%;
+    padding: 1rem;
+    border-bottom: 1px #c4c4c4 solid;
+}
+
+#answer-message {
+    font-size: 20px;
+}
+
+#answer-box {
+    padding: 2rem;
+}
+
+.question-tags {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 1rem 0 1rem 0;
+    border-top: 2px #a6a6a6 solid;
+    border-bottom: 2px #a6a6a6 solid;
+}
+
+.tags {
+    background: #c4c4c4;
+    padding: 4px;
+    border: 1px #4b4b4b solid;
+    margin-right: 5px;
+    letter-spacing: 1px;
+}
+.tags:hover {
+    background: #8c8c8c;
+    animation: infinite;
+    animation-name: delete-tag;
+    animation-duration: 1s;
+    padding: 6px;
+}
+
+@keyframes delete-tag {
+    from {
+        background: #8c8c8c;
+    }
+    to {
+        background: #f81515;
+    }
+}
+@keyframes delete-tag {
+    0% {
+        background: #f86415;
+    }
+    25% {
+        background: #8c8c8c;
+    }
+    50% {
+        background: #f86415;
+    }
+    75% {
+        background: #8c8c8c;
+    }
+    100% {
+        background: #f86415;
+    }
+}
+#delete-button:hover {
+    animation-delay: 0.3s;
+    animation: infinite;
+    animation-name: delete-tag;
+    animation-duration: 1s;
+}
+
+#input-error-tag,
+#input-tag {
+    padding: 0.5rem;
+    font-size: 16px;
+}
+
+#input-error-tag {
+    border: 2px #b90d0d solid;
+}
+
+#alert {
+    color: #b90d0d;
+}
