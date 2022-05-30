@@ -506,7 +506,7 @@ def get_number_of_comments(cursor, user_id):
 @connection.connection_handler
 def get_questions(cursor, user_id):
     query = '''
-        select question.title
+        select question.title, question.id
         from question
         inner join question_user_id
         on question_user_id.user_id = user_id
@@ -517,7 +517,7 @@ def get_questions(cursor, user_id):
 @connection.connection_handler
 def get_answers(cursor, user_id):
     query = '''
-            select answer.message
+            select answer.message, answer.question_id
             from answer
             inner join answer_user_id
             on answer_user_id.user_id = user_id
@@ -528,7 +528,7 @@ def get_answers(cursor, user_id):
 @connection.connection_handler
 def get_comments(cursor, user_id):
     query = '''
-        select comment.message
+        select comment.message, comment.answer_id, comment.question_id
         from comment
         inner join comment_user_id
         on  comment_user_id.comment_id = comment.id 

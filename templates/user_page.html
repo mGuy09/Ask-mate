@@ -37,22 +37,34 @@
     <h2>Questions</h2>
     <ol>
         {% for question in questions  %}
-            <li>{{ question.title}}</li>
+            <li><a href="{{ url_for('question', id=question['id']) }}"
+                    >{{ question.title}}</a></li>
+
     {% endfor %}
     </ol>
     <h2>Answers</h2>
     <ol>
         {% for answer in answers  %}
-            <li>{{ answer.message}}</li>
+            <li><a href="{{ url_for('question', id=answer['question_id']) }}"
+                    >{{ answer.message}}</a></li>
     {% endfor %}
     </ol>
 
 
     <h2>Comments</h2>
+
     <ol>
         {% for comment in comments  %}
-            <li>{{ comment.message}}</li>
+            {% if comment['question_id']!= 0 %}
+            <div><li><a href="{{ url_for('question', id=comment['question_id'] )}}"
+                    >{{ comment.message}}</a></li></div>
+            {% else  %}
+            <li><a href="{{ url_for('question', id=comment['answer_id'] )}}"
+                    >{{ comment.message}}</a></li>
+                {{ super() }}
+             {% endif %}
     {% endfor %}
+
     </ol>
 
 </div>
