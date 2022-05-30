@@ -26,6 +26,7 @@ DROP TABLE IF EXISTS public.user_data;
 CREATE TABLE user_data (
     id serial NOT NULL,
     registration_time timestamp without time zone,
+    reputation int,
     username text,
     email text,
     password text

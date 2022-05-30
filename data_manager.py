@@ -56,13 +56,16 @@ def add_data_answer(cursor, question_id, message, image):
     cursor.execute(
         """
             INSERT INTO answer(submission_time, vote_number, question_id, message, image)
-            VALUES (now()::timestamp(0),0,%(question_id)s, %(message)s,%(image)s) RETURNING question_id;
+            VALUES (now()::timestamp(0),0,%(question_id)s, %(message)s,%(image)s) RETURNING id;
         """,
         {
             "question_id": question_id,
             "message": message,
+            'image':image
         },
+
     )
+    return cursor.fetchone()['id']
 
 
 @connection.connection_handler
@@ -175,13 +178,13 @@ def vote_on_answer(id, modifier):
 @connection.connection_handler
 def add_comment(cursor, question_id, message):
     cursor.execute(
-        "INSERT INTO comment (question_id, message, submission_time, edited_count) VALUES (%(question_id)s, %(message)s, now(), 0);",
+        "INSERT INTO comment (question_id, message, submission_time, edited_count) VALUES (%(question_id)s, %(message)s, now(), 0) returning id",
         {
             "question_id": question_id,
             "message": message,
         },
     )
-
+    return cursor.fetchone()['id']
 
 @connection.connection_handler
 def get_comment(cursor, question_id):
@@ -371,8 +374,8 @@ def get_tag_from_question_tag(cursor, question_id, tag_id):
 @connection.connection_handler
 def add_user(cursor,email,username,password):
     query = """
-    INSERT INTO user_data (registration_time,email,username,password)
-    VALUES (now()::timestamp(0),%(email)s,%(username)s,%(password)s)
+    INSERT INTO user_data (registration_time,reputation,email,username,password)
+    VALUES (now()::timestamp(0),0,%(email)s,%(username)s,%(password)s)
     """
     values = {"email": email,
               "username": username,
@@ -390,3 +393,42 @@ def get_user(cursor, email_or_name):
     '''
     cursor.execute(query, {'email_or_name': email_or_name})
     return cursor.fetchone()
+
+
+@connection.connection_handler
+def add_question_and_user(cursor,question_id,user_id):
+    query = '''
+        insert into question_user_id (question_id, user_id)
+        values (%(question_id)s,%(user_id)s)
+    '''
+    values = {
+        'question_id':question_id,
+        'user_id': user_id
+    }
+    cursor.execute(query,values)
+
+
+@connection.connection_handler
+def add_answer_and_user(cursor, answer_id, user_id):
+    query = '''
+        insert into answer_user_id (answer_id, user_id)
+        values (%(answer_id)s,%(user_id)s)
+    '''
+    values = {
+        'answer_id': answer_id,
+        'user_id': user_id
+    }
+    cursor.execute(query, values)
+
+
+@connection.connection_handler
+def add_comment_and_user(cursor, comment_id, user_id):
+    query = '''
+        insert into comment_user_id (comment_id, user_id)
+        values (%(comment_id)s,%(user_id)s)
+    '''
+    values = {
+        'comment_id': comment_id,
+        'user_id': user_id
+    }
+    cursor.execute(query, values)

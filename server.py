@@ -72,14 +72,18 @@ def question(id):
 @app.route("/add-question", methods=["GET", "POST"])
 def add_question():
     if request.method == "POST":
-        return redirect(
-            url_for(
-                "question",
-                id=data_manager.add_question(
+        question_id = data_manager.add_question(
                     request.form['title'],
                     request.form.get("message"),
                     util.upload_image(),
-                ),
+                    )
+        data_manager.add_question_and_user(question_id,session['user_id'])
+        return redirect(
+            url_for(
+                "question",
+                id=question_id,
+
+
             )
         )
     return render_template("add_question.html")
@@ -88,11 +92,13 @@ def add_question():
 @app.route("/question/<id>/new-answer", methods=["GET", "POST"])
 def add_answer(id):
     if request.method == "POST":
-        data_manager.add_data_answer(
+
+        answer_id = data_manager.add_data_answer(
             id,
             request.form.get("message"),
             util.upload_image(),
         )
+        data_manager.add_answer_and_user(answer_id,session['user_id'])
         return redirect(url_for("question", id=id))
     return render_template("answer_question.html", id=id)
 
@@ -209,7 +215,9 @@ def vote_down_answer(answer_id):
 @app.route("/question/<id>/new-comment", methods=["GET", "POST"])
 def add_comment(id):
     if request.method == "POST":
-        data_manager.add_comment(id, request.form.get("message"))
+
+        comment_id = data_manager.add_comment(id, request.form.get("message"))
+        data_manager.add_comment_and_user(comment_id,session['user_id'])
         return redirect(url_for("question", id=id))
     return render_template(
         "new-comment.html",
@@ -283,6 +291,12 @@ def login():
             session['user_id'] = dict(data_manager.get_user(request.form['email_or_name']))['id']
             return redirect(url_for('list_page'))
     return render_template('login_page.html')
+
+
+@app.get('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('latest_questions'))
 
 
 if __name__ == "__main__":

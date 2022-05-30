@@ -39,7 +39,7 @@
                 {% if session %}
                 <p>{{ session.logged_in }}</p>
                     <p>{{ session.user_id }}</p>
-                    <a href="">Log out</a>
+                    <a href="{{ url_for('logout') }}">Log out</a>
                 {% else %}
                     <a href="{{ url_for('login') }}">Login</a>
                 {% endif %}
