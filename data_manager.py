@@ -56,7 +56,7 @@ def add_data_answer(cursor, question_id, message, image):
     cursor.execute(
         """
             INSERT INTO answer(submission_time, vote_number, question_id, message, image)
-            VALUES (now()::timestamp(0),0,%(question_id)s, %(message)s,%(image)s) RETURNING question_id;
+            VALUES (now()::timestamp(0),0,%(question_id)s, %(message)s,%(image)s) RETURNING id;
         """,
         {
             "question_id": question_id,
@@ -178,13 +178,13 @@ def vote_on_answer(id, modifier):
 @connection.connection_handler
 def add_comment(cursor, question_id, message):
     cursor.execute(
-        "INSERT INTO comment (question_id, message, submission_time, edited_count) VALUES (%(question_id)s, %(message)s, now(), 0);",
+        "INSERT INTO comment (question_id, message, submission_time, edited_count) VALUES (%(question_id)s, %(message)s, now(), 0) returning id",
         {
             "question_id": question_id,
             "message": message,
         },
     )
-
+    return cursor.fetchone()['id']
 
 @connection.connection_handler
 def get_comment(cursor, question_id):

@@ -215,7 +215,9 @@ def vote_down_answer(answer_id):
 @app.route("/question/<id>/new-comment", methods=["GET", "POST"])
 def add_comment(id):
     if request.method == "POST":
-        data_manager.add_comment(id, request.form.get("message"))
+
+        comment_id = data_manager.add_comment(id, request.form.get("message"))
+        data_manager.add_comment_and_user(comment_id,session['user_id'])
         return redirect(url_for("question", id=id))
     return render_template(
         "new-comment.html",
