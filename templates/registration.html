@@ -1,0 +1,18 @@
+
+
+{% block title %} Registration Page {% endblock %}
+
+<h1>Register page</h1>
+<form action="{{ url_for('registration') }}" method="post">
+    <input type="text" name="username" placeholder="username" autocomplete="off">
+    <input type="email" name="email" placeholder="email" autocomplete="off">
+    <input type="password" name="password" placeholder="password" autocomplete="off">
+    <button class="buttons" type="submit">Register</button>
+</form>
+
+{% block content %}
+
+
+
+
+{% endblock %}
