@@ -502,3 +502,14 @@ def get_number_of_comments(cursor, user_id):
             '''
     cursor.execute(query)
     return cursor.fetchall()
+
+@connection.connection_handler
+def get_questions(cursor, user_id):
+    query = '''
+        select question.title
+        from question
+        inner join question_user_id
+        on question_user_id.user_id = user_id
+        where question.id = question_user_id.question_id'''
+    cursor.execute(query)
+    return cursor.fetchall()

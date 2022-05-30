@@ -305,21 +305,17 @@ def logout():
 @app.route('/user/<user_id>', methods=['GET', 'POST'])
 def get_user_page(user_id):
     username = session['logged_in']
-    print(username)
     id = data_manager.get_id_user(username)['id']
-    print(id)
     submission_time = data_manager.get_time(id)['registration_time']
-    print(submission_time)
     number_questions= data_manager.get_number_of_questions(id)[0]['count']
-    print(number_questions)
     number_answers = data_manager.get_number_of_answers(id)[0]['count']
-    print(number_answers)
     number_comments = data_manager.get_number_of_comments(id)[0]['count']
-    print(number_comments)
+    questions = data_manager.get_questions(user_id)
+    print(questions)
     return render_template('user_page.html', id=id,
                            username=username,submission_time=submission_time,
                            number_questions=number_questions, number_answers=number_answers,
-                           number_comments=number_comments)
+                           number_comments=number_comments, questions=questions)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

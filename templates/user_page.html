@@ -32,6 +32,17 @@
     </tbody>
 
 </table>
+<div>
+
+    <h2>Questions</h2>
+    <ol>
+        {% for question in questions  %}
+            <li>{{ question.title}}</li>
+    {% endfor %}
+    </ol>
+
+
+</div>
 </div>
 {% endif %}
 {% endblock %}
