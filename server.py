@@ -289,5 +289,11 @@ def login():
     return render_template('login_page.html')
 
 
+@app.get('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('latest_questions'))
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
