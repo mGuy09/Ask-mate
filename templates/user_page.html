@@ -40,7 +40,20 @@
             <li>{{ question.title}}</li>
     {% endfor %}
     </ol>
+    <h2>Answers</h2>
+    <ol>
+        {% for answer in answers  %}
+            <li>{{ answer.message}}</li>
+    {% endfor %}
+    </ol>
 
+
+    <h2>Comments</h2>
+    <ol>
+        {% for comment in comments  %}
+            <li>{{ comment.message}}</li>
+    {% endfor %}
+    </ol>
 
 </div>
 </div>

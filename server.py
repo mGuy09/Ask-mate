@@ -311,11 +311,13 @@ def get_user_page(user_id):
     number_answers = data_manager.get_number_of_answers(id)[0]['count']
     number_comments = data_manager.get_number_of_comments(id)[0]['count']
     questions = data_manager.get_questions(user_id)
-    print(questions)
+    answers = data_manager.get_answers(user_id)
+    comments = data_manager.get_comments(user_id)
     return render_template('user_page.html', id=id,
                            username=username,submission_time=submission_time,
                            number_questions=number_questions, number_answers=number_answers,
-                           number_comments=number_comments, questions=questions)
+                           number_comments=number_comments, questions=questions,
+                           answers=answers, comments=comments)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

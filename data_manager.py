@@ -513,3 +513,26 @@ def get_questions(cursor, user_id):
         where question.id = question_user_id.question_id'''
     cursor.execute(query)
     return cursor.fetchall()
+
+@connection.connection_handler
+def get_answers(cursor, user_id):
+    query = '''
+            select answer.message
+            from answer
+            inner join answer_user_id
+            on answer_user_id.user_id = user_id
+            where answer.id = answer_user_id.answer_id'''
+    cursor.execute(query)
+    return cursor.fetchall()
+
+@connection.connection_handler
+def get_comments(cursor, user_id):
+    query = '''
+        select comment.message
+        from comment
+        inner join comment_user_id
+        on  comment_user_id.comment_id = comment.id 
+        where comment_user_id.user_id = user_id
+        '''
+    cursor.execute(query)
+    return cursor.fetchall()
