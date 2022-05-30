@@ -11,6 +11,19 @@ def main():
     return render_template('bonus_questions.html', questions=SAMPLE_QUESTIONS)
 
 
+@app.route("/registration",methods = ['POST','GET'])
+def registration():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        hashed_password = util.hash_password(password)
+        data_manager.add_user(email,username,hashed_password)
+        return redirect(url_for('list_page'))
+    return render_template('registration.html')
+
+
+
 @app.route("/")
 def latest_questions():
     return render_template(

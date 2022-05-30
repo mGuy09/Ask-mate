@@ -366,3 +366,17 @@ def get_tag_from_question_tag(cursor, question_id, tag_id):
         },
     )
     return cursor.fetchone()
+
+
+@connection.connection_handler
+def add_user(cursor,email,username,password):
+    query = """
+    INSERT INTO user_data (registration_time,email,username,password)
+    VALUES (now()::timestamp(0),%(email)s,%(username)s,%(password)s)
+    """
+    values = {"email": email,
+            "username": username,
+            "password": password
+            }
+
+    cursor.execute(query, values)
