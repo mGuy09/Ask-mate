@@ -286,11 +286,15 @@ def delete_tag(question_id, tag_id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        if util.verify_password(request.form['password'], dict(data_manager.get_user(request.form['email_or_name']))['password']):
+        if data_manager.get_user(request.form['email_or_name']) is not None and util.verify_password(request.form['password'],
+                                dict(data_manager.get_user(request.form['email_or_name']))['password']):
+
             session['logged_in'] = dict(data_manager.get_user(request.form['email_or_name']))['username']
             session['user_id'] = dict(data_manager.get_user(request.form['email_or_name']))['id']
             return redirect(url_for('list_page'))
-    return render_template('login_page.html')
+        else:
+            return render_template('login_page.html', error=True)
+    return render_template('login_page.html', error=False)
 
 
 @app.get('/logout')

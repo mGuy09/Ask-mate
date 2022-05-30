@@ -181,7 +181,7 @@ def add_comment(cursor, question_id, message):
         "INSERT INTO comment (question_id, message, submission_time, edited_count) VALUES (%(question_id)s, %(message)s, now(), 0) returning id",
         {
             "question_id": question_id,
-            "message": message,
+            "message": message
         },
     )
     return cursor.fetchone()['id']
@@ -432,3 +432,9 @@ def add_comment_and_user(cursor, comment_id, user_id):
         'user_id': user_id
     }
     cursor.execute(query, values)
+
+
+@connection.connection_handler
+def get_all_users(cursor):
+    cursor.execute('select * from user_data')
+    return cursor.fetchall()
