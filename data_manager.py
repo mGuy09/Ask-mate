@@ -43,7 +43,7 @@ def add_question(cursor, title, message, image):
             VALUES (now()::timestamp(0),0,0, %(title)s, %(message)s,%(image)s) RETURNING id;
         """,
         {
-            "tile": title,
+            "title": title,
             "message": message,
             "image": image,
         },

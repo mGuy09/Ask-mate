@@ -25,7 +25,7 @@ def registration():
         password = request.form.get('password')
         hashed_password = util.hash_password(password)
         data_manager.add_user(email,username,hashed_password)
-        return redirect(url_for('list_page'))
+        return redirect(url_for('login'))
     return render_template('registration.html')
 
 
@@ -38,21 +38,21 @@ def latest_questions():
             request.args.get("sort", default="submission_time"),
             request.args.get("direction", default="desc"),
             5,
-        ),
+        )
     )
 
 
 @app.route("/list")
 def list_page():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
+    # if not session.get('logged_in'):
+    #     return redirect(url_for('login'))
     return render_template(
         "list-page.html",
         data=data_manager.sort_question_data(
             request.args.get("sort", default="submission_time"),
             request.args.get("direction", default="desc"),
-            "ALL",
-        ),
+            "ALL"
+        )
     )
 
 
@@ -65,7 +65,7 @@ def question(id):
         question_comments=data_manager.get_comment(id),
         answer_comment=data_manager.get_all_comments(),
         tags=data_manager.get_all_tags_by_question_id(id),
-        id=id,
+        id=id
     )
 
 
@@ -76,7 +76,7 @@ def add_question():
             url_for(
                 "question",
                 id=data_manager.add_question(
-                    request.form.get("title"),
+                    request.form['title'],
                     request.form.get("message"),
                     util.upload_image(),
                 ),
@@ -121,7 +121,7 @@ def update_question(id):
     return render_template(
         "edit_question.html",
         question=data_manager.get_question(id),
-        id=id,
+        id=id
     )
 
 
@@ -138,7 +138,7 @@ def update_answer(answer_id):
     return render_template(
         "edit_answer.html",
         data=data_manager.get_answer(answer_id),
-        id=answer_id,
+        id=answer_id
     )
 
 
@@ -160,7 +160,7 @@ def update_comment(comment_id):
     return render_template(
         "edit_comment.html",
         data=data_manager.get_question_comment(comment_id),
-        id=comment_id,
+        id=comment_id
     )
 
 
@@ -213,7 +213,7 @@ def add_comment(id):
         return redirect(url_for("question", id=id))
     return render_template(
         "new-comment.html",
-        id=id,
+        id=id
     )
 
 
@@ -229,7 +229,7 @@ def search_bar():
         "search-list.html",
         data=data_manager.search_question(request.args.get("search_phrase")),
         answer_questions=selected_answers,
-        search_phrase=request.args.get("search_phrase"),
+        search_phrase=request.args.get("search_phrase")
     )
 
 
@@ -265,7 +265,7 @@ def add_tag_to_question(question_id):
         "add_new_tag.html",
         tags=data_manager.get_tags(),
         question_id=question_id,
-        error=error,
+        error=error
     )
 
 
@@ -280,8 +280,8 @@ def login():
     if request.method == 'POST':
         if util.verify_password(request.form['password'], dict(data_manager.get_user(request.form['email_or_name']))['password']):
             session['logged_in'] = dict(data_manager.get_user(request.form['email_or_name']))['username']
-            flask.flash('logged in')
-            return redirect(url_for('list_page', logged_in=session['logged_in']))
+            session['user_id'] = dict(data_manager.get_user(request.form['email_or_name']))['id']
+            return redirect(url_for('list_page'))
     return render_template('login_page.html')
 
 

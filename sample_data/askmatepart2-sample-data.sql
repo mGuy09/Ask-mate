@@ -17,6 +17,10 @@ ALTER TABLE IF EXISTS ONLY public.tag DROP CONSTRAINT IF EXISTS pk_tag_id CASCAD
 ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS fk_tag_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.user_data DROP CONSTRAINT IF EXISTS pk_user_data_id CASCADE;
 
+ALTER TABLE IF EXISTS ONLY public.question_user_id DROP CONSTRAINT IF EXISTS pk_question_user_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.answer_user_id DROP CONSTRAINT IF EXISTS pk_user_data_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.comment_user_id DROP CONSTRAINT IF EXISTS pk_user_data_id CASCADE;
+
 
 DROP TABLE IF EXISTS public.user_data;
 CREATE TABLE user_data (
@@ -26,6 +30,27 @@ CREATE TABLE user_data (
     email text,
     password text
                  );
+
+drop table if exists public.question_user_id;
+create table question_user_id (
+    id serial not null,
+    question_id int,
+    user_id int
+);
+
+drop table if exists public.answer_user_id;
+create table answer_user_id (
+    id serial not null,
+    answer_id int,
+    user_id int
+);
+
+drop table if exists public.comment_user_id;
+create table comment_user_id (
+    id serial not null,
+    comment_id int,
+    user_id int
+);
 
 
 DROP TABLE IF EXISTS public.question;
