@@ -380,3 +380,13 @@ def add_user(cursor,email,username,password):
               }
 
     cursor.execute(query, values)
+
+
+@connection.connection_handler
+def get_user(cursor, email_or_name):
+    query = '''
+        select * from user_data ud
+        where ud.email = %(email_or_name)s or ud.username = %(email_or_name)s
+    '''
+    cursor.execute(query, {'email_or_name': email_or_name})
+    return cursor.fetchone()

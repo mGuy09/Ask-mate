@@ -1,3 +1,5 @@
+import flask
+
 from bonus_questions import SAMPLE_QUESTIONS
 from flask import Flask, render_template, request, redirect, url_for, session
 import data_manager
@@ -42,6 +44,8 @@ def latest_questions():
 
 @app.route("/list")
 def list_page():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
     return render_template(
         "list-page.html",
         data=data_manager.sort_question_data(
@@ -269,6 +273,16 @@ def add_tag_to_question(question_id):
 def delete_tag(question_id, tag_id):
     data_manager.delete_tag(tag_id, question_id)
     return redirect(url_for("question", id=question_id))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        if util.verify_password(request.form['password'], dict(data_manager.get_user(request.form['email_or_name']))['password']):
+            session['logged_in'] = dict(data_manager.get_user(request.form['email_or_name']))['username']
+            flask.flash('logged in')
+            return redirect(url_for('list_page', logged_in=session['logged_in']))
+    return render_template('login_page.html')
 
 
 if __name__ == "__main__":
