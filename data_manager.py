@@ -375,8 +375,8 @@ def add_user(cursor,email,username,password):
     VALUES (now()::timestamp(0),%(email)s,%(username)s,%(password)s)
     """
     values = {"email": email,
-            "username": username,
-            "password": password
-            }
+              "username": username,
+              "password": password
+              }
 
     cursor.execute(query, values)
