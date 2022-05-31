@@ -66,7 +66,9 @@ def question(id):
         question_comments=data_manager.get_comment(id),
         answer_comment=data_manager.get_all_comments(),
         tags=data_manager.get_all_tags_by_question_id(id),
-        id=id
+        id=id,
+        accepted_answer=data_manager.get_user_id_question(id),
+        answer_user_id=data_manager.get_all_answer_user_id()
     )
 
 
@@ -196,24 +198,20 @@ def delete_comment(comment_id):
 @app.route("/question/<id>/vote-up")
 def vote_up(id):
     data_manager.vote_on_question(id, 1)
-    user_id = data_manager.get_user_id_q(id)
-    data_manager.add_rep(user_id.get('user_id'), 5)
+    user_id = data_manager.get_user_id_question(id)
+
     return redirect(url_for("list_page"))
 
 
 @app.route("/question/<id>/vote-down")
 def vote_down(id):
     data_manager.vote_on_question(id, -1)
-    user_id = data_manager.get_user_id_q(id)
-    data_manager.add_rep(user_id.get('user_id'), -2)
     return redirect(url_for("list_page"))
 
 
 @app.route("/answer/<answer_id>/vote-up")
 def vote_up_answer(answer_id):
     data_manager.vote_on_answer(answer_id, 1)
-    user_id = data_manager.get_user_id_a(answer_id)
-    data_manager.add_rep(user_id.get('user_id'), 10)
     answer = dict(data_manager.get_answer(answer_id))
     return redirect(url_for("question", id=answer["question_id"]))
 
@@ -221,8 +219,6 @@ def vote_up_answer(answer_id):
 @app.route("/answer/<answer_id>/vote-down")
 def vote_down_answer(answer_id):
     data_manager.vote_on_answer(answer_id, -1)
-    user_id = data_manager.get_user_id_a(answer_id)
-    data_manager.add_rep(user_id.get('user_id'), -2)
     answer = dict(data_manager.get_answer(answer_id))
     return redirect(url_for("question", id=answer["question_id"]))
 
@@ -343,6 +339,17 @@ def get_user_page(user_id, username):
                            number_comments=number_comments, questions=questions,
                            answers=answers, comments=comments, reputation=reputation)
 
+
+@app.get('/show-answer/<answer_id>/<question_id>')
+def show_answer(answer_id, question_id):
+    data_manager.show_answer(answer_id)
+    return redirect(url_for('question', id=question_id))
+
+
+@app.get('/hide-answer/<answer_id>/<question_id>')
+def hide_answer(answer_id, question_id):
+    data_manager.hide_answer(answer_id)
+    return redirect(url_for('question', id=question_id))
 
 
 if __name__ == "__main__":
