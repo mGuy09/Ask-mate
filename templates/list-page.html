@@ -7,12 +7,6 @@
     <h1>Welcome to the Question List</h1>
 
 </div>
-    {% if session %}
-    <h1>{{ session.logged_in}}</h1>
-       <div>
-        <a href="{{ url_for('get_user_page', user_id=session.user_id) }}">User</a>
-       </div>
-{% endif %}
 
 <div id="sort-form">
     <form action="{{ url_for('list_page')}}" method="get">

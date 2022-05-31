@@ -6,7 +6,8 @@
 
 
     {% for user in users_info %}
-    <p>{{ user.username }}</p> <p>{{ user.registration_time }}</p> <p>{{ user.reputation }}</p>
+    <p><a href="{{ url_for('get_user_page', user_id=user.id, username=user.username) }}">{{ user.username }}</a></p> <p>{{ user.registration_time }}</p> <p>{{ user.reputation }}</p>
+        <p></p>
     <br>
     <br>
 

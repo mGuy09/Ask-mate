@@ -502,11 +502,12 @@ def get_number_of_answers(cursor, user_id):
         select count(answer.message)
         from answer
         inner join answer_user_id
-        on answer_user_id.user_id = user_id
-        where answer.id = answer_user_id.answer_id
+        on answer_user_id.answer_id = answer.id
+        where answer.id = answer_user_id.answer_id and answer_user_id.user_id = %(user_id)s
         '''
-    cursor.execute(query)
+    cursor.execute(query, {'user_id': user_id})
     return cursor.fetchall()
+
 
 @connection.connection_handler
 def get_number_of_comments(cursor, user_id):
@@ -514,11 +515,12 @@ def get_number_of_comments(cursor, user_id):
             select count(comment.message)
             from comment
             inner join comment_user_id
-            on comment_user_id.user_id = user_id
-            where comment.id = comment_user_id.user_id
+            on comment_user_id.comment_id = comment.id
+            where comment.id = comment_user_id.comment_id and comment_user_id.user_id = %(user_id)s
             '''
-    cursor.execute(query)
+    cursor.execute(query, {'user_id': user_id})
     return cursor.fetchall()
+
 
 @connection.connection_handler
 def get_questions(cursor, user_id):
@@ -568,3 +570,27 @@ def get_reputation(cursor, id):
        where id = %(id)s'''
     cursor.execute(query, {'id': id})
     return cursor.fetchone()
+
+
+@connection.connection_handler
+def delete_question_id_from_user(cursor, question_id):
+    cursor.execute('''
+    delete from question_user_id qui
+    where qui.question_id = %(question_id)s
+    ''', {'question_id': question_id})
+
+
+@connection.connection_handler
+def delete_answer_from_user(cursor, answer_id):
+    cursor.execute('''
+        delete from answer_user_id aui
+        where aui.answer_id = %(answer_id)s
+    ''', {'answer_id': answer_id})
+
+
+@connection.connection_handler
+def delete_comment_from_user(cursor, comment_id):
+    cursor.execute('''
+     delete from comment_user_id cui
+     where cui.comment_id = %(comment_id)s
+    ''', {'comment_id': comment_id})

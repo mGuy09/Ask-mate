@@ -112,6 +112,7 @@ def delete_question(id):
     data_manager.delete_answers_by_question(id)
     data_manager.delete_tags_from_question(id)
     data_manager.delete_comment_by_question_id(id)
+    data_manager.delete_question_id_from_user(id)
     data_manager.delete_data(id)
     return redirect(url_for("list_page"))
 
@@ -174,6 +175,7 @@ def update_comment(comment_id):
 @app.route("/answer/<answer_id>/delete")
 def delete_answer(answer_id):
     util.delete_image(dict(data_manager.get_answer(answer_id)), answer_id)
+    data_manager.delete_answer_from_user(answer_id)
     data_manager.delete_comment_by_answer_id(answer_id)
     return redirect(url_for("question", id=data_manager.delete_answer(answer_id)))
 
@@ -183,6 +185,7 @@ def delete_comment(comment_id):
     question_id, answer_id = get_question_answer_ids(comment_id)
     if not question_id:
         question_id = dict(data_manager.get_answer(answer_id))["question_id"]
+    data_manager.delete_comment_from_user(comment_id)
     data_manager.delete_comment(comment_id)
     return redirect(url_for("question", id=question_id))
 
@@ -306,39 +309,27 @@ def logout():
 
 @app.route('/users')
 def users_page():
-    username = session['logged_in']
     users_info = data_manager.get_all_users()
     print(users_info)
 
-
-    return render_template('user_list.html',users_info=users_info,users_questions=users_questions)
-
+    return render_template('user_list.html',users_info=users_info)
 
 
-
-
-@app.route('/user/<user_id>', methods=['GET', 'POST'])
-def get_user_page(user_id):
-    username = session['logged_in']
-    id = data_manager.get_id_user(username)['id']
-    submission_time = data_manager.get_time(id)['registration_time']
-    number_questions= data_manager.get_number_of_questions(id)[0]['count']
-    number_answers = data_manager.get_number_of_answers(id)[0]['count']
-    number_comments = data_manager.get_number_of_comments(id)[0]['count']
+@app.route('/user/<user_id>/<username>/', methods=['GET', 'POST'])
+def get_user_page(user_id, username):
+    submission_time = data_manager.get_time(user_id)['registration_time']
+    number_questions= data_manager.get_number_of_questions(user_id)[0]['count']
+    number_answers = data_manager.get_number_of_answers(user_id)[0]['count']
+    number_comments = data_manager.get_number_of_comments(user_id)[0]['count']
     questions = data_manager.get_questions(user_id)
     answers = data_manager.get_answers(user_id)
     comments = data_manager.get_comments(user_id)
     reputation = data_manager.get_reputation(user_id)['reputation']
-    return render_template('user_page.html', id=id,
+    return render_template('user_page.html', id=user_id,
                            username=username,submission_time=submission_time,
                            number_questions=number_questions, number_answers=number_answers,
                            number_comments=number_comments, questions=questions,
                            answers=answers, comments=comments, reputation=reputation)
-
-
-
-
-
 
 
 if __name__ == "__main__":
