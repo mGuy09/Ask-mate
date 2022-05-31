@@ -6,7 +6,7 @@
 <div id="latest-page-header">
     <h2>Welcome to Ask-Mate</h2>
 </div>
-<div id="sort-form"></div>
+<div id="sort-form"><a href="{{ url_for('tags_page') }}">Tags</a></div>
 <div class="background-table">
     <div class="list-questions" id="questions-box">
         {% for question in data %}

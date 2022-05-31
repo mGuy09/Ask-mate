@@ -12,6 +12,8 @@
 {% if session.user_id %}
     <a href="{{ url_for('users_page') }}">List of all Users</a>
     {% endif %}
+    <br>
+    <a href="{{ url_for('tags_page') }}">Tags</a>
     <form action="{{ url_for('list_page')}}" method="get">
         <select class="dropdown-sort" name="sort" id="sort">
             <option value="" disabled selected>
