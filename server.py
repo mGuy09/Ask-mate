@@ -196,6 +196,8 @@ def delete_comment(comment_id):
 @app.route("/question/<id>/vote-up")
 def vote_up(id):
     data_manager.vote_on_question(id, 1)
+    user_id = data_manager.get_user_id(id)
+
     return redirect(url_for("list_page"))
 
 
@@ -334,6 +336,7 @@ def get_user_page(user_id, username):
                            number_questions=number_questions, number_answers=number_answers,
                            number_comments=number_comments, questions=questions,
                            answers=answers, comments=comments, reputation=reputation)
+
 
 
 if __name__ == "__main__":

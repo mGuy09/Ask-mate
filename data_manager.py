@@ -510,7 +510,7 @@ def get_number_of_answers(cursor, user_id):
 
 
 @connection.connection_handler
-def get_number_of_comments(cursor, user_id):
+def get_number_of_comments(cursor, id):
     query = '''
             select count(comment.message)
             from comment
@@ -585,6 +585,7 @@ def get_reputation(cursor, id):
     return cursor.fetchone()
 
 
+
 @connection.connection_handler
 def delete_question_id_from_user(cursor, question_id):
     cursor.execute('''
@@ -607,6 +608,12 @@ def delete_comment_from_user(cursor, comment_id):
      delete from comment_user_id cui
      where cui.comment_id = %(comment_id)s
     ''', {'comment_id': comment_id})
+
+
+
+@connection.connection_handler
+def add_reputation(cursor):
+    pass
 
 
 @connection.connection_handler
@@ -640,3 +647,13 @@ group by t.user_id
 
     ''')
     return cursor.fetchall()
+
+@connection.connection_handler
+def get_user_id(cursor, id):
+    query = '''
+    select user_id
+    from question_user_id
+    where question_user_id.question_id = %(id)s'''
+    value = {'id':id}
+    cursor.execute(query, value)
+    return cursor.fetchone()
