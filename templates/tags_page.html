@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Tags{% endblock %}
+{% block content %}
+    <h1>Tags List Page</h1>
+    {% for tag in tags %}
+    <p>{{ tag.name }}: present in {{ tag.tags_in_question }} questions</p>
+    {% endfor %}
+
+{% endblock %}
