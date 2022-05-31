@@ -204,6 +204,8 @@ def vote_up(id):
 @app.route("/question/<id>/vote-down")
 def vote_down(id):
     data_manager.vote_on_question(id, -1)
+    user_id = data_manager.get_user_id_q(id)
+    data_manager.add_rep(user_id.get('user_id'), -2)
     return redirect(url_for("list_page"))
 
 
@@ -211,7 +213,7 @@ def vote_down(id):
 def vote_up_answer(answer_id):
     data_manager.vote_on_answer(answer_id, 1)
     user_id = data_manager.get_user_id_a(answer_id)
-    data_manager.add_rep(user_id, 10)
+    data_manager.add_rep(user_id.get('user_id'), 10)
     answer = dict(data_manager.get_answer(answer_id))
     return redirect(url_for("question", id=answer["question_id"]))
 
@@ -219,6 +221,8 @@ def vote_up_answer(answer_id):
 @app.route("/answer/<answer_id>/vote-down")
 def vote_down_answer(answer_id):
     data_manager.vote_on_answer(answer_id, -1)
+    user_id = data_manager.get_user_id_a(answer_id)
+    data_manager.add_rep(user_id.get('user_id'), -2)
     answer = dict(data_manager.get_answer(answer_id))
     return redirect(url_for("question", id=answer["question_id"]))
 
