@@ -108,7 +108,9 @@ def add_answer(id):
 def delete_question(id):
     util.delete_image(dict(data_manager.get_question(id)), id)
     for answer_id in data_manager.get_data_answer(id):
-        data_manager.delete_comment_by_answer_id(dict(answer_id)["id"])
+        comment_id = data_manager.delete_comment_by_answer_id(dict(answer_id)["id"])
+        data_manager.delete_comment_from_user(comment_id)
+        data_manager.delete_answer_from_user(answer_id)
     data_manager.delete_answers_by_question(id)
     data_manager.delete_tags_from_question(id)
     data_manager.delete_comment_by_question_id(id)
@@ -174,8 +176,9 @@ def update_comment(comment_id):
 
 @app.route("/answer/<answer_id>/delete")
 def delete_answer(answer_id):
-    util.delete_image(dict(data_manager.get_answer(answer_id)), answer_id)
     data_manager.delete_answer_from_user(answer_id)
+    util.delete_image(dict(data_manager.get_answer(answer_id)), answer_id)
+
     data_manager.delete_comment_by_answer_id(answer_id)
     return redirect(url_for("question", id=data_manager.delete_answer(answer_id)))
 
@@ -310,9 +313,8 @@ def logout():
 @app.route('/users')
 def users_page():
     users_info = data_manager.get_all_users()
-    questions = data_manager.get_all_questions()
 
-    return render_template('user_list.html',users_info=users_info,questions=questions)
+    return render_template('user_list.html',users_info=users_info, users_questions=data_manager.count_users())
 
 
 @app.route('/user/<user_id>/<username>/', methods=['GET', 'POST'])

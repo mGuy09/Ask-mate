@@ -100,8 +100,8 @@ def delete_comment(cursor, id):
 
 @connection.connection_handler
 def delete_comment_by_answer_id(cursor, answer_id):
-    cursor.execute(
-        "DELETE FROM COMMENT WHERE answer_id = %(answer_id)s;",
+    return cursor.execute(
+        "DELETE FROM COMMENT WHERE answer_id = %(answer_id)s returning comment.id;",
         {"answer_id": answer_id},
     )
 
@@ -607,3 +607,14 @@ def delete_comment_from_user(cursor, comment_id):
      delete from comment_user_id cui
      where cui.comment_id = %(comment_id)s
     ''', {'comment_id': comment_id})
+
+
+@connection.connection_handler
+def count_users(cursor):
+    cursor.execute('''
+    select count(user_id) as user_questions, qui.user_id
+from question_user_id qui
+group by qui.user_id
+
+    ''')
+    return cursor.fetchall()
