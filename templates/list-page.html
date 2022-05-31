@@ -9,7 +9,9 @@
 </div>
 
 <div id="sort-form">
+{% if session.user_id %}
     <a href="{{ url_for('users_page') }}">List of all Users</a>
+    {% endif %}
     <form action="{{ url_for('list_page')}}" method="get">
         <select class="dropdown-sort" name="sort" id="sort">
             <option value="" disabled selected>

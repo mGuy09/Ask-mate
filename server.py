@@ -214,7 +214,7 @@ def vote_down(id):
 @app.route("/answer/<answer_id>/vote-up")
 def vote_up_answer(answer_id):
     data_manager.vote_on_answer(answer_id, 1)
-    user_id = data_manager.get_user_id_a(answer_id)
+    user_id = data_manager.get_user_id_answer(answer_id)
     data_manager.add_rep(user_id.get('user_id'), 10)
     answer = dict(data_manager.get_answer(answer_id))
     return redirect(url_for("question", id=answer["question_id"]))
@@ -223,7 +223,7 @@ def vote_up_answer(answer_id):
 @app.route("/answer/<answer_id>/vote-down")
 def vote_down_answer(answer_id):
     data_manager.vote_on_answer(answer_id, -1)
-    user_id = data_manager.get_user_id_a(answer_id)
+    user_id = data_manager.get_user_id_answer(answer_id)
     data_manager.add_rep(user_id.get('user_id'), -2)
     answer = dict(data_manager.get_answer(answer_id))
     return redirect(url_for("question", id=answer["question_id"]))
@@ -356,6 +356,11 @@ def show_answer(answer_id, question_id):
 def hide_answer(answer_id, question_id):
     data_manager.hide_answer(answer_id)
     return redirect(url_for('question', id=question_id))
+
+
+@app.get('/tags')
+def tags_page():
+    return render_template('tags_page.html', tags=data_manager.get_all_tags_from_questions())
 
 
 if __name__ == "__main__":

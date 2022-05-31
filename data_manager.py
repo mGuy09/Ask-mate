@@ -575,6 +575,7 @@ def get_comments(cursor, user_id):
     cursor.execute(query,values)
     return cursor.fetchall()
 
+
 @connection.connection_handler
 def get_reputation(cursor, id):
     query = '''
@@ -583,7 +584,6 @@ def get_reputation(cursor, id):
        where id = %(id)s'''
     cursor.execute(query, {'id': id})
     return cursor.fetchone()
-
 
 
 @connection.connection_handler
@@ -608,12 +608,6 @@ def delete_comment_from_user(cursor, comment_id):
      delete from comment_user_id cui
      where cui.comment_id = %(comment_id)s
     ''', {'comment_id': comment_id})
-
-
-
-@connection.connection_handler
-def add_reputation(cursor):
-    pass
 
 
 @connection.connection_handler
@@ -661,7 +655,7 @@ def get_user_id_question(cursor, id):
 
 
 @connection.connection_handler
-def get_user_id_a(cursor, id):
+def get_user_id_answer(cursor, id):
     query = '''
     select user_id
     from answer_user_id
@@ -702,3 +696,15 @@ def add_rep(cursor, id, modifier):
             "id": id,
         },
     )
+
+
+@connection.connection_handler
+def get_all_tags_from_questions(cursor):
+    query = '''
+        select count(tag_id) as tags_in_question, tag_id, name
+        from tag
+        join question_tag qt on tag.id = qt.tag_id
+        group by tag_id, name
+    '''
+    cursor.execute(query)
+    return cursor.fetchall()
