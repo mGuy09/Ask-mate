@@ -661,6 +661,17 @@ def get_user_id_question(cursor, id):
 
 
 @connection.connection_handler
+def get_user_id_a(cursor, id):
+    query = '''
+    select user_id
+    from answer_user_id
+    where answer_user_id.answer_id = %(id)s'''
+    value = {'id': id}
+    cursor.execute(query, value)
+    return cursor.fetchone()
+
+
+@connection.connection_handler
 def show_answer(cursor, answer_id):
     cursor.execute('''
     update answer set accepted = True where answer.id = %(answer_id)s
@@ -680,3 +691,14 @@ def get_all_answer_user_id(cursor):
     select * from answer_user_id
     ''')
     return cursor.fetchall()
+
+
+@connection.connection_handler
+def add_rep(cursor, id, modifier):
+    cursor.execute(
+        "UPDATE user_data SET reputation = reputation + %(modifier)s WHERE id = %(id)s;",
+        {
+            "modifier": modifier,
+            "id": id,
+        },
+    )

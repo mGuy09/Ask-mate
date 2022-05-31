@@ -9,6 +9,7 @@
 </div>
 
 <div id="sort-form">
+    <a href="{{ url_for('users_page') }}">List of all Users</a>
     <form action="{{ url_for('list_page')}}" method="get">
         <select class="dropdown-sort" name="sort" id="sort">
             <option value="" disabled selected>
