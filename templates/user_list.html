@@ -4,6 +4,36 @@
 
 {% block content %}
 
-<div><a href="{{ url_for('get_user_page', id=user_data['id']) }}"></a></div>
+
+    {% for user in users_info %}
+    <p>{{ user.username }}</p> <p>{{ user.registration_time }}</p> <p>{{ user.reputation }}</p>
+    <br>
+    <br>
+
+    {% endfor %}
+{#<table>#}
+{#<thead>#}
+{#<tr>#}
+{#    <td>Username</td>#}
+{#    <td>registration date</td>#}
+{#    <td>reputation</td>#}
+{#    <td>Number of Questions</td>#}
+{#    <td>Number of Answers</td>#}
+{#    <td>Number of Comments</td>#}
+{#</tr>#}
+{#</thead>#}
+{#<tbody>#}
+{#<tr>#}
+{#    <td></td>#}
+{#</tr>#}
+{#</tbody>#}
+{##}
+{##}
+{##}
+{##}
+{#</table>#}
+
+
+
 
  {% endblock %}

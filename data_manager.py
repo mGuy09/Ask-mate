@@ -434,10 +434,10 @@ def add_comment_and_user(cursor, comment_id, user_id):
     cursor.execute(query, values)
 
 
-@connection.connection_handler
-def get_all_users(cursor):
-    cursor.execute('select * from user_data')
-    return cursor.fetchall()
+# @connection.connection_handler
+# def get_all_users(cursor):
+#     cursor.execute('select * from user_data')
+#     return cursor.fetchall()
 
 
 @connection.connection_handler
@@ -450,11 +450,13 @@ def get_id_user(cursor, username):
     cursor.execute(query, {'username':username})
     return cursor.fetchone()
 
+
 @connection.connection_handler
 def get_all_users(cursor):
     query = '''
-        select username, registration_time, reputation
-        from user_data
+        select *
+        from user_data; 
+        
     '''
     cursor.execute(query)
     return cursor.fetchall()
@@ -468,6 +470,7 @@ def get_time(cursor, id):
     where id = %(id)s'''
     cursor.execute(query, {'id': id})
     return cursor.fetchone()
+
 
 @connection.connection_handler
 def get_time(cursor, id):
@@ -485,11 +488,13 @@ def get_number_of_questions(cursor, user_id):
     select count(question.title)
     from question
     inner join question_user_id
-    on question_user_id.user_id = user_id
-    where question.id = question_user_id.question_id
+    on question_user_id.question_id = question.id
+    where question.id = question_user_id.question_id and question_user_id.user_id=%(user_id)s
     '''
-    cursor.execute(query)
+    value = {'user_id':user_id}
+    cursor.execute(query,value)
     return cursor.fetchall()
+
 
 @connection.connection_handler
 def get_number_of_answers(cursor, user_id):

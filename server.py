@@ -308,7 +308,10 @@ def logout():
 def users_page():
     username = session['logged_in']
     users_info = data_manager.get_all_users()
-    pass
+    print(users_info)
+
+
+    return render_template('user_list.html',users_info=users_info,users_questions=users_questions)
 
 
 
