@@ -610,12 +610,6 @@ def delete_comment_from_user(cursor, comment_id):
     ''', {'comment_id': comment_id})
 
 
-
-@connection.connection_handler
-def add_reputation(cursor):
-    pass
-
-
 @connection.connection_handler
 def count_users_q(cursor):
     cursor.execute('''
@@ -649,11 +643,34 @@ group by t.user_id
     return cursor.fetchall()
 
 @connection.connection_handler
-def get_user_id(cursor, id):
+def get_user_id_q(cursor, id):
     query = '''
     select user_id
     from question_user_id
     where question_user_id.question_id = %(id)s'''
-    value = {'id':id}
+    value = {'id': id}
     cursor.execute(query, value)
     return cursor.fetchone()
+
+@connection.connection_handler
+def get_user_id_a(cursor, id):
+    query = '''
+    select user_id
+    from answer_user_id
+    where answer_user_id.answer_id = %(id)s'''
+    value = {'id': id}
+    cursor.execute(query, value)
+    return cursor.fetchone()
+
+
+
+@connection.connection_handler
+def add_rep(cursor, id, modifier):
+    cursor.execute(
+        "UPDATE user_data SET reputation = reputation + %(modifier)s WHERE id = %(id)s;",
+        {
+            "modifier": modifier,
+            "id": id,
+        },
+    )
+

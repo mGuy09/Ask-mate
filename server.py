@@ -196,8 +196,8 @@ def delete_comment(comment_id):
 @app.route("/question/<id>/vote-up")
 def vote_up(id):
     data_manager.vote_on_question(id, 1)
-    user_id = data_manager.get_user_id(id)
-
+    user_id = data_manager.get_user_id_q(id)
+    data_manager.add_rep(user_id.get('user_id'), 5)
     return redirect(url_for("list_page"))
 
 
@@ -210,6 +210,8 @@ def vote_down(id):
 @app.route("/answer/<answer_id>/vote-up")
 def vote_up_answer(answer_id):
     data_manager.vote_on_answer(answer_id, 1)
+    user_id = data_manager.get_user_id_a(answer_id)
+    data_manager.add_rep(user_id, 10)
     answer = dict(data_manager.get_answer(answer_id))
     return redirect(url_for("question", id=answer["question_id"]))
 
