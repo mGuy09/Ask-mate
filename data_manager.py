@@ -534,6 +534,19 @@ def get_questions(cursor, user_id):
     cursor.execute(query,values)
     return cursor.fetchall()
 
+
+@connection.connection_handler
+def get_all_questions(cursor):
+    querry = '''
+        select * 
+        from question
+        join question_user_id
+        on question.id = question_user_id.question_id
+    '''
+    cursor.execute(querry)
+    return cursor.fetchall()
+
+
 @connection.connection_handler
 def get_answers(cursor, user_id):
     query = '''

@@ -6,12 +6,15 @@
 
 
     {% for user in users_info %}
+
     <p><a href="{{ url_for('get_user_page', user_id=user.id, username=user.username) }}">{{ user.username }}</a></p> <p>{{ user.registration_time }}</p> <p>{{ user.reputation }}</p>
-        <p></p>
-    <br>
-    <br>
+            {% for question in questions %}
+    <p></p>
+    {% endfor %}
 
     {% endfor %}
+
+
 {#<table>#}
 {#<thead>#}
 {#<tr>#}

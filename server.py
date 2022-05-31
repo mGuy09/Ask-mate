@@ -310,9 +310,9 @@ def logout():
 @app.route('/users')
 def users_page():
     users_info = data_manager.get_all_users()
-    print(users_info)
+    questions = data_manager.get_all_questions()
 
-    return render_template('user_list.html',users_info=users_info)
+    return render_template('user_list.html',users_info=users_info,questions=questions)
 
 
 @app.route('/user/<user_id>/<username>/', methods=['GET', 'POST'])
