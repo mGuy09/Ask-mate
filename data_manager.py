@@ -610,11 +610,33 @@ def delete_comment_from_user(cursor, comment_id):
 
 
 @connection.connection_handler
-def count_users(cursor):
+def count_users_q(cursor):
     cursor.execute('''
-    select count(user_id) as user_questions, qui.user_id
-from question_user_id qui
-group by qui.user_id
+    select count(user_id) as user_questions, t.user_id
+from question_user_id t
+group by t.user_id
+
+    ''')
+    return cursor.fetchall()
+
+
+@connection.connection_handler
+def count_users_a(cursor):
+    cursor.execute('''
+    select count(user_id) as user_answers, t.user_id
+from answer_user_id t
+group by t.user_id
+
+    ''')
+    return cursor.fetchall()
+
+
+@connection.connection_handler
+def count_users_c(cursor):
+    cursor.execute('''
+    select count(user_id) as user_comments, t.user_id
+from comment_user_id t
+group by t.user_id
 
     ''')
     return cursor.fetchall()

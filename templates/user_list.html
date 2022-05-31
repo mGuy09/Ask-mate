@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% block title %} User Page{% endblock %}
 
 
@@ -16,6 +17,25 @@
                         <p>number of questions: 0</p>
                         {% endif %}
 
+                {% endif %}
+                {% endfor %}
+            {% for answer in users_answers %}
+                {% if answer.user_id == user.id %}
+                {% if answer.user_answers %}
+                <p>number of answers: {{ answer.user_answers }}</p>
+                {% elif not answer.user_answers %}
+                <p>number of answers: 0</p>
+                        {% endif %}
+                {% endif %}
+                {% endfor %}
+
+            {% for comment in users_comments %}
+                {% if comment.user_id == user.id %}
+                {% if comment.user_comments %}
+                <p>number of comments: {{ comment.user_comments }}</p>
+                {% elif not comment.user_comments %}
+                <p>number of comments: 0</p>
+                        {% endif %}
                 {% endif %}
                 {% endfor %}
 

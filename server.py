@@ -312,9 +312,11 @@ def logout():
 
 @app.route('/users')
 def users_page():
-    users_info = data_manager.get_all_users()
-
-    return render_template('user_list.html',users_info=users_info, users_questions=data_manager.count_users())
+    return render_template('user_list.html',
+                           users_info=data_manager.get_all_users(),
+                           users_questions=data_manager.count_users_q(),
+                           users_answers=data_manager.count_users_a(),
+                           users_comments=data_manager.count_users_c())
 
 
 @app.route('/user/<user_id>/<username>/', methods=['GET', 'POST'])
