@@ -536,3 +536,12 @@ def get_comments(cursor, user_id):
         '''
     cursor.execute(query)
     return cursor.fetchall()
+
+@connection.connection_handler
+def get_reputation(cursor, id):
+    query = '''
+       select reputation
+       from user_data
+       where id = %(id)s'''
+    cursor.execute(query, {'id': id})
+    return cursor.fetchone()

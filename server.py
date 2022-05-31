@@ -313,11 +313,14 @@ def get_user_page(user_id):
     questions = data_manager.get_questions(user_id)
     answers = data_manager.get_answers(user_id)
     comments = data_manager.get_comments(user_id)
+    reputation = data_manager.get_reputation(user_id)['reputation']
     return render_template('user_page.html', id=id,
                            username=username,submission_time=submission_time,
                            number_questions=number_questions, number_answers=number_answers,
                            number_comments=number_comments, questions=questions,
-                           answers=answers, comments=comments)
+                           answers=answers, comments=comments, reputation=reputation)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
