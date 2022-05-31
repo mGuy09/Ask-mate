@@ -12,6 +12,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
 
+
 @app.route("/bonus-questions")
 def main():
     return render_template('bonus_questions.html', questions=SAMPLE_QUESTIONS)
@@ -302,6 +303,17 @@ def logout():
     session.clear()
     return redirect(url_for('latest_questions'))
 
+
+@app.route('/users')
+def users_page():
+    username = session['logged_in']
+    users_info = data_manager.get_all_users()
+    pass
+
+
+
+
+
 @app.route('/user/<user_id>', methods=['GET', 'POST'])
 def get_user_page(user_id):
     username = session['logged_in']
@@ -319,6 +331,10 @@ def get_user_page(user_id):
                            number_questions=number_questions, number_answers=number_answers,
                            number_comments=number_comments, questions=questions,
                            answers=answers, comments=comments, reputation=reputation)
+
+
+
+
 
 
 

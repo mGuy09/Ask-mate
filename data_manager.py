@@ -439,6 +439,7 @@ def get_all_users(cursor):
     cursor.execute('select * from user_data')
     return cursor.fetchall()
 
+
 @connection.connection_handler
 def get_id_user(cursor, username):
     query = '''
@@ -450,6 +451,16 @@ def get_id_user(cursor, username):
     return cursor.fetchone()
 
 @connection.connection_handler
+def get_all_users(cursor):
+    query = '''
+        select username, registration_time, reputation
+        from user_data
+    '''
+    cursor.execute(query)
+    return cursor.fetchall()
+
+
+@connection.connection_handler
 def get_time(cursor, id):
     query = '''
     select registration_time
@@ -466,6 +477,7 @@ def get_time(cursor, id):
     where id = %(id)s'''
     cursor.execute(query, {'id': id})
     return cursor.fetchone()
+
 
 @connection.connection_handler
 def get_number_of_questions(cursor, user_id):
@@ -509,9 +521,10 @@ def get_questions(cursor, user_id):
         select question.title, question.id
         from question
         inner join question_user_id
-        on question_user_id.user_id = user_id
+        on question_user_id.user_id = %(user_id)s
         where question.id = question_user_id.question_id'''
-    cursor.execute(query)
+    values = {"user_id": user_id}
+    cursor.execute(query,values)
     return cursor.fetchall()
 
 @connection.connection_handler
@@ -520,9 +533,11 @@ def get_answers(cursor, user_id):
             select answer.message, answer.question_id
             from answer
             inner join answer_user_id
-            on answer_user_id.user_id = user_id
+            on answer_user_id.user_id = %(user_id)s
             where answer.id = answer_user_id.answer_id'''
-    cursor.execute(query)
+    values = {"user_id": user_id}
+
+    cursor.execute(query,values)
     return cursor.fetchall()
 
 @connection.connection_handler
@@ -532,9 +547,12 @@ def get_comments(cursor, user_id):
         from comment
         inner join comment_user_id
         on  comment_user_id.comment_id = comment.id 
-        where comment_user_id.user_id = user_id
+        where comment_user_id.user_id = %(user_id)s
+
         '''
-    cursor.execute(query)
+    values = {"user_id": user_id}
+
+    cursor.execute(query,values)
     return cursor.fetchall()
 
 @connection.connection_handler
