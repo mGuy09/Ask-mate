@@ -3,7 +3,11 @@
 {% block content %}
     <h1>Tags List Page</h1>
     {% for tag in tags %}
-    <p>{{ tag.name }}: present in {{ tag.tags_in_question }} questions</p>
+        {% if tag.tags_in_question == 1 %}
+    <p>{{ tag.name }}: present in {{ tag.tags_in_question }} question</p>
+        {% else %}
+        <p>{{ tag.name }}: present in {{ tag.tags_in_question }} questions</p>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}
