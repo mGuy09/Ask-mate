@@ -246,23 +246,24 @@ def search_question(cursor, search_phrase):
         """
             SELECT *
             FROM question
-            WHERE lower(question.title) LIKE CONCAT('%', lower(%(search_phrase)s), '%')
-            OR lower(question.message) LIKE CONCAT('%', lower(%(search_phrase)s), '%');
+            WHERE question.title ILIKE %(search_phrase)s 
+            OR question.message ILIKE %(search_phrase)s;
         """,
-        {"search_phrase": search_phrase},
+        {"search_phrase": '%'+search_phrase +'%'},
     )
     return cursor.fetchall()
 
 
 @connection.connection_handler
 def search_answer(cursor, search_phrase):
+    print(search_phrase)
     cursor.execute(
         """
             SELECT *
             FROM answer
-            WHERE answer.message LIKE CONCAT('%', lower(%(search_phrase)s), '%');   
+            WHERE answer.message ILIKE %(search_phrase)s;   
         """,
-        {"search_phrase": search_phrase},
+        {"search_phrase": '%'+search_phrase+'%'}
     )
     return cursor.fetchall()
 

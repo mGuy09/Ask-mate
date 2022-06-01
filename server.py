@@ -245,9 +245,12 @@ def add_comment(id):
 @app.route("/search")
 def search_bar():
     selected_answers = []
+    print(selected_answers)
     for question in data_manager.get_data_question():
+        print(question)
         for answer in data_manager.search_answer(request.args.get("search_phrase")):
-            if dict(answer)["question_id"] == dict(question)["id"]:
+            print(answer)
+            if answer["question_id"] == question["id"]:
                 selected_answers.append(question)
 
     return render_template(
@@ -346,6 +349,11 @@ def get_user_page(user_id, username):
                            answers=answers, comments=comments, reputation=reputation)
 
 
+# @app.route('/bonus_questions', methods= ['POST', 'GET'])
+# def get_bonus_questions():
+
+
+
 @app.get('/show-answer/<answer_id>/<question_id>')
 def show_answer(answer_id, question_id):
     data_manager.show_answer(answer_id)
@@ -361,6 +369,7 @@ def hide_answer(answer_id, question_id):
 @app.get('/tags')
 def tags_page():
     return render_template('tags_page.html', tags=data_manager.get_all_tags_from_questions())
+
 
 
 if __name__ == "__main__":
