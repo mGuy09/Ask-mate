@@ -33,12 +33,30 @@ function getFilteredItems(items, filterValue) {
     // effect this function has on the table
     //
     let mylist = []
-    items.forEach(item => {
-        console.log(item)
-        if (item['Title'].includes(filterValue)){
+    items.forEach( item => {
+        if(filterValue.startsWith('!Description:')){
+          let ceva=  filterValue.substring('!Description:'.length)
+            if (!item['Description'].includes(ceva)){
+                mylist.push(item)
+            }
+        }
+        else if(filterValue.startsWith('Description:')){
+            let ceva2 = filterValue.substring('Description:'.length)
+            if(item['Description'].includes(ceva2))
+                mylist.push(item)
+
+        }
+        else if(filterValue.startsWith('!')){
+            let ceva3 = filterValue.substring('!'.length)
+            if (!item['Title'].includes(ceva3))
+                mylist.push(item)
+        }
+
+        else{
+            if (item['Title'].includes(filterValue)){
             mylist.push(item)
         }
-    })
+    }})
     return mylist
 }
 

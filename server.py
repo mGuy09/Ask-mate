@@ -245,11 +245,8 @@ def add_comment(id):
 @app.route("/search")
 def search_bar():
     selected_answers = []
-    print(selected_answers)
     for question in data_manager.get_data_question():
-        print(question)
         for answer in data_manager.search_answer(request.args.get("search_phrase")):
-            print(answer)
             if answer["question_id"] == question["id"]:
                 selected_answers.append(question)
 
