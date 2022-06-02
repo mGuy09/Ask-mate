@@ -3,16 +3,18 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
-
+<div class="header">
     <h1>Welcome to the Question List</h1>
-
+</div>
+    <div class="links-section">
+        <a class="link_buttons" href="{{ url_for('tags_page') }}">Tags</a>
 {% if session.user_id %}
-    <a href="{{ url_for('users_page') }}">List of all Users</a>
+    <a class="link_buttons" href="{{ url_for('users_page') }}">List of all Users</a>
     {% endif %}
-    <br>
-    <a href="{{ url_for('tags_page') }}">Tags</a>
+    </div>
+    <div class="sort-form">
     <form action="{{ url_for('list_page')}}" method="get">
-        <select name="sort" id="sort">
+        <select class="anyInputFocus" name="sort" id="sort">
             <option value="" disabled selected>
                 Sort By
             </option>
@@ -27,54 +29,62 @@
             <option value="message">Description</option>
         </select>
 
-        <select name="direction" id="direction">
+        <select class="anyInputFocus" name="direction" id="direction">
             <option value="" disabled selected>
                 Choose Order
             </option>
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
         </select>
-        <button type="submit">Order</button>
+        <button class="submit-buttons" type="submit">Order</button>
 
     </form>
-    <div class="navbar search-form">
-                <form action="{{ url_for('search_bar') }}" method="get">
-                    <input
-                        type="search"
-                        name="search_phrase"
-                        id="search_phrase"
-                        placeholder="Search"
-                        autocomplete="off"
-                    />
-                </form>
-        </div>
+    </div>
+    {% if data %}
         {% for question in data %}
+
+            <div class="question-box">
+            {% for user in users %}
+                {% for q_user in q_users %}
+                    {% if question.id == q_user.question_id and user.id == q_user.user_id %}
+                    <p id="question_user"> posted by: <a href="{{ url_for('get_user_page', user_id=user.id, username=user.username) }}">{{ user.username }}</a> </p>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
             <h3>
                 <a href="{{ url_for('question', id=question['id']) }}"
-                    >{{ question.title}}</a
+                    id="question_title">{{ question.title}}</a
                 >
             </h3>
-            <p>{{ question.message }}</p>
+            <p id="question_message">{{ question.message }}</p>
             <p>
                 {% if question.image %}
                 <img src="static/images/{{ question.image }}" alt="" />
                 {% endif %}
             </p>
-            <p>{{ question.submission_time }}</p>
+            <p id="question_time">{{ question.submission_time }}</p>
 
-            <a href="{{ url_for('vote_up', id=question.id) }}"
+            <a class="link_buttons" href="{{ url_for('vote_up', id=question.id) }}"
                 >Up
             </a>
 
-            <a href="{{ url_for('vote_down', id=question.id) }}"
+            <a class="link_buttons" href="{{ url_for('vote_down', id=question.id) }}"
                 >Down
             </a>
-            <p>
+            <p id="question_view_votes">
                 views: {{ question.view_number }} | votes: {{
                 question.vote_number }}
             </p>
 
 
+
+  </div>
         {% endfor %}
+    {% else %}
+    <div class="no_questions">
+    <p>No questions at the moment</p>
+    </div>
+    {% endif %}
+
     {% endblock %}
 

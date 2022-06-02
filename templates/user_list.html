@@ -7,9 +7,10 @@
 
 
     {% for user in users_info %}
-        {% set count = 0 %}
-    <p><a href="{{ url_for('get_user_page', user_id=user.id, username=user.username) }}">{{ user.username }}</a></p> <p>{{ user.registration_time }}</p> <p>Reputation: {{ user.reputation }}</p>
-            {% for question in users_questions %}
+        <div class="question-box2 add">
+    <p><a id="question_title" href="{{ url_for('get_user_page', user_id=user.id, username=user.username) }}">{{ user.username }}</a></p> <p>{{ user.registration_time }}</p> <p>Reputation: {{ user.reputation }}</p>
+
+        {% for question in users_questions %}
                 {% if question.user_id == user.id %}
                     {% if question.user_questions %}
                         <p>number of questions: {{ question.user_questions }}</p>
@@ -39,7 +40,7 @@
                 {% endif %}
                 {% endfor %}
 
-
+ </div>
     {% endfor %}
 
 

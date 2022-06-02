@@ -1,14 +1,18 @@
-{% extends 'base.html'%}{% block title %}login{% endblock %}
+{% extends 'base.html' %}{% block title %}login{% endblock %}
 
 {% block content %}
+    <div class="login-form">
+    <h1>Login</h1>
     <form action="{{ url_for('login') }}" method="post">
     {% if error %}
         <p style="color: #f81515">*invalid email/username or password</p>
         {% endif %}
-        <input type="text" placeholder="Email / Username" name="email_or_name">
+        <input class="anyInputFocus" type="text" placeholder="Email / Username" autocomplete="off" required name="email_or_name">
         <br>
-        <input type="password" name="password">
+        <input class="anyInputFocus" placeholder="Password" type="password" required name="password" autocomplete="off">
         <br>
-        <button type="submit">Submit</button>
+        <button class="submit-buttons" type="submit">Submit</button>
     </form>
+    <p>Don't have an account? <a href="{{ url_for('registration') }}">Register Here</a></p>
+    </div>
 {% endblock %}

@@ -3,16 +3,18 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
+    <div class="header">
     <h1>Search</h1>
+    </div>
         {% for question in data %}
-
+        <div class="question-box2">
             <h3>
-                <a href="{{ url_for('question', id=question['id']) }}"
-                    >{{ question.title | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe}}</a
+                <a id="question_title" href="{{ url_for('question', id=question['id']) }}"
+                    >{{ question.title | replace (search_phrase | lower, '<mark>' + search_phrase | lower + '</mark>') | safe  }}</a
                 >
             </h3>
-            <p>
-                {{ question.message | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe }}
+            <p id="question_message">
+                {{ question.message | replace (search_phrase | lower, '<mark>' + search_phrase | lower + '</mark>') | safe }}
             </p>
             <p>
                 {% if question.image %}
@@ -21,11 +23,11 @@
             </p>
             <p>{{ question.submission_time }}</p>
 
-            <a href="{{ url_for('vote_up', id=question.id) }}"
+            <a class="link_buttons" href="{{ url_for('vote_up', id=question.id) }}"
                 >Up
             </a>
 
-            <a href="{{ url_for('vote_down', id=question.id) }}"
+            <a class="link_buttons" href="{{ url_for('vote_down', id=question.id) }}"
                 >Down
             </a>
             <p>
@@ -33,7 +35,7 @@
                 question.vote_number }}
             </p>
 
-
+</div>
         {% endfor %}
 
     {% endblock %} | replace (search_phrase, '<mark>' + search_phrase + '</mark>') | safe

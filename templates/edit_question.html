@@ -3,7 +3,7 @@
 {% block title %} Update question {% endblock %}
 
 {% block content %}
-
+<div class="question-box2 add">
     <h1>Update your question</h1>
 
     <form
@@ -16,6 +16,7 @@
             required
             value="{{ question.title }}"
         />
+        <br>
         <textarea
             name="message"
             cols="25"
@@ -27,7 +28,7 @@
         >
         <br />
         <br />
-        <button type="submit">Update</button>
+        <button class="submit-buttons" type="submit">Update</button>
     </form>
-
+</div>
 {% endblock %}

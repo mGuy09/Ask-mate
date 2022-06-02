@@ -3,30 +3,38 @@
 {% block title %}Latest questions Page{% endblock %}
 
 {% block content %}
-
+<div class="header">
     <h2>Welcome to Ask-Mate</h2>
+</div>
+    <div class="links-section">
 
-<a href="{{ url_for('tags_page') }}">Tags</a>
-
+    <a class="link_buttons" href="{{ url_for('tags_page') }}">Tags</a>
+    {% if session.user_id %}
+    <a class="link_buttons" href="{{ url_for('users_page') }}">List of all Users</a>
+    {% endif %}
+   </div>
         {% for question in data %}
+            <div class="question-box">
+                <br>
+                <br>
             <h3>
-                <a href="{{ url_for('question', id=question['id']) }}"
+                <a id="question_title" href="{{ url_for('question', id=question['id']) }}"
                     >{{ question.title}}</a
                 >
             </h3>
-            <p>{{ question.message }}</p>
+            <p id="question_message">{{ question.message }}</p>
             <p>
                 {% if question.image %}
                 <img src="static/images/{{ question.image }}" alt="" />
                 {% endif %}
             </p>
-            <p>{{ question.submission_time }}</p>
+            <p id="">{{ question.submission_time }}</p>
 
-            <a href="{{ url_for('vote_up', id=question.id) }}"
+            <a class="link_buttons" href="{{ url_for('vote_up', id=question.id) }}"
                 >Up
             </a>
 
-            <a href="{{ url_for('vote_down', id=question.id) }}"
+            <a class="link_buttons" href="{{ url_for('vote_down', id=question.id) }}"
                 >Down
             </a>
             <p>
@@ -34,6 +42,6 @@
                 question.vote_number }}
             </p>
 
-
+</div>
         {% endfor %}
 {% endblock %}

@@ -53,12 +53,13 @@ def list_page():
             request.args.get("sort", default="submission_time"),
             request.args.get("direction", default="desc"),
             "ALL"
-        )
+        ), users=data_manager.get_all_users(), q_users=data_manager.get_all_question_user_id()
     )
 
 
 @app.route("/question/<id>", methods=["POST", "GET"])
 def question(id):
+    data_manager.add_view(id)
     return render_template(
         "question-page.html",
         question=data_manager.get_question(id),
@@ -331,19 +332,22 @@ def users_page():
 
 @app.route('/user/<user_id>/<username>/', methods=['GET', 'POST'])
 def get_user_page(user_id, username):
-    submission_time = data_manager.get_time(user_id)['registration_time']
-    number_questions= data_manager.get_number_of_questions(user_id)[0]['count']
-    number_answers = data_manager.get_number_of_answers(user_id)[0]['count']
-    number_comments = data_manager.get_number_of_comments(user_id)[0]['count']
-    questions = data_manager.get_questions(user_id)
-    answers = data_manager.get_answers(user_id)
-    comments = data_manager.get_comments(user_id)
-    reputation = data_manager.get_reputation(user_id)['reputation']
-    return render_template('user_page.html', id=user_id,
-                           username=username,submission_time=submission_time,
-                           number_questions=number_questions, number_answers=number_answers,
-                           number_comments=number_comments, questions=questions,
-                           answers=answers, comments=comments, reputation=reputation)
+    if session:
+        submission_time = data_manager.get_time(user_id)['registration_time']
+        number_questions= data_manager.get_number_of_questions(user_id)[0]['count']
+        number_answers = data_manager.get_number_of_answers(user_id)[0]['count']
+        number_comments = data_manager.get_number_of_comments(user_id)[0]['count']
+        questions = data_manager.get_questions(user_id)
+        answers = data_manager.get_answers(user_id)
+        comments = data_manager.get_comments(user_id)
+        reputation = data_manager.get_reputation(user_id)['reputation']
+        return render_template('user_page.html', id=user_id,
+                               username=username,submission_time=submission_time,
+                               number_questions=number_questions, number_answers=number_answers,
+                               number_comments=number_comments, questions=questions,
+                               answers=answers, comments=comments, reputation=reputation)
+    else:
+        return redirect(url_for('login'))
 
 
 # @app.route('/bonus_questions', methods= ['POST', 'GET'])

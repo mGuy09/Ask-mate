@@ -687,6 +687,12 @@ def get_all_answer_user_id(cursor):
     ''')
     return cursor.fetchall()
 
+@connection.connection_handler
+def get_all_question_user_id(cursor):
+    cursor.execute('''
+    select * from question_user_id
+    ''')
+    return cursor.fetchall()
 
 @connection.connection_handler
 def add_rep(cursor, id, modifier):
@@ -709,3 +715,9 @@ def get_all_tags_from_questions(cursor):
     '''
     cursor.execute(query)
     return cursor.fetchall()
+
+@connection.connection_handler
+def add_view(cursor, id):
+    cursor.execute('''
+    update question set view_number = view_number + 1 where id = %(id)s
+    ''', {'id':id})

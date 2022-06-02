@@ -16,40 +16,70 @@
     <body>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="{{ url_for('latest_questions') }}"
+                    <a class="sidebarbtn" href="{{ url_for('latest_questions') }}"
                         >Home</a
                     >
 
-                <a href="{{ url_for('list_page') }}">List</a>
+                <a class="sidebarbtn" href="{{ url_for('list_page') }}">List</a>
 
-                    <a href="{{ url_for('add_question') }}">Ask</a>
+                    <a class="sidebarbtn" href="{{ url_for('add_question') }}">Ask</a>
 
 
 </div>
-            {% if session %}
-                <a href="{{ url_for('get_user_page', user_id=session.user_id, username=session.logged_in) }}">{{ session.logged_in }}</a>
-                <a href="{{ url_for('logout') }}">Logout</a>
-                {% else %}
-                    <a href="{{ url_for('login') }}">Login</a>
-                {% endif %}
 
-    <div id="container">
-        <div class="topbar">
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+ <div id="topbar">
+        <span id="open-sidebar" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+     {% if session %}
+                <a id="login" href="{{ url_for('logout') }}">Logout</a>
+         <a id="login" href="{{ url_for('get_user_page', user_id=session.user_id, username=session.logged_in) }}">{{ session.logged_in }}</a>
+
+
+            {% else %}
+
+                <a id="login" href="{{ url_for('login') }}">Login</a>
+
+            {% endif %}
+<div id="search-form">
+                <form action="{{ url_for('search_bar') }}" method="get">
+                    <input
+                        type="search"
+                        name="search_phrase"
+                        id="search_phrase"
+                        class="anyInputFocus"
+                        placeholder="Search"
+                        autocomplete="off"
+                    />
+                </form>
+        </div>
     </div>
+    <div id="container">
+
         {% block content %} {% endblock %}
+    </div>
+    <div id="footer">
+        <p>Contact</p>
+        <p>Help</p>
+        <p>FAQ</p>
+
     </div>
     <script>
         /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
         function openNav() {
           document.getElementById("mySidenav").style.width = "250px";
           document.getElementById("container").style.marginLeft = "250px";
+          document.getElementById("topbar").style.marginLeft = "250px";
+          document.getElementById("topbar").style.width = "86.2vw";
+          document.getElementById("footer").style.marginLeft = '250px';
         }
 
         /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
         function closeNav() {
           document.getElementById("mySidenav").style.width = "0";
           document.getElementById("container").style.marginLeft = "0";
+          document.getElementById("topbar").style.marginLeft = "0";
+          document.getElementById("topbar").style.width = "99.2vw";
+          document.getElementById('footer').style.marginLeft = "0";
         }
     </script>
     </body>

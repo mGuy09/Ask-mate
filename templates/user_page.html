@@ -6,13 +6,12 @@
 
 {% if session %}
 
-
+<div class="question-box2 user">
 <table>
     <thead>
         <tr>
-            <td>ID</td>
             <td>Username</td>
-            <td>Submission_time</td>
+            <td>Registration Time</td>
             <td>Reputation</td>
             <td>Number of Questions</td>
             <td>Number of Answers</td>
@@ -21,7 +20,6 @@
     </thead>
     <tbody>
         <tr>
-            <td>{{ id }}</td>
             <td>{{ username }}</td>
             <td>{{ submission_time }}</td>
             <td>{{ reputation}}</td>
@@ -33,39 +31,37 @@
     </tbody>
 
 </table>
-
+</div>
+    <div class="question-box2 comments">
     <h2>Questions</h2>
-    <ol>
         {% for question in questions  %}
-            <li><a href="{{ url_for('question', id=question['id']) }}"
-                    >{{ question.title}}</a></li>
+            <p><a href="{{ url_for('question', id=question['id']) }}"
+                    >{{ question.title}}</a></p>
 
     {% endfor %}
-    </ol>
+    </div>
+    <div class="question-box2 comments">
     <h2>Answers</h2>
-    <ol>
         {% for answer in answers  %}
-            <li><a href="{{ url_for('question', id=answer['question_id']) }}"
-                    >{{ answer.message}}</a></li>
+            <p><a href="{{ url_for('question', id=answer['question_id']) }}"
+                    >{{ answer.message}}</a></p>
     {% endfor %}
-    </ol>
-
-
+</div>
+    <div class="question-box2 comments">
     <h2>Comments</h2>
 
-    <ol>
         {% for comment in comments  %}
             {% if comment['question_id']!= 0 %}
-            <div><li><a href="{{ url_for('question', id=comment['question_id'] )}}"
-                    >{{ comment.message}}</a></li></div>
+            <p><a href="{{ url_for('question', id=comment['question_id'] )}}"
+                    >{{ comment.message}}</a></p>
             {% else  %}
-            <li><a href="{{ url_for('question', id=comment['answer_id'] )}}"
-                    >{{ comment.message}}</a></li>
+            <p><a href="{{ url_for('question', id=comment['answer_id'] )}}"
+                    >{{ comment.message}}</a></p>
                 {{ super() }}
              {% endif %}
     {% endfor %}
 
-    </ol>
+    </div>
 
 {% endif %}
 {% endblock %}
