@@ -3,22 +3,14 @@
 {% block title %}Add Question{% endblock %}
 
 {% block content %}
-<div id="background">
-    <div class="add-question-header">
         <h1>Add Question</h1>
-    </div>
-
-    <div class="form-add-question">
         <form
             action="{{ url_for('add_question') }}"
             method="post"
             enctype="multipart/form-data"
         >
-            <div id="input-title">
                 <input type="text" name="title" required placeholder="Title" />
-            </div>
 
-            <div id="input-message">
                 <textarea
                     name="message"
                     id=""
@@ -28,17 +20,13 @@
                     required
                     placeholder="Message"
                 ></textarea>
-            </div>
             <br />
-            <div id="input-select-image">
                 <label for="">
                     Select Image - <input type="file" id="image" name="image" />
                 </label>
-            </div>
+
             <br />
 
             <button class="buttons" type="submit">Submit</button>
         </form>
-    </div>
-</div>
 {% endblock %}

@@ -3,18 +3,14 @@
 {% block title %}Add tag{% endblock %}
 
 {% block content %}
-<div class="add-question-header">
+
     <h1>Add tags to question</h1>
-</div>
-<div class="background-table">
-    <div class="form-add-question">
         <form
             action="{{ url_for('add_tag_to_question', question_id=question_id) }}"
             method="post"
         >
             {% if not error %}
             <input
-                id="input-tag"
                 type="text"
                 name="tag"
                 placeholder="tag"
@@ -24,7 +20,6 @@
             />
             {% else %}
             <input
-                id="input-error-tag"
                 type="text"
                 name="tag"
                 placeholder="tag"
@@ -32,7 +27,7 @@
                 list="tag-name"
                 autocomplete="off"
             />
-            <p id="alert">Tag already added.</p>
+            <p>Tag already added.</p>
             {% endif %}
             <datalist id="tag-name">
                 {% for tag in tags %}
@@ -43,8 +38,7 @@
 
             <br />
             <br />
-            <button class="buttons" type="submit">Submit</button>
+            <button type="submit">Submit</button>
         </form>
-    </div>
-</div>
+
 {% endblock %}

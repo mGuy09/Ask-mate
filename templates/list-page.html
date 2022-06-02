@@ -3,19 +3,16 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
-<div id="list-page-header">
+
     <h1>Welcome to the Question List</h1>
 
-</div>
-
-<div id="sort-form">
 {% if session.user_id %}
     <a href="{{ url_for('users_page') }}">List of all Users</a>
     {% endif %}
     <br>
     <a href="{{ url_for('tags_page') }}">Tags</a>
     <form action="{{ url_for('list_page')}}" method="get">
-        <select class="dropdown-sort" name="sort" id="sort">
+        <select name="sort" id="sort">
             <option value="" disabled selected>
                 Sort By
             </option>
@@ -30,50 +27,54 @@
             <option value="message">Description</option>
         </select>
 
-        <select class="dropdown-sort" name="direction" id="direction">
+        <select name="direction" id="direction">
             <option value="" disabled selected>
                 Choose Order
             </option>
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
         </select>
-        <button class="buttons" type="submit">Order</button>
+        <button type="submit">Order</button>
 
     </form>
-</div>
-<div class="background-table">
-    <div class="list-questions" id="list-questions">
+    <div class="navbar search-form">
+                <form action="{{ url_for('search_bar') }}" method="get">
+                    <input
+                        type="search"
+                        name="search_phrase"
+                        id="search_phrase"
+                        placeholder="Search"
+                        autocomplete="off"
+                    />
+                </form>
+        </div>
         {% for question in data %}
-        <div id="question_box">
-            <h3 id="question_title">
+            <h3>
                 <a href="{{ url_for('question', id=question['id']) }}"
                     >{{ question.title}}</a
                 >
             </h3>
-            <p id="question_message">{{ question.message }}</p>
-            <p id="question_image">
+            <p>{{ question.message }}</p>
+            <p>
                 {% if question.image %}
                 <img src="static/images/{{ question.image }}" alt="" />
                 {% endif %}
             </p>
-            <p id="question_time">{{ question.submission_time }}</p>
+            <p>{{ question.submission_time }}</p>
 
-            <a class="buttons" href="{{ url_for('vote_up', id=question.id) }}"
+            <a href="{{ url_for('vote_up', id=question.id) }}"
                 >Up
             </a>
 
-            <a class="buttons" href="{{ url_for('vote_down', id=question.id) }}"
+            <a href="{{ url_for('vote_down', id=question.id) }}"
                 >Down
             </a>
-            <p id="question_views_n_votes">
+            <p>
                 views: {{ question.view_number }} | votes: {{
                 question.vote_number }}
             </p>
-        </div>
+
 
         {% endfor %}
-    </div>
-</div>
-
     {% endblock %}
 

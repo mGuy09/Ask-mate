@@ -3,12 +3,9 @@
 {% block title %} Update question {% endblock %}
 
 {% block content %}
-<div class="add-question-header">
+
     <h1>Update your question</h1>
-</div>
-<div id="sort-form"></div>
-<div class="background-table">
-    <div class="form-add-question">
+
         <form
             id="form"
             action="{{ url_for('update_comment', comment_id = id) }}"
@@ -27,8 +24,7 @@
             <br />
             <br />
             <p>Edited for: {{ data.edited_count }} times</p>
-            <button id="button-submit-question" type="submit">Update</button>
+            <button type="submit">Update</button>
         </form>
-    </div>
-</div>
+
 {% endblock %}

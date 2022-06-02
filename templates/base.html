@@ -8,43 +8,49 @@
         />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>{% block title %}{% endblock %}</title>
-{#        <link#}
-{#            rel="stylesheet"#}
-{#            href="{{ url_for('static', filename='ask-mate2.css') }}"#}
-{#        />#}
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='ask-mate2.css') }}"
+        />
     </head>
     <body>
-        <div class="navbar" id="navbar">
-            <ul id="navbar_buttons">
-                <li>
-                    <a id="home_button" href="{{ url_for('latest_questions') }}"
-                        >Ask-Mate</a
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="{{ url_for('latest_questions') }}"
+                        >Home</a
                     >
-                </li>
-                <li><a href="{{ url_for('list_page') }}">List Page</a></li>
-                <li>
-                    <a href="{{ url_for('add_question') }}">Ask a question</a>
-                </li>
-            </ul>
-            <div class="search-form">
-                <form action="{{ url_for('search_bar') }}" method="get">
-                    <input
-                        type="search"
-                        name="search_phrase"
-                        id="search_phrase"
-                        placeholder="Search"
-                        autocomplete="off"
-                    />
-                </form>
-            </div>
+
+                <a href="{{ url_for('list_page') }}">List</a>
+
+                    <a href="{{ url_for('add_question') }}">Ask</a>
+
+
+</div>
             {% if session %}
                 <a href="{{ url_for('get_user_page', user_id=session.user_id, username=session.logged_in) }}">{{ session.logged_in }}</a>
-                    <a href="{{ url_for('logout') }}">Log out</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
                 {% else %}
                     <a href="{{ url_for('login') }}">Login</a>
                 {% endif %}
-        </div>
-        <div class="container">{% block content %} {% endblock %}</div>
-        <div class="footer"></div>
+
+    <div id="container">
+        <div class="topbar">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    </div>
+        {% block content %} {% endblock %}
+    </div>
+    <script>
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+        function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+          document.getElementById("container").style.marginLeft = "250px";
+        }
+
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+          document.getElementById("mySidenav").style.width = "0";
+          document.getElementById("container").style.marginLeft = "0";
+        }
+    </script>
     </body>
 </html>

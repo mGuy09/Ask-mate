@@ -3,12 +3,9 @@
 {% block title %}New Comment{% endblock %}
 
 {% block content %}
-<div class="add-question-header">
+
     <h1>Add comment</h1>
-</div>
-<div id="sort-form"></div>
-<div class="background-table">
-    <div class="form-add-question">
+
         <form
             action="{{ url_for('add_comment_to_answer', answer_id=id)}}"
             method="post"
@@ -24,6 +21,4 @@
             <br />
             <button type="submit">Submit</button>
         </form>
-    </div>
-</div>
 {% endblock %}

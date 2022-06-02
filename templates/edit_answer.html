@@ -3,12 +3,8 @@
 {% block title %} Update question {% endblock %}
 
 {% block content %}
-<div class="add-question-header">
+
     <h1>Update your question</h1>
-</div>
-<div id="sort-form"></div>
-<div class="background-table">
-    <div class="form-add-question">
         <form
             id="form"
             action="{{ url_for('update_answer', answer_id = id) }}"
@@ -29,6 +25,5 @@
             <br />
             <button class="buttons" type="submit">Update</button>
         </form>
-    </div>
-</div>
+
 {% endblock %}

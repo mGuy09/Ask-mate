@@ -3,195 +3,157 @@
 {% block title %} Question {% endblock %}
 
 {% block content %}
-<div class="add-question-header">
     <h1>{{ question.title }}</h1>
-</div>
-<div id="sort-form"></div>
-<div class="background-table">
-    <div class="question-detail-box">
+
+
         <p>{{ question.message}}</p>
         <p>{{ question.submission_time}}</p>
         <br />
-        <div class="question-tags">
+
             {% for tag in tags %}
             <a
-                class="tags"
+
                 href="{{ url_for('delete_tag', question_id=question.id, tag_id=tag.id) }}"
                 >{{ tag.name }}</a
             >
             {% endfor %}
-        </div>
+
         <br>
     {% if session.user_id == accepted_answer.user_id %}
         <a
-            class="buttons"
+
             href="{{ url_for('update_question', id=question.id)}}"
             >Edit question</a
         >
 
         <a
-            class="buttons"
+
             href="{{ url_for('add_tag_to_question', question_id=question.id) }}"
             >Add Tags</a
         >
 
         <a
-            id="delete-button"
-            class="buttons"
+
             href="{{ url_for('delete_question', id=question.id) }}"
             >Delete Question</a
         >
     {% endif %}
-    <a class="buttons" href="{{ url_for('add_answer', id=question.id)}}"
+    <a href="{{ url_for('add_answer', id=question.id)}}"
             >Add answer</a
         >
-    </div>
-    <div class="question-comments-box">
         <label>Question comments:</label>
         {%for comment in question_comments%}
-        <div class="comment-box">
             <p>{{ comment.message }}</p>
-            <p id="comment-time">{{comment.submission_time}}</p>
+            <p >{{comment.submission_time}}</p>
             <a
-                class="buttons"
+
                 href="{{ url_for('update_comment', comment_id=comment.id) }}"
                 >Update comment</a
             >
             <a
-                id="delete-button"
-                class="buttons"
-                id="last_line"
+
                 href="{{ url_for('delete_comment', comment_id=comment.id) }}"
                 >Delete comment</a
             >
-        </div>
+
         {% endfor %}
-        <a class="buttons" href="{{ url_for('add_comment', id=question.id)}}"
+        <a href="{{ url_for('add_comment', id=question.id)}}"
             >Add comment</a
         >
-    </div>
 
-    <div id="accepted_answer_box">
+
+
         <label for="">Answers:</label>
-    </div>
+
         {% if accepted_answer.user_id == session.user_id %}
     {% for answer in answers %}
-    <div class="question-detail-box">
-        <p id="answer-message">{{ answer.message }}</p> {% if answer.accepted %} <a href="{{ url_for('hide_answer', answer_id=answer.id, question_id=id) }}">Hide</a>{% else %} <a href="{{ url_for('show_answer', answer_id=answer.id, question_id=id) }}">Show</a>{% endif %}
+
+        <p >{{ answer.message }}</p> {% if answer.accepted %} <a href="{{ url_for('hide_answer', answer_id=answer.id, question_id=id) }}">Hide</a>{% else %} <a href="{{ url_for('show_answer', answer_id=answer.id, question_id=id) }}">Show</a>{% endif %}
         <p>{{ answer.submission_time }}</p>
         <p>Votes: {{ answer.vote_number }}</p>
 {% for data in answer_user_id %}
     {% if session.user_id == data.user_id and data.answer_id == answer.id %}
-        <a
-            id="delete-button"
-            class="buttons"
-            href="{{ url_for('delete_answer', answer_id=answer.id) }}"
+        <a href="{{ url_for('delete_answer', answer_id=answer.id) }}"
             >Delete Answer</a
         >
 
         <a
-            class="buttons"
             href="{{ url_for('update_answer', answer_id = answer.id) }}"
             >update answer</a
         >
         {% endif %}
     {% endfor %}
     <a
-            class="buttons"
             href="{{ url_for('vote_up_answer', answer_id=answer.id) }}"
             >Vote up</a
         ><a
-            class="buttons"
             href="{{ url_for('vote_down_answer', answer_id=answer.id) }}"
             >Vote down</a
         >
-    </div>
-        <div id="answer-comments" class="question-comments-box">
         <label for="">Answer Comments:</label>
 
         {% for comment in answer_comment %}
             {% if answer.id == comment.answer_id %}
-        <div class="comment-box">
             <p>{{ comment.message }}</p>
-            <p id="comment-time">{{comment.submission_time}}</p>
+            <p>{{comment.submission_time}}</p>
             <a
-                class="buttons"
                 href="{{ url_for('update_comment', comment_id=comment.id) }}"
                 >Update comment</a
             >
             <a
-                id="delete-button"
-                class="buttons"
                 href="{{ url_for('delete_comment', comment_id=comment.id) }}"
                 >Delete Comment</a
             >
-        </div>
+
             {% endif %}
         {% endfor %}
     {% endfor %}
 {% else %}
         {% for answer in answers %}
-    <div class="question-detail-box">
         {% if answer.accepted %}
-        <p id="answer-message">{{ answer.message }}</p>
+        <p>{{ answer.message }}</p>
         <p>{{ answer.submission_time }}</p>
         <p>Votes: {{ answer.vote_number }}</p>
             {% for data in answer_user_id %}
     {% if session.user_id == data.user_id and data.answer_id == answer.id %}
         <a
-            id="delete-button"
-            class="buttons"
             href="{{ url_for('delete_answer', answer_id=answer.id) }}"
             >Delete Answer</a
         >
 
         <a
-            class="buttons"
             href="{{ url_for('update_answer', answer_id = answer.id) }}"
             >update answer</a
         >
         {% endif %}
     {% endfor %}
         <a
-            class="buttons"
             href="{{ url_for('vote_up_answer', answer_id=answer.id) }}"
             >Vote up</a
         ><a
-            class="buttons"
             href="{{ url_for('vote_down_answer', answer_id=answer.id) }}"
             >Vote down</a
         >
-    </div>
-    <div id="answer-comments" class="question-comments-box">
+
         <label for="">Answer Comments:</label>
 
         {% for comment in answer_comment %}
             {% if answer.id == comment.answer_id %}
-        <div class="comment-box">
             <p>{{ comment.message }}</p>
-            <p id="comment-time">{{comment.submission_time}}</p>
+            <p >{{comment.submission_time}}</p>
             <a
-                class="buttons"
+
                 href="{{ url_for('update_comment', comment_id=comment.id) }}"
                 >Update comment</a
             >
-            <a
-                id="delete-button"
-                class="buttons"
-                href="{{ url_for('delete_comment', comment_id=comment.id) }}"
-                >Delete Comment</a
-            >
-        </div>
+            <a href="{{ url_for('delete_comment', comment_id=comment.id) }}">Delete Comment</a>
+
 
         {% endif %} {% endfor %}
-        <a
-            class="buttons"
-            href="{{ url_for('add_comment_to_answer', answer_id=answer.id) }}"
-            >add comment</a
-        >
-    </div>{% endif %}
+        <a href="{{ url_for('add_comment_to_answer', answer_id=answer.id) }}">add comment</a>
+{% endif %}
     {% endfor %}
-</div>
+
     {% endif %}
-    </div>
+
 {% endblock %}
