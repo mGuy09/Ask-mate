@@ -32,6 +32,7 @@
 
 </table>
 </div>
+    {% if questions %}
     <div class="question-box2 comments">
     <h2>Questions</h2>
         {% for question in questions  %}
@@ -40,6 +41,8 @@
 
     {% endfor %}
     </div>
+    {% endif %}
+        {% if answers %}
     <div class="question-box2 comments">
     <h2>Answers</h2>
         {% for answer in answers  %}
@@ -47,6 +50,8 @@
                     >{{ answer.message}}</a></p>
     {% endfor %}
 </div>
+            {% endif %}
+    {% if comments %}
     <div class="question-box2 comments">
     <h2>Comments</h2>
 
@@ -62,6 +67,7 @@
     {% endfor %}
 
     </div>
+        {% endif %}
 
 {% endif %}
 {% endblock %}

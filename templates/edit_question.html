@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %} Update question {% endblock %}
+{% block title %} Edit question {% endblock %}
 
 {% block content %}
 <div class="question-box2 add">
-    <h1>Update your question</h1>
+    <h1>Edit your question</h1>
 
     <form
         action="{{ url_for('update_question', id = question.id) }}"
@@ -28,7 +28,7 @@
         >
         <br />
         <br />
-        <button class="submit-buttons" type="submit">Update</button>
+        <button class="submit-buttons" type="submit">Edit</button>
     </form>
 </div>
 {% endblock %}

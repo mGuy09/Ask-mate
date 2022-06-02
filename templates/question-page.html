@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Question {% endblock %}
+{% block title %} Question {{ id }} {% endblock %}
 
 {% block content %}
     <div class="question-box2">
@@ -43,6 +43,11 @@
     <a class="link_buttons" href="{{ url_for('add_answer', id=question.id)}}"
             >Add answer</a
         >
+
+        <a class="link_buttons" href="{{ url_for('add_comment', id=question.id)}}"
+            >Add question comment</a
+        >
+
     {% endif %}
     </div>
     {% if question_comments %}
@@ -63,11 +68,7 @@
             >
 
         {% endfor %}
-    {% if session %}
-        <a class="link_buttons" href="{{ url_for('add_comment', id=question.id)}}"
-            >Add comment</a
-        >
-{% endif %}
+
 </div>
     {% endif %}
 
@@ -89,7 +90,7 @@
 
         <a class="link_buttons"
             href="{{ url_for('update_answer', answer_id = answer.id) }}"
-            >update answer</a
+            >Edit answer</a
         >
         {% endif %}
     {% endfor %}
@@ -110,7 +111,7 @@
             <p>{{comment.submission_time}}</p>
             <a class="link_buttons"
                 href="{{ url_for('update_comment', comment_id=comment.id) }}"
-                >Update comment</a
+                >Edit comment</a
             >
             <a class="link_buttons"
                 href="{{ url_for('delete_comment', comment_id=comment.id) }}"
@@ -143,7 +144,7 @@
 
         <a class="link_buttons"
             href="{{ url_for('update_answer', answer_id = answer.id) }}"
-            >update answer</a
+            >Edit answer</a
         >
         {% endif %}
     {% endfor %}
@@ -164,7 +165,7 @@
             <a class="link_buttons"
 
                 href="{{ url_for('update_comment', comment_id=comment.id) }}"
-                >Update comment</a
+                >Edit comment</a
             >
             <a class="link_buttons" href="{{ url_for('delete_comment', comment_id=comment.id) }}">Delete Comment</a>
 

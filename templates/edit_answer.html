@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %} Update question {% endblock %}
+{% block title %} Edit answer {% endblock %}
 
 {% block content %}
 <div class="question-box2 add answer">
-    <h1>Update your question</h1>
+    <h1>Edit your answer</h1>
         <form
             id="form"
             action="{{ url_for('update_answer', answer_id = id) }}"
@@ -23,7 +23,7 @@
 {{ data.message }}</textarea
             >
             <br />
-            <button class="submit-buttons" type="submit">Update</button>
+            <button class="submit-buttons" type="submit">Edit</button>
         </form>
 </div>
 {% endblock %}

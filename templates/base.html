@@ -23,7 +23,11 @@
                 <a class="sidebarbtn" href="{{ url_for('list_page') }}">List</a>
 
                     <a class="sidebarbtn" href="{{ url_for('add_question') }}">Ask</a>
+        {% if session.user_id %}
+            <a class="sidebarbtn" href="{{ url_for('tags_page') }}">Tags</a>
 
+        <a class="sidebarbtn" href="{{ url_for('users_page') }}">Users</a>
+        {% endif %}
 
 </div>
 
