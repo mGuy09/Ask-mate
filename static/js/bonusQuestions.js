@@ -1,27 +1,27 @@
 // you receive an array of objects which you must sort in the by the key "sortField" in the "sortDirection"
-function getSortedItems(items, sortField, sortDirection) {
-    console.log(items)
-    console.log(sortField)
-    console.log(sortDirection)
-
-    // === SAMPLE CODE ===
-    // if you have not changed the original html uncomment the code below to have an idea of the
-    // effect this function has on the table
-    //
-    if (sortDirection === "asc") {
-        const firstItem = items.shift()
-        if (firstItem) {
-            items.push(firstItem)
-        }
-    } else {
-        const lastItem = items.pop()
-        if (lastItem) {
-            items.push(lastItem)
-        }
-    }
-
-    return items
-}
+// function getSortedItems(items, sortField, sortDirection) {
+//     console.log(items)
+//     console.log(sortField)
+//     console.log(sortDirection)
+//
+//     // === SAMPLE CODE ===
+//     // if you have not changed the original html uncomment the code below to have an idea of the
+//     // effect this function has on the table
+//     //
+//     if (sortDirection === "asc") {
+//         const firstItem = items.shift()
+//         if (firstItem) {
+//             items.push(firstItem)
+//         }
+//     } else {
+//         const lastItem = items.pop()
+//         if (lastItem) {
+//             items.push(lastItem)
+//         }
+//     }
+//
+//     return items
+// }
 
 // you receive an array of objects which you must filter by all it's keys to have a value matching "filterValue"
 function getFilteredItems(items, filterValue) {
@@ -87,3 +87,41 @@ decrease.addEventListener('click', ()=>{
     }
     console.log("decreaseFont")
 })
+
+
+function sortTable(n){
+    let table,rows,switching,i,x,y,shouldSwitch,dir,switchcount=0;
+    table = document.getElementById('myTable')
+    switching = true;
+    dir = 'asc';
+    while (switching){
+        switching = false;
+        rows = table.rows;
+        for(i=1; i < (rows.length-1);i++){
+            shouldSwitch=false;
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            if(dir=='asc'){
+                if(x.innerHTML.toLowerCase()>y.innerHTML.toLowerCase()){
+                    shouldSwitch=true;
+                    break;
+                }
+            } else if (dir=='desc'){
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+                    shouldSwitch=true;
+                    break
+                }
+            }
+        }
+        if (shouldSwitch){
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount ++;
+        }else{
+            if(switchcount == 0 && dir == 'asc'){
+                dir = 'desc';
+                switching=true;
+            }
+        }
+    }
+}

@@ -46,11 +46,11 @@ button{
                 style="width: 500px" id="doNotModifyThisId_QuestionsFilter"
                 type="text"
                 placeholder="filter questions by keywords">
-        <table class="text">
+        <table class="text" id="myTable">
             <thead id="doNotModifyThisId_QuestionsTableHeader">
                 <tr>
-                    <td>Title</td>
-                    <td>Description</td>
+                    <td onclick="sortTable(0)">Title</td>
+                    <td onclick="sortTable(1)">Description</td>
                     <td>Vote Count</td>
                     <td>View Number</td>
                 </tr>
