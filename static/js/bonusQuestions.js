@@ -72,8 +72,8 @@ let increase = document.querySelector('.increase')
 let textSize = 20;
 
 increase.addEventListener('click',()=>{
-    if(textSize !== 40){
-        textSize = textSize + 5;
+    if(textSize !== 30){
+        textSize = textSize + 2;
         text.style.fontSize = textSize + 'px'
     }
 })
@@ -82,7 +82,7 @@ increase.addEventListener('click',()=>{
 let decrease = document.querySelector('.decrease')
 decrease.addEventListener('click', ()=>{
     if(textSize !== 20){
-        textSize = textSize - 5;
+        textSize = textSize - 2;
         text.style.fontSize = textSize + 'px'
     }
     console.log("decreaseFont")
