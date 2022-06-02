@@ -61,13 +61,29 @@ function getFilteredItems(items, filterValue) {
 }
 
 function toggleTheme() {
-    console.log("toggle theme")
+       let element = document.body;
+       element.classList.toggle("dark-mode");
+    // console.log("toggle theme")
 }
 
-function increaseFont() {
-    console.log("increaseFont")
-}
+let text = document.querySelector('.text');
+let increase = document.querySelector('.increase')
 
-function decreaseFont() {
+let textSize = 20;
+
+increase.addEventListener('click',()=>{
+    if(textSize !== 40){
+        textSize = textSize + 5;
+        text.style.fontSize = textSize + 'px'
+    }
+})
+
+
+let decrease = document.querySelector('.decrease')
+decrease.addEventListener('click', ()=>{
+    if(textSize !== 20){
+        textSize = textSize - 5;
+        text.style.fontSize = textSize + 'px'
+    }
     console.log("decreaseFont")
-}
+})

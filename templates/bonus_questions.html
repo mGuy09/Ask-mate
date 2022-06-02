@@ -2,19 +2,51 @@
     <head>
         <script type="text/javascript" src="{{ url_for('static', filename='js/bonusQuestions.js') }}" defer></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/doNotModifyThisFile.js') }}" defer></script>
+
+    <style>
+body {
+  padding: 25px;
+  background-color: white;
+  color: black;
+  font-size: 25px;
+     transition:all 1s ease-in-out;
+}
+table{
+    color:black;
+     transition:all 1s ease-in-out;
+}
+.dark-mode table,
+.dark-mode {
+  color: white;
+     transition:all 1s ease-in-out;
+
+}
+.dark-mode {
+  background-color: black;}
+
+button{
+
+    cursor: pointer;
+}
+.text{
+    font-size: 20px;
+}
+
+</style>
+
     </head>
-    <body>
+    <body class="dark-mode">
         <h1>AskMate</h1>
         <h2>All Questions:</h2>
-        <button id="theme-button">Change Theme to Dark</button>
-        <button id="increase-font-button">Increase page font</button>
-        <button id="decrease-font-button">Decrease page font</button>
+        <button onclick="toggleTheme()">Change Theme to Dark</button>
+        <button class="increase">Increase page font</button>
+        <button class="decrease">Decrease page font</button>
         <input
                 data-table-body="doNotModifyThisId_QuestionsTableBody"
                 style="width: 500px" id="doNotModifyThisId_QuestionsFilter"
                 type="text"
                 placeholder="filter questions by keywords">
-        <table>
+        <table class="text">
             <thead id="doNotModifyThisId_QuestionsTableHeader">
                 <tr>
                     <td>Title</td>
