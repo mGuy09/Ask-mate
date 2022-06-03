@@ -85,7 +85,7 @@ body{
     text-align: left;
   color: #d9d9d9;
   display: block;
-  transition: 0.3s;
+  transition: all 0.3s;
 }
 
 .sidenav .sidebarbtn:hover {
@@ -347,4 +347,7 @@ tags a:hover{
 }
 .add-tag input{
     padding: 5px;
+}
+.down{
+    margin-top: 200%;
 }
